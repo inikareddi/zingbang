@@ -1,0 +1,117 @@
+<?php 
+$session = new Zend_Session_Namespace('MyPortal');
+//$error = new Zend_Session_Namespace('MyPortalerror');
+$error = $this;
+$ActiveAttributesList = $this->ActiveAttributesList;
+$ActiveAttributesGroupsList = $this->ActiveAttributesGroupsList;
+?>
+
+<?php if($error->error != '') {?>
+<div class="alert alert-error">
+	<button type="button" class="close" data-dismiss="alert">×</button>
+	<strong>Error! </strong> <?php echo $error->error;?>
+</div>
+<?php $error->error = '';}?>
+
+
+<div class="row-fluid sortable">
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2><i class="icon-edit"></i>Attribute Set's</h2>			
+		</div>
+		<div class="box-content">			
+			<form class="form-horizontal" id="signupform" autocomplete="off" method="post" action="" enctype="multipart/form-data">			
+			  <fieldset>
+				<legend>Register Attribute Sets</legend>
+				
+				
+				
+				
+				
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Attribute Group's</label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					
+					<select id="attributes_group_id" name="attributes_group_id">
+						<option value="">-Select Attribute Group-</option>
+						<?php foreach($ActiveAttributesGroupsList as $each_ActiveAttributesGroupsList){
+						if(is_array($error->error_createattributes_set_values) && $error->error_createattributes_set_values['attributes_group_id'] == $each_ActiveAttributesGroupsList['attributes_group_id']) {
+						$select = ' selected="selected"';
+						} else {
+						$select = '';
+						}
+						?>
+						<option value="<?php echo $each_ActiveAttributesGroupsList['attributes_group_id'];?>" <?php echo $select; ?> ><?php echo ucfirst($each_ActiveAttributesGroupsList['attributes_group_title']);?></option>
+						<?php }?>
+					</select>
+					
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_create_attributes_group_id!= '') {
+							echo '<label class="error">' .$error->error_create_attributes_group_id . '</label>';
+							$error->error_create_attributes_group_id = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				
+				
+								
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Attribute Sets Title<span class="req">*</span></label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					<input class="field" tabindex="1" id="attributes_set_title" name="attributes_set_title" type="text" value="<?php if(is_array($error->error_createattributes_set_values)) {echo $error->error_createattributes_set_values['attributes_set_title'];}?>" maxlength="20" size="40" title=""/>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_create_attributes_set_title != '') {
+							echo '<label class="error">' .$error->error_create_attributes_set_title . '</label>';
+							$error->error_create_attributes_set_title = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				
+				<?php /*foreach($ActiveAttributesList as $each_attribute_title){?>
+				<?php
+				$checked = '';
+				if(is_array($error->error_createattributes_set_values)) 
+					{
+						if(isset($error->error_createattributes_set_values['attribute_id_'.$each_attribute_title['attribute_id']]) && $each_attribute_title['attribute_id']==$error->error_createattributes_set_values['attribute_id_'.$each_attribute_title['attribute_id']]){
+							$checked = 'checked = "checked"';
+						}
+					}
+				?>
+				<div class="control-group">				  
+				  <div class="controls">
+					<label class="checkbox inline">
+						<input type="checkbox" id="attribute_id_<?php echo $each_attribute_title['attribute_id'];?>" name="attribute_id_<?php echo $each_attribute_title['attribute_id'];?>" value="<?php echo $each_attribute_title['attribute_id'];?>" <?php echo $checked;?> > <?php echo $each_attribute_title['attribute_title'];?>
+					</label>
+				  </div>
+				</div>
+				<?php $checked = ''; }*/?>
+				
+				
+				
+				
+				
+				
+				<div class="form-actions">			  
+				  <input id="signupsubmit" name="signup" type="submit"  class="btn btn-primary" value="Save" tabindex="7" title="" />
+				</div>
+			  </fieldset>
+			</form>   
+
+		</div>
+	</div><!--/span-->
+
+</div>

@@ -1,0 +1,89 @@
+<?php 
+
+	$session = new Zend_Session_Namespace('MyPortal');
+	//$error = new Zend_Session_Namespace('MyPortalerror');
+?>
+
+<table width="100%">
+
+<tr> 
+<td >
+<table width="90%">
+<tr>
+<td width="10%" height="80" style="*height:70px;">&nbsp;</td>
+<td><a href="<?php echo $this->baseUrl();?>"><img src="<?php echo $this->baseUrl('public');?>/images/logo.png"  width="184" height="50" align="middle" alt="Logo" title="Logo" border="0" /></a></td>
+</tr>
+</table>
+
+<table width="90%" style="margin:100px 0 0 0">   <!-- For Access Denied Image -->
+<tr>
+<td width="30%" ></td>
+<td  width="70%" class="text-style">
+
+<table width="70%" cellpadding="0"  style="border:#CCC solid 1px;">
+<tr>
+<td width="10%"><img src="<?php echo $this->baseUrl('public');?>/images/accessdenied-small.png" width="78" height="70" align="right" alt="Access Denied Icon" title="Access Denied Icon" border="0" /></td>
+<td style="padding-left:5%;">
+<h1>Error : Access Denied</h1>
+<strong>The requested URl cannot be accessed or retrieved</strong></td>
+</tr>
+</table>
+
+<table width="70%" cellpadding="0"  style="border:#CCC solid 1px;" >
+<tr>
+
+<td colspan="2" style="*empty-cells: show;" ></td></tr>
+
+<tr>
+<td width="14%">&nbsp;</td>
+<td class="text-style" style="padding-left:5%; ">
+  <p style="*padding-top: 10px;">The following might be the reasons for denying access:</p>
+  <p><span class="req">&rsaquo;&rsaquo;</span>You may have manipulated the URL.</p>
+  <p style="margin-bottom:10px;"><span class="req">&rsaquo;&rsaquo;</span>You may be accessing inaccessible page.</p>
+  <p style="margin-bottom:10px;"><span class="req">&rsaquo;&rsaquo;</span>Your session might have expired.</p>
+  </td>
+  </tr>
+
+<!--<tr>
+<td>&nbsp;</td>
+<td style="padding-left:5%; *padding-bottom:10px; *padding-top:10px; "><p>If the problem still persists, please contact our adminstrator.</p></td>
+</tr>
+ 
+ 
+--></table>
+</td>
+
+</tr>
+
+</table>
+<br />
+
+<table width="70%" style="margin: 0 0 60px 0;">   <!--contact text -->
+<tr> 
+<td width="62%"></td>
+<td class="text-style" style="text-align:left">&lsaquo;&lsaquo;<a href="<?php echo $this->baseUrl();?>">Back to home page</a>
+</td>
+</tr>
+
+</table>
+
+
+
+</td>
+</tr>
+</table>
+
+
+<div style="font-sze:12px; width:700px; margin:auto; margin-bottom:50px;">
+<?php
+$config=Zend_Registry::get('config');
+if($config->show->filepath==1){ 
+echo "<br>path: ".dirname(__FILE__);
+$fc = Zend_Controller_Front::getInstance()->getRequest();
+echo "<br>module: ".$module = $fc->getModuleName();
+echo "<br>controller: ".$controller = $fc->getControllerName();
+echo "<br>action: ".$action = $fc->getActionName();
+echo "<br>layout: ";
+}
+?>
+</div>

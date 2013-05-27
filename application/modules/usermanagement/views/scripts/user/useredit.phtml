@@ -1,0 +1,183 @@
+<?php 
+$usertyperoles = $this->usertyperoles;
+//print_r($usertyperoles);
+$session = new Zend_Session_Namespace('MyPortal');
+//$error = new Zend_Session_Namespace('MyPortalerror');
+$error = $this;	
+?>
+
+<?php if($error->error != '') {?>
+<div class="alert alert-error">
+	<button type="button" class="close" data-dismiss="alert">×</button>
+	<strong>Error! </strong> <?php echo $error->error;?>
+</div>
+<?php $error->error = '';}?>
+
+
+<div class="row-fluid sortable">
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2><i class="icon-edit"></i>User's</h2>			
+		</div>
+		<div class="box-content">			
+			<form class="form-horizontal" id="signupform" autocomplete="off" method="post" action="">			
+			  <fieldset>
+				<legend>Edit User</legend>
+				<?php /*
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Username</label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					<?php echo strip_tags(substr(htmlentities($this->userloginid),0,50));?>
+					</div>
+					   <div class="error_message">					   
+					   <?php 
+						if($error->error_updateuser_username != '') {
+							echo '<label class="error">' . $error->error_updateuser_username . '</label>';
+							$error->error_updateuser_username = '';
+						}
+					   ?>
+					   </div> 
+				  </div>
+				</div>
+				*/?>
+				
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">First Name</label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					<input class="field" tabindex="1" id="firstname" name="firstname" type="text" value="<?php if(is_array($error->error_updateuser_values)) { echo strip_tags($error->error_updateuser_values['firstname']);}else{ echo strip_tags($this->firstname);}?>" maxlength="20" size="40" title=""/>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_updateuser_firstname != '') {
+							echo '<label class="error">' . $error->error_updateuser_firstname . '</label>';
+							$error->error_updateuser_firstname = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Last Name</label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					<input class="field" tabindex="2" id="lastname" name="lastname" type="text" value="<?php if(is_array($error->error_updateuser_values)) { echo strip_tags($error->error_updateuser_values['lastname']);}else{ echo strip_tags($this->lastname);}?>" maxlength="20" size="40" title=""/>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_updateuser_lastname != '') {
+							echo '<label class="error">' . $error->error_updateuser_lastname . '</label>';
+							$error->error_updateuser_lastname = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Email Address</label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					<input class="field" tabindex="3" id="useremail" name="useremail" type="text" value="<?php if(is_array($error->error_updateuser_values)) { echo $error->error_updateuser_values['useremail'];}else{echo $this->username;}?>" maxlength="50" size="40" title="" readonly="true"/>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_updateuser_email != '') {
+							echo '<label class="error">' . $error->error_updateuser_email . '</label>';
+							$error->error_updateuser_email = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Contact Number</label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					<input class="field" tabindex="4" id="phonenumber" name="phonenumber" type="text" value="<?php if(is_array($error->error_updateuser_values)) { echo $error->error_updateuser_values['phonenumber'];}else{echo $this->phonenumber;}?>" maxlength="10" size="40" title=""/>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_updateuser_phonenumber != '') {
+							echo '<label class="error">' . $error->error_updateuser_phonenumber . '</label>';
+							$error->error_updateuser_phonenumber = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				
+				
+				
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Role</label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+						<select class="select" title="" name="role" tabindex="5" id="role" readonly="true" disabled="disabled">
+						<option  value="" title="" >Select Role</option>
+						<?php
+							foreach($usertyperoles as $roles) {
+								
+									$role = ucfirst($roles['role']);
+									if($this->userroleid == $roles['roleid'] || (is_array($error->error_updateuser_values) && $error->error_updateuser_values['role'] == $roles['roleid'])) {
+										$select = ' selected="selected"';
+									} else {
+										$select = '';
+									}
+									echo '<option value="' . $roles['roleid'] . '"' . $select . '>' . $role . '</option>';
+								
+							}
+						?>
+						</select>
+						<input type="hidden" name="userId" id="userId" value="<?php echo $this->userid;?>"/>
+						<input type="hidden" name="referer" id="referer" value="<?php echo $_SERVER['HTTP_REFERER'];?>"/>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_updateuser_role != '') {
+							echo '<label class="error">' . $error->error_updateuser_role . '</label>';
+							$error->error_updateuser_role = '';
+						}
+						$error->error_updateuser_values = '';
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				
+
+				
+       
+				<div class="form-actions">			  
+				  <input id="signupsubmit" name="userEdit" type="submit" class="btn btn-primary" value="Save" tabindex="6" title="" />
+				</div>
+			  </fieldset>
+			</form>   
+
+		</div>
+	</div><!--/span-->
+
+</div>
+
+
+
+
+
+
+
+  
+<script type="text/javascript">
+jQuery(document).ready(function() {	
+	validateEdit();
+});
+</script>

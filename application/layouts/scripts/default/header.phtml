@@ -1,0 +1,61 @@
+<script type="text/javascript">
+$(document).ready(function() {
+ validatelogin();
+});
+
+</script>
+<div class="header-top">
+			<div class="wrapper">
+				<div id="logo"><a href="<?php echo $this->baseUrl(); ?>"><img src="<?php echo $this->baseUrl('public/default'); ?>/images/Logo.png" title="GetLinc.com" alt="getLinc.com"/></a></div>
+				<div id="links">
+					<ul>
+						<li class="subitems">
+							<a href="javascript:void(0)" class="subitems"/>Subscribe</a>
+							<ul>
+								<li><a href="javascript:void(0)" class="subitems"/>Subscribe1</a></li>
+								<li><a href="javascript:void(0)" class="subitems"/>Subscribe1</a></li>
+								<li><a href="javascript:void(0)" class="subitems"/>Subscribe1</a></li>
+								<li><a href="javascript:void(0)" class="subitems"/>Subscribe1</a></li>
+							</ul>
+						</li>
+						<li><a href="javascript:void(0)" class="subitems"/>What's New</a></li>
+						<li class="subitems">
+							<a href="javascript:void(0)" />Select City</a>
+							<ul>
+								<li><a href="javascript:void(0)" class="subitems"/>Subscribe1</a></li>
+								<li><a href="javascript:void(0)" class="subitems"/>Subscribe1</a></li>
+								<li><a href="javascript:void(0)" class="subitems"/>Subscribe1</a></li>
+								<li><a href="javascript:void(0)" class="subitems"/>Subscribe1</a></li>
+							</ul>
+						</li>
+						<li><a href="javascript:void(0)" class="subitems"/>Track Your Order</a></li>
+						<li><a href="javascript:void(0)" class="subitems"/>Customer Support</a></li>
+						<li><a href="javascript:void(0)" class="subitems"/>My Account</a></li>
+					</ul>
+				</div>
+				
+				<div id="login-header">
+                                    <form action="login.php" method="post" name="login" id="login">	
+                                    <ul>
+						<li><input type="text" name="username" id="username" class="" /><span>New Customer? <a href="javascript:void(0)">Start Here</a></span></li>
+						<li><input type="password" name="password" id="password" class="" /><span><a href="javascript:void(0)" >Forgot Password ?</a></span></li>
+						<li class="button"><input type="submit" value="login" /></li>
+					</ul>
+                                    </form>
+					<div class="clear"></div>
+				</div>
+				
+				<div id="profile">
+					<h5>Prifile Name</h5>
+					<div class="cont_an"><a href="javascript:void(0)" class="button" id="show_all">ShowAll</a></div>
+					<div class="cont_an"><a href="javascript:void(0)" class="button arrow arw-lef" id="share"><span class="plus"></span>Share<span class="arrow"></span></a></div>
+					<div class="profile_image"><img src="<?php echo $this->baseUrl('public/default'); ?>/images/profile_image.png" title="profil name" alt="profil_name" /><span class="small_arrow"></span></div>				
+				</div>
+				<!-- dialog Content -->
+				<div id="share-content" style="display:none">
+					<textarea></textarea>
+					<input type="button" value="share"/>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>

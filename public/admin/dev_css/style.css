@@ -1,0 +1,18 @@
+@charset "utf-8";
+/* CSS Document */
+
+.error_message {
+color: #bd4247;
+}
+
+
+.req {
+    color: red !important;
+    display: inline;
+    float: none;
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}

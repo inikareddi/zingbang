@@ -1,0 +1,13 @@
+<?php 
+	$session = new Zend_Session_Namespace('MyPortal');
+	$error = new Zend_Session_Namespace('MyPortalerror');
+?>
+<div style="min-height: 450px; background-color: #e5e5e5;">
+<?php 
+				if($error->error != '') {
+					echo $error->error;
+					$error->error = '';
+				}
+			 echo $this->success;
+ ?>
+</div>

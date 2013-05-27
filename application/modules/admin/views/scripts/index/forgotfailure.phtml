@@ -1,0 +1,27 @@
+<?php 
+	$session = new Zend_Session_Namespace('MyPortal');
+	$error = new Zend_Session_Namespace('MyPortalerror');
+	if($error->error != '') {
+		$error->error = '';
+	}
+	$config=Zend_Registry::get('config');
+ ?>
+  <div class="row-fluid">
+	<div class="well span5 center login-box" style="width:700px;">			
+			<h3>Forgot Password - Failure...!</h3><br>			
+			<div class="alert alert-error" id="error1">
+			<?php echo "Hi " . urldecode($session->userTempName);?>,<br/><br/>
+			You have exceeded the number of attempts that are allowed to verify your identity.For security purposes, your account will be locked.<br/><br/>
+			Please contact administrator : <a href="mailto:<?php echo $config->mail->myportal->adminsupport;?>"><?php echo $config->mail->myportal->adminsupport;?></a>
+			</div>
+				
+			Click continue to proceed !! <br><a href="<?php echo $this->baseUrl('admin/index/index');?>" style="padding-left:0px"><input id="signupsubmit" name="signup" type="submit" alt="Continue button" title="" class="btn btn-primary" value="Continue" tabindex="1" style="width:100px;"  /></a>
+			
+		
+		<br>
+		<div class="box-content">
+		
+		<div class="box-content">
+	</div><!--/span-->
+</div><!--/row-->
+  

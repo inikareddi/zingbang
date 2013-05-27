@@ -1,0 +1,153 @@
+<?php 
+
+	$session = new Zend_Session_Namespace('MyPortal');
+	$errorsession=new Zend_Session_Namespace("addmerchant");
+	$error = $this;
+	if(!isset($error->usermanagementsearchfields) && count($error->usermanagementsearchfields) == 0) {
+		$error->usermanagementsearchfields = '';
+	} 
+
+$usertyperoles = $this->usertyperoles;
+$cn=$this->iColumnName;
+$do=$this->iDisplayOrder;
+if($cn==""){$cn=1;}
+if($do==""){$do='DESC';}
+$cn='';
+//print_r($error->usermanagementsearchfields);
+//echo array_key_exists("lastname",$error->usermanagementsearchfields)
+
+?>
+
+		<?php 
+      		if($error->error != '') {?>      			
+      			<div class="alert alert-success" id="errordisplay">
+					<button type="button" class="close" data-dismiss="alert">×</button>
+					<strong></strong> <?php echo $error->error;?>
+				</div>
+      		<?php }else if($session->validateerror != '') {?>      			
+				<div class="alert alert-error" id="errordisplay">
+					<button type="button" class="close" data-dismiss="alert">×</button>
+					<strong></strong> <?php echo $session->validateerror;?>
+				</div>
+      		<?php $session->validateerror='';      			
+      		} else if($session->success != '') {?>      			
+				<div class="alert alert-success" id="errordisplay">
+					<button type="button" class="close" data-dismiss="alert">×</button>
+					<strong></strong> <?php echo $session->success;?>
+				</div>
+      		<?php $session->success = '';
+      		} else if($errorsession->success != '') {?>      			
+				<div class="alert alert-success" id="errordisplay">
+					<button type="button" class="close" data-dismiss="alert">×</button>
+					<strong></strong> <?php echo $errorsession->success;?>
+				</div>
+			<?php
+      			$errorsession->success = '';
+      		}
+			?>
+		
+		
+
+		
+			<div class="row-fluid sortable">		
+				<div class="box span12">
+					<div class="box-header well" data-original-title>
+						<h2><i class="icon-user"></i> Members</h2>
+						<a href="<?php echo $this->baseUrl('usermanagement/user/register');?>"><button class="btn btn-small" style="float:right;">Add New User</button></a>					
+					</div>
+					<div class="box-content">
+						<table class="table table-striped table-bordered bootstrap-datatable datatable">
+						  <thead>
+							  <tr>
+								  <th>Name</th>
+								  <th>Username</th>
+								  <th>Role</th>
+								  <th>Actions</th>								  
+							  </tr>
+						  </thead>   
+						  <tbody>
+							<?php 
+							$slno=$this->iStart+1;
+							$cnt=1;
+							//echo $this->users_total_count;
+							if($this->users_total_count > 0 && $this->iStart < $this->users_total_count) {
+							foreach($this->users as $each_user){
+							$email = substr(htmlentities($each_user['email']),0,30); if(strlen($each_user['email'])>30){ $email.= "..";}
+							$loginid = substr(htmlentities($each_user['userloginid']),0,30); if(strlen($each_user['userloginid'])>30){ $loginid.= "..";}
+							$name = strip_tags($each_user['lname']) . ' ' . strip_tags($each_user['fname']); /*if(strlen($name)>30){ $$name.= "..";}*/
+							if($cnt%2==0)
+							{
+							$class = 'alt2';
+							} else {
+							$class = 'alt1';	
+							}?>
+							<tr>
+								<td><?php  echo wordwrap($name, 30, "<br/>\n", TRUE);?></td>
+								<td class="center"><?php  echo $loginid;//echo $email ?></td>
+								<td class="center"><?php  echo  ucfirst(wordwrap(htmlentities($each_user['role']),25,"<br />\n",TRUE));?></td>								
+								<td class="center">
+									
+									<a class="btn btn-info" href="<?php echo $this->baseUrl('usermanagement/user/useredit/userId/') . $each_user['userid'];?>">
+										<i class="icon-edit icon-white"></i>  
+										Edit                                            
+									</a>
+									&nbsp;&nbsp;
+									<a class="btn btn-danger" href="<?php echo $this->baseUrl('usermanagement/user/deleteuser/userId/') . $each_user['userid'];?>" onClick="return confirm('Do you want to continue?')">
+										<i class="icon-trash icon-white"></i> 
+										Delete
+									</a>
+									&nbsp;&nbsp;
+									<?php if($each_user['status'] != 'Locked') {?>
+									<a href="<?php echo $this->baseUrl('usermanagement/user/lockuser/userId/') . $each_user['userid'];?>" onClick="return confirm('Do you want to continue?')">
+									<img src="<?php echo $this->baseUrl('public/images/lock.png'); ?>" border="0" title="Lock User" alt="Lock User" width="16" height="16" />
+									</a>
+									<?php } else {?>
+									<a href="<?php echo $this->baseUrl('usermanagement/user/unlockuser/userId/') . $each_user['userid'];?>" onClick="return confirm('Do you want to continue?')">
+									<img src="<?php echo $this->baseUrl('public/images/unlock.png'); ?>" border="0" title="Unlock User" alt="Unlock User" width="16" height="16" />
+									</a>							   
+									<?php } ?>
+									&nbsp;&nbsp;
+									<a href="<?php echo $this->baseUrl('usermanagement/user/resetsecurity/userId/') . $each_user['userid'];?>" onClick="return confirm('Do you want to continue?')">
+									<img src="<?php echo $this->baseUrl('public/images/resetsecurityinfo.png'); ?>" border="0" title="Reset Challenge Question and Secret Answer" alt="Reset Challenge Question" width="16" height="16" border="0" />
+									</a>
+									&nbsp;&nbsp;
+									<a href="<?php echo $this->baseUrl('usermanagement/user/resetpassword/userId/') . $each_user['userid'];?>" onClick="return confirm('Do you want to continue?')">
+									<img src="<?php echo $this->baseUrl('public/images/resetpwd.png'); ?>" border="0" title="Reset Password" alt="Reset Password" width="16" height="16" border="0" />
+									</a>
+									
+									
+								</td>
+							</tr>
+							<?php $slno++;
+							$cnt++;}
+							} else if(($error->error == '' && $this->users_total_count == 0 ) ||  $this->iStart > $this->users_total_count) {
+							?>
+							<tr class="alt1"> <td class="minheight" align="center" colspan="4" style="color: #D2232B; "> - No Users Found - </td></tr>
+							<?php 
+							}else{
+							?>
+							<tr class="alt1"> <td class="minheight" align="center" colspan="4" style="color: #D2232B; ">- No Users Found - </td></tr>
+							<?php 
+							}
+							$error->error = '';
+							?>
+							
+						  </tbody>
+					  </table>            
+					</div>
+				</div><!--/span-->
+			
+			</div><!--/row-->
+			<!--/row-->
+			<!--/row-->
+			<!--/row-->
+    
+			  
+				
+<script type="text/javascript">
+  $(document).ready(function() {
+	  $(".error").fadeOut(6000);
+});
+</script>
+
+		

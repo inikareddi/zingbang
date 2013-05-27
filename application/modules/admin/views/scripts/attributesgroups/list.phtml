@@ -1,0 +1,121 @@
+<?php
+$session = new Zend_Session_Namespace('MyPortal');
+$errorsession=new Zend_Session_Namespace("addmerchant");
+$error = $this;
+
+$attribute_count = $this->attribute_count;
+$attribute_list = $this->attribute_list;
+
+$cn=$this->iColumnName;
+$do=$this->iDisplayOrder;
+if($cn==""){$cn=1;}
+if($do==""){$do='DESC';}
+$cn='';
+?>
+
+		<?php 
+      		if($error->error != '') {?>      			
+      			<div class="alert alert-success" id="errordisplay">
+					<button type="button" class="close" data-dismiss="alert">×</button>
+					<strong></strong> <?php echo $error->error;?>
+				</div>
+      		<?php }else if($session->validateerror != '') {?>      			
+				<div class="alert alert-success" id="errordisplay">
+					<button type="button" class="close" data-dismiss="alert">×</button>
+					<strong></strong> <?php echo $session->validateerror;?>
+				</div>
+      		<?php $session->validateerror='';      			
+      		} else if($session->success != '') {?>      			
+				<div class="alert alert-success" id="errordisplay">
+					<button type="button" class="close" data-dismiss="alert">×</button>
+					<strong></strong> <?php echo $session->success;?>
+				</div>
+      		<?php $session->success = '';
+      		} else if($errorsession->success != '') {?>      			
+				<div class="alert alert-success" id="errordisplay">
+					<button type="button" class="close" data-dismiss="alert">×</button>
+					<strong></strong> <?php echo $errorsession->success;?>
+				</div>
+			<?php
+      			$errorsession->success = '';
+      		}
+			?>
+		
+		
+
+		
+			<div class="row-fluid sortable">		
+				<div class="box span12">
+					<div class="box-header well" data-original-title>
+						<h2><i class="icon-user"></i> Attribute Group's</h2>
+						<a href="<?php echo $this->baseUrl('admin/attributesgroups/register');?>"><button class="btn btn-small" style="float:right;">Add New Attribute Group</button></a>					
+					</div>
+					<div class="box-content">
+						<table class="table table-striped table-bordered bootstrap-datatable datatable">
+						  <thead>
+							  <tr>
+								  <th>Sl No</th>
+								  <th>Attribute Gruop Title</th>								  
+								  <th>Status</th>								  
+								  <th>Actions</th>								  
+							  </tr>
+						  </thead>   
+						  <tbody>
+							<?php 
+							$i=1;
+							foreach($attribute_list as $each_attribute){
+							?>
+							<tr>
+								<td><?php echo $i;$i++;?></td>
+								<td><?php echo $each_attribute['attributes_group_title'];?></td>								
+								<td class="center">
+									
+									<?php if($each_attribute['statusid']=="1") {?>
+									<a href="<?php echo $this->baseUrl('admin/attributesgroups/lock/attributeId/') . $each_attribute['attributes_group_id'];?>" onClick="return confirm('Do you want to continue?')">
+									<span class="label label-success">Active</span>
+									</a>
+									<?php }?>
+									<?php if($each_attribute['statusid']=="6") {?>
+									<a href="<?php echo $this->baseUrl('admin/attributesgroups/unlock/attributeId/') . $each_attribute['attributes_group_id'];?>" onClick="return confirm('Do you want to continue?')">
+									<span class="label">Inactive</span>
+									</a>							   
+									<?php } ?>
+									
+								</td>								
+								<td class="center">
+									
+									<a class="btn btn-info" href="<?php echo $this->baseUrl('admin/attributesgroups/edit/attributeId/') . $each_attribute['attributes_group_id'];?>">
+										<i class="icon-edit icon-white"></i>  
+										Edit                                            
+									</a>
+									<a class="btn btn-danger" href="<?php echo $this->baseUrl('admin/attributesgroups/delete/attributeId/') . $each_attribute['attributes_group_id'];?>" onClick="return confirm('Do you want to continue?')">
+										<i class="icon-trash icon-white"></i> 
+										Delete
+									</a>
+									
+									
+									
+									<a class="btn btn-small" href="<?php echo $this->baseUrl('admin/attributesgroups/attributeconfig/attributeId/') . $each_attribute['attributes_group_id'];?>"><i class="icon-cog"></i> Settings</a>
+									
+								</td>
+							</tr>
+							<?php }?>
+						  </tbody>
+					  </table>            
+					</div>
+				</div><!--/span-->
+			
+			</div><!--/row-->
+			<!--/row-->
+			<!--/row-->
+			<!--/row-->
+    
+			  
+				
+<script type="text/javascript">
+  $(document).ready(function() {
+	  $(".error").fadeOut(6000);
+});
+</script>
+
+		

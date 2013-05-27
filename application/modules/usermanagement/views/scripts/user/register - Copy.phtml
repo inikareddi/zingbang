@@ -1,0 +1,201 @@
+<?php 
+	$usertyperoles = $this->usertyperoles;
+	$session = new Zend_Session_Namespace('MyPortal');
+	//$error = new Zend_Session_Namespace('MyPortalerror');
+	$error = $this;
+	
+?>
+
+<div class="content-wrapper"><!--BO content-wrapper -->
+    <div class="form-wrapper"><!--BO form-wrapper -->
+     <div class="form-layout"><!--BO form-layout -->
+      <div class="top"><!--BO top -->
+     
+       <div class="left float_left ">Add User</div>
+       <div class="rite float_rite"></div>
+       
+     
+      </div><!--EO top -->
+      
+       <!--~~~~form-layout starts here -->
+   
+    <div class="login-form"><!--scipting for form -->
+      <!--<div class="status err"><p>* fields are mandatory</p></div> -->
+     <div id="signupwrap">
+    
+     <form id="signupform" name="registeruser" autocomplete="off" method="POST" action="" >
+     <div class="main-form">
+ 
+           <div class="sub-heading-div">Register User</div>
+      <div id="formwrap">
+      <div align="center" style="color: #D2232B; font-size: 9px;">
+     <?php if($error->error != '') {
+	     echo $error->error;
+	     $error->error = '';
+     	
+     }?>
+     </div>
+       <div class="common">
+       <div class="left_Label float-left"><label class="label" id="lfirstname" for="firstname">First Name <span class="req">*</span></label> </div>
+       <div class="mid_Control float-left"><input class="field" tabindex="1" id="firstname" name="firstname" type="text" value="<?php if(is_array($error->error_createuser_values)) {echo $error->error_createuser_values['firstname'];}?>" maxlength="20" size="40" title=""/></div>
+       <div class="rite_Error float-left"><?php 
+       	if($error->error_createuser_firstname != '') {
+       		echo '<label class="error">' .$error->error_createuser_firstname . '</label>';
+       		$error->error_createuser_firstname = '';
+       	}
+       ?></div>
+     </div><!--EO common -->
+     
+            <div class="common">
+       <div class="left_Label float-left"><label class="label" id="llastname" for="lastname">Last Name <span class="req">*</span></label> </div>
+       <div class="mid_Control float-left"><input class="field" tabindex="2" id="lastname" name="lastname" type="text" value="<?php if(is_array($error->error_createuser_values)) {echo $error->error_createuser_values['lastname'];}?>" maxlength="20" size="40" title=""/></div>
+       <div class="rite_Error float-left"><?php 
+       	if($error->error_createuser_lastname != '') {
+       		echo '<label class="error">' .$error->error_createuser_lastname . '</label>';
+       		$error->error_createuser_lastname = '';
+       	}
+       ?></div>
+     </div><!--EO common -->
+     
+      <div class="common">
+       <div class="left_Label float-left"><label class="label" id="lusername" for="username">Username <span class="req">*</span></label> </div>
+       <div class="mid_Control float-left"><input class="field" tabindex="3" id="username" name="username" type="text" value="<?php if(is_array($error->error_createuser_values)) {echo $error->error_createuser_values['username'];}?>" maxlength="50" size="40" title=""/></div>
+       <div class="rite_Error float-left"><?php 
+       	if($error->error_createuser_username != '') {
+       		echo '<label class="error">' .$error->error_createuser_username . '</label>' ;
+       		$error->error_createuser_username = '';
+       	}
+       ?></div>
+     </div><!--EO common -->
+      
+     
+     <div class="common">
+       <div class="left_Label float-left"><label class="label" id="lusername" for="phonenumber">Contact Number<span class="req">*</span></label> </div>
+       <div class="mid_Control float-left"><input class="field" tabindex="4" id="phonenumber" name="phonenumber" type="text" value="<?php if(is_array($error->error_createuser_values)) {echo $error->error_createuser_values['phonenumber'];}?>" maxlength="10" size="40" title=""/></div>
+       <div class="rite_Error float-left"><?php 
+       	if($error->error_createuser_phonenumber != '') {
+       		echo '<label class="error">' .$error->error_createuser_phonenumber . '</label>';
+       		$error->error_createuser_phonenumber = '';
+       	}
+       ?></div>
+     </div><!--EO common -->
+     
+     <div class="common">
+       <div class="left_Label float-left"><label class="label" id="lusername" for="useremail">Email Address <span class="req">*</span></label> </div>
+       <div class="mid_Control float-left"><input class="field" tabindex="5" id="useremail" name="useremail" type="text" value="<?php if(is_array($error->error_createuser_values)) {echo $error->error_createuser_values['useremail'];}?>" maxlength="50" size="40" title=""/></div>
+       <div class="rite_Error float-left"><?php 
+       	if($error->error_createuser_email != '') {
+       		echo '<label class="error">' .$error->error_createuser_email . '</label>';
+       		$error->error_createuser_email = '';
+       	}
+       ?></div>
+     </div><!--EO common -->
+     
+    
+      <div class="common">
+       <div class="left_Label float-left"><label class="label" id="lrole" for="role">Role <span class="req">*</span></label> </div>
+       <div class="mid_Control float-left" style="*width:192px;*border:#333 1px solid;*height:22px;"><select class="select" tabindex="6" title="" name="role" id="role">
+       <option  value="Select" title="Select a role" >Select Role</option>
+       <?php      	
+       		foreach($usertyperoles as $roles) {       			
+	       			$role = ucfirst($roles['role']);
+	       			if($this->userroleid == $roles['roleid'] || (is_array($error->error_createuser_values) && $error->error_createuser_values['role'] == $roles['roleid'])) {
+	       				$select = ' selected="selected"';
+	       			} else {
+	       				$select = '';
+	       			}
+	       			echo '<option value="' . $roles['roleid'] . '"' . $select . '>' . $role . '</option>';       			
+       		}       	
+       ?>
+       </select>
+       
+    
+       </div>
+       <div class="rite_Error float-left"><?php 
+       	if($error->error_createuser_role != '') {
+       		echo '<label class="error">' .$error->error_createuser_role . '</label>';
+       		$error->error_createuser_role = '';
+       	}
+       	$error->error_createuser_values = ''
+       ?></div>
+     </div><!--EO common -->
+     
+     
+
+<div class="mart15"></div>
+           <div class="common">
+       <div class="left_Label float-left"> </div>
+       <div class="mid_Control float-left">
+       
+       <input id="signupsubmit" name="signup" type="submit" style="background-image:url(<?php echo $this->baseUrl('public/') . $session->app;?>/pent-portal-images/adduser.png); background-repeat:no-repeat; width:107px;height:36px;border:none;background-color:#FFF;/*margin-left:50px;*/cursor:pointer; " value="" tabindex="7" title="" />
+      
+       </div>
+       <div class="rite_Error float-left"></div>
+     </div><!--EO common -->
+      </div>
+      <div class="clr"></div>
+<div class="clr"></div>
+<div class="clr"></div>
+
+ <div class="clr"></div>
+
+     </div>
+
+         <div class="clr"></div>
+     </form>
+    <div class="clr"></div>
+    
+     </div><!--EO / signupwrap -->
+
+  <div class="clr"></div>
+    <!-- <div class="login-butt"><a class="buttons" href="#"><img src="../Images/form-login-butt.png" width="107" height="36" /></a></div> -->
+    
+<div class="clr"></div>
+
+    </div><!--Eo scripting for form -->
+    
+    <div class="clr"></div>
+   
+    <div class="clr"></div>
+    
+        <div class="login-form"><!--scipting for form -->
+      
+      <!--<div class="status err"><p>* fields are mandatory</p></div> -->
+
+  
+  <div class="clr"></div>
+    <!-- <div class="login-butt"><a class="buttons" href="#"><img src="../Images/form-login-butt.png" width="107" height="36" /></a></div> -->
+    
+<div class="clr"></div>
+
+
+    </div><!--Eo scripting for form -->
+    
+	
+    <!--Form-layout ends here -->
+
+     </div><!--EO  form-layout-->
+    <div class="empty-10"></div>
+    </div><!--EO form-wrapper -->
+  </div><!--EO content-wrapper -->
+  
+  
+  
+  
+    <script type="text/javascript">
+
+jQuery(document).ready(function() {
+/*for autofocus on first field*/
+// validate signup form on keyup and submit
+	jQuery('#username').keyup(function(){
+	//if(jQuery.trim(jQuery('#useremail').val()) != '') {
+		//alert('Here');
+		jQuery('#useremail').val(jQuery('#username').val());
+	//}
+	});
+	validateRegistration();
+
+
+});
+
+</script>

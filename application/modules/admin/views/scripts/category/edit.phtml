@@ -1,0 +1,155 @@
+<?php
+	$session = new Zend_Session_Namespace('MyPortal');
+	//$error = new Zend_Session_Namespace('MyPortalerror');
+	$error = $this;
+	$CategoryDetails = $this->CategoryDetails;	
+	$ParentCategories = $this->ParentCategories	;
+	$CategoryImages = $this->CategoryImages;
+	//print_r($CategoryImages);
+?>
+
+
+<?php if($error->error != '') {?>
+<div class="alert alert-error">
+	<button type="button" class="close" data-dismiss="alert">×</button>
+	<strong>Error! </strong> <?php echo $error->error;?>
+</div>
+<?php $error->error = '';}?>
+
+
+<div class="row-fluid sortable">
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2><i class="icon-edit"></i>Categorie's</h2>			
+		</div>
+		<div class="box-content">			
+			<form class="form-horizontal" id="signupform" autocomplete="off" method="post" action="" enctype="multipart/form-data">			
+			  <fieldset>
+				<legend>Edit Category</legend>
+								
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Category Title<span class="req">*</span></label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					<input class="field" tabindex="1" id="category_name" name="category_name" type="text" value="<?php if(is_array($error->error_updatecategory_values)) { echo strip_tags($error->error_updatecategory_values['category_name']);}else{ echo strip_tags($CategoryDetails['category_name']);}?>" maxlength="20" size="40" title=""/>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_updatecategory_name != '') {
+							echo '<label class="error">' .$error->error_updatecategory_name . '</label>';
+							$error->error_updatecategory_name = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				<?php				
+				$categoryId = $this->category_id;
+				?>
+				<div class="control-group">
+				  <label class="control-label">Category Image</label>
+					<div class="controls">
+					  <?php if(isset($CategoryImages['0']) && count($CategoryImages['0'])>0 && $CategoryImages['0']['category_image']!=''){?>
+					    <img src="<?php echo $this->baseUrl('public/uploads/category_images');?>/<?php echo $CategoryImages['0']['category_image'];?>" width="100" />
+						<a href="<?php echo $this->baseUrl('admin/category/deleteimage/category_id/').$categoryId."/category_image_id/".$CategoryImages['0']['category_image_id'];?>" onClick="return confirm('Do you want to continue?')">
+						<span class="label">Delete Image</span>
+						</a>						
+					  <?php }else{?>
+					  <input type="file" name="category_image" id="category_image">
+					  <?php }?>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_updatecategory_image != '') {
+							echo '<label class="error">' .$error->error_updatecategory_image . '</label>';
+							$error->error_updatecategory_image = '';
+						}
+					   ?>
+					   </div>			  
+				</div>
+				
+				
+				
+				<?php 
+				if(is_array($error->error_updatecategory_values)) { 
+				$parent_category_id_option =  strip_tags($error->error_updatecategory_values['parent_category_id']);
+				}else{ 
+				$parent_category_id_option =  strip_tags($CategoryDetails['parent_category_id']);}
+				?>
+				
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Parent Category</label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					
+					<select id="parent_category_id" name="parent_category_id">
+						<option value="">-Select Parent Category-</option>
+						<?php foreach($ParentCategories as $each_ParentCategories){?>
+						<option value="<?php echo $each_ParentCategories['category_id'];?>" <?php if($parent_category_id_option ==$each_ParentCategories['category_id']){?> selected="selected"<?php }?>><?php echo ucfirst($each_ParentCategories['category_name']);?></option>
+						<?php }?>
+					</select>
+					
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_updateparent_category_id!= '') {
+							echo '<label class="error">' .$error->error_updateparent_category_id . '</label>';
+							$error->error_updateparent_category_id = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Meta Title</label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					<input class="field" tabindex="1" id="category_meta_title" name="category_meta_title" type="text" value="<?php if(is_array($error->error_updatecategory_values)) { echo strip_tags($error->error_updatecategory_values['category_meta_title']);}else{ echo strip_tags($CategoryDetails['category_meta_title']);}?>" maxlength="20" size="40" title=""/>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_updatemeta_title != '') {
+							echo '<label class="error">' .$error->error_updatemeta_title . '</label>';
+							$error->error_updatemeta_title = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Meta Description</label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">					
+					<textarea class="field" id="category_meta_description" name="category_meta_description" rows="5" cols="80"><?php if(is_array($error->error_updatecategory_values)) { echo strip_tags($error->error_updatecategory_values['category_meta_description']);}else{ echo strip_tags($CategoryDetails['category_meta_description']);}?></textarea>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_updatemeta_description!= '') {
+							echo '<label class="error">' .$error->error_updatemeta_description . '</label>';
+							$error->error_updatemeta_description = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				       
+				<div class="form-actions">			  
+				  <input id="signupsubmit" name="signup" type="submit"  class="btn btn-primary" value="Save" tabindex="7" title="" />
+				</div>
+			  </fieldset>
+			</form>   
+
+		</div>
+	</div><!--/span-->
+
+</div>

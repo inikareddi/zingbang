@@ -1,0 +1,142 @@
+<?php 
+$session = new Zend_Session_Namespace('MyPortal');
+//$error = new Zend_Session_Namespace('MyPortalerror');
+$error = $this;
+$ParentCategories = $this->ParentCategories;
+?>
+
+<?php if($error->error != '') {?>
+<div class="alert alert-error">
+	<button type="button" class="close" data-dismiss="alert">×</button>
+	<strong>Error! </strong> <?php echo $error->error;?>
+</div>
+<?php $error->error = '';}?>
+
+
+<div class="row-fluid sortable">
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2><i class="icon-edit"></i>Categorie's</h2>			
+		</div>
+		<div class="box-content">			
+			<form class="form-horizontal" id="signupform" autocomplete="off" method="post" action="" enctype="multipart/form-data">			
+			  <fieldset>
+				<legend>Register Category</legend>
+								
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Category Title<span class="req">*</span></label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					<input class="field" tabindex="1" id="category_name" name="category_name" type="text" value="<?php if(is_array($error->error_createcategory_values)) {echo $error->error_createcategory_values['category_name'];}?>" maxlength="20" size="40" title=""/>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_create_category_name != '') {
+							echo '<label class="error">' .$error->error_create_category_name . '</label>';
+							$error->error_create_category_name = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				
+				<div class="control-group">
+				  <label class="control-label">Category Image</label>
+					<div class="controls">
+					  <input type="file" name="category_image" id="category_image">
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_create_category_image != '') {
+							echo '<label class="error">' .$error->error_create_category_image . '</label>';
+							$error->error_create_category_image = '';
+						}
+					   ?>
+					   </div>			  
+				</div>
+				
+				
+				
+				
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Parent Category</label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					
+					<select id="parent_category_id" name="parent_category_id">
+						<option value="">-Select Parent Category-</option>
+						<?php foreach($ParentCategories as $each_ParentCategories){
+						if(is_array($error->error_createcategory_values) && $error->error_createcategory_values['parent_category_id'] == $each_ParentCategories['category_id']) {
+						$select = ' selected="selected"';
+						} else {
+						$select = '';
+						}
+						?>
+						<option value="<?php echo $each_ParentCategories['category_id'];?>" <?php echo $select; ?> ><?php echo ucfirst($each_ParentCategories['category_name']);?></option>
+						<?php }?>
+					</select>
+					
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_create_parent_category_id!= '') {
+							echo '<label class="error">' .$error->error_create_parent_category_id . '</label>';
+							$error->error_create_parent_category_id = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Meta Title</label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					<input class="field" tabindex="1" id="category_meta_title" name="category_meta_title" type="text" value="<?php if(is_array($error->error_createcategory_values)) {echo $error->error_createcategory_values['category_meta_title'];}?>" maxlength="20" size="40" title=""/>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_create_category_meta_title != '') {
+							echo '<label class="error">' .$error->error_create_category_meta_title . '</label>';
+							$error->error_create_category_meta_title = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Meta Description</label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">					
+					<textarea class="field" id="category_meta_description" name="category_meta_description" rows="5" cols="80"><?php if(is_array($error->error_createcategory_values)) {echo $error->error_createcategory_values['category_meta_description'];}?></textarea>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_create_category_meta_description!= '') {
+							echo '<label class="error">' .$error->error_create_category_meta_description . '</label>';
+							$error->error_create_category_meta_description = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				       
+				<div class="form-actions">			  
+				  <input id="signupsubmit" name="signup" type="submit"  class="btn btn-primary" value="Save" tabindex="7" title="" />
+				</div>
+			  </fieldset>
+			</form>   
+
+		</div>
+	</div><!--/span-->
+
+</div>

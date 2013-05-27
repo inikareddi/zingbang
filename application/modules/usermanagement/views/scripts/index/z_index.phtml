@@ -1,0 +1,50 @@
+
+<script type="text/javascript">
+	function validate() {
+		var username = document.getElementById('username').value;
+		var password = document.getElementById('password').value;
+		if((username == '' && password == '') || (username != '' && password == '') || (username == '' && password != '')) {
+			return false;
+		} 
+		return true;
+	}
+</script>
+<div style="min-height: 450px; background-color: #e5e5e5;">
+
+<div style="width: 280px; height: 120px; font-family: Verdana,  Arial, Helvetica, sans-serif; background-color: #acdfbd; float: right; margin-top: 30px; margin-right: 30px;">
+	<fieldset style="width: 80%;">
+	<legend style="background-color: #acdfbd;"  >Login &nbsp;</legend>
+		<form name="login" action="<?php echo $this->baseUrl('usermanagement/index/login');?>" method="POST" enctype="multipart/form-data" onsubmit="return validate();">
+		<table align="right">
+		<tr>
+			<td>
+				Username
+			</td>
+			<td>
+				:
+			</td>
+			<td>
+				<input type="text" name="username" value="" id="username"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Password
+			</td>
+			<td>
+				:
+			</td>
+			<td>
+				<input type="password" name="password" value="" id="password"/>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3" align="right">
+				<input type="submit" name="submit" value="Login" id="submit"/>
+			</td>
+		</tr>
+	</table>
+	</form>
+	</fieldset>
+</div>
+</div>

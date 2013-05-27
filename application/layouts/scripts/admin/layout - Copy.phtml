@@ -1,0 +1,322 @@
+<?php 
+$session = new Zend_Session_Namespace('MyPortal');
+//$error = new Zend_Session_Namespace('MyPortalerror');
+$fc = Zend_Controller_Front::getInstance()->getRequest();
+$action = $fc->getActionName();
+$config=Zend_Registry::get('config');	
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"> </meta>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" ></meta>
+<!-- MetaTags  -->
+<meta name="description" content="Description" ></meta>
+<meta name="keywords" content="Keywords" ></meta>
+<meta name="robots" content="index, follow"></meta>
+<meta name="revisit-after" content="3 month"></meta>
+<title>.: GetLinc Admin <?php echo $this->title;?> :.</title>
+<link rev="index" href="mailto:<?php echo $config->mail->myportal->adminsupport;?>" /><!--reverse relationship to this page--> 
+
+<!-- including CSS -->
+
+<?php 
+	if($action == 'forgotpassword' || $action == 'forgotquestion' || $action == 'forgotsuccess' || $action == 'forgotfailure' || $action == 'firstlogin') {
+?>
+<link href="<?php echo $this->baseUrl('public/admin'); ?>/pp_css/forget_pwd_css_2.css" rel="stylesheet" type="text/css" />
+<link href="<?php echo $this->baseUrl('public/admin'); ?>/pp_css/form_css_forgotpwd.css" rel="stylesheet" type="text/css" />
+<?php 
+	} else if($action == 'changesecurity' || $action == 'changepassword') {
+?>
+<link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl('public/admin'); ?>/pp_css/force_changepwd.css" /><!--specific style sheet -->
+<?php 
+	} elseif(!$session->loggedIn) {
+?>
+<link href="<?php echo $this->baseUrl('public/admin'); ?>/pp_css/indexcss-all.css" rel="stylesheet" type="text/css" /> <!--specific style sheet -->
+<link href="<?php echo $this->baseUrl('public/admin'); ?>/pp_css/form_css.css" rel="stylesheet" type="text/css" />
+<?php 
+	}
+	if($session->loggedIn) {
+	
+?>
+<link rel="stylesheet" type="text/css" href="<?php  echo $this->baseUrl('public/admin'); ?>/pp_css/user_management.css" /><!--common styles for all the user management forms -->
+<link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl('public/admin'); ?>/pp_css/menu_css/menu.css" /><!--MenuCss -->
+<link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl('public/admin'); ?>/pp_css/mega_menu/megamenu.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl('public/admin'); ?>/pp_css/formstyles_common.css" />
+
+<?php } ?>
+
+<link href="<?php echo $this->baseUrl('public/admin'); ?>/pp_css/common.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="<?php echo $this->baseUrl('public/admin'); ?>/pp_css/reset.css"/><!--common css -->
+
+<script type="text/javascript">var baseUrl='<?php echo $config->site->baseurl;?>" />';</script>
+
+<!--<script src="<?php echo $this->baseUrl('public/admin') . $session->app; ?>/pp_js/jquery.js" type="text/javascript"></script>
+-->
+<script src="<?php echo $this->baseUrl('public/admin'); ?>/pp_js/jquery1.5.2.js" type="text/javascript"></script>
+<script src="<?php echo $this->baseUrl('public/admin'); ?>/pp_js/jqueryvalidate.js" type="text/javascript"></script>
+
+<script src="<?php echo $this->baseUrl('public/admin'); ?>/pp_js/menu_js/menu_js.js" type="text/javascript"></script>
+<script src="<?php echo $this->baseUrl('public/admin'); ?>/pp_js/megamenu_js/mega_menu_jsfile.js" type="text/javascript"></script>
+<script src="<?php echo $this->baseUrl('public/admin'); ?>/pp_js/common.js" type="text/javascript"></script>
+
+<!-- Color box Js i.e, Popup -->
+
+	
+<!-- Common JS -->
+<script src="<?php echo $this->baseUrl('public/js/layout.js'); ?>" type="text/javascript"></script>
+
+<style type="text/css">
+	pre { text-align: left; }
+/*body:nth-of-type(1) #nav li span.nodata{width:495px;}*/
+</style>
+<?php 
+	if($session->loggedIn) {
+?>
+<script type="text/javascript">
+//checksession();
+//createCookie('verify_cookie', 'Y', 1);
+jQuery.noConflict();
+jkmegamenu.definemenu("megaanchor", "megamenu1", "mouseover");
+
+//jQuery(document).ready(function() {
+	//checksession();	
+//});
+</script>
+<?php }?>
+
+</head>
+
+<body id="page1">
+<!--Bo main-->
+<div class="header"><!--BO header -->
+   <div class="main"><!--BO main -->
+    <div class="wrapper"><!--BO wrapper -->
+     <div id="tab-layer-image"><!--BO tab-layer-image -->
+    
+      <div class="top-nav-main"><!--BO top-nav-main -->
+      <div class="navsleft float_left"></div>
+      
+      <div id="tabs" class="navsrite float_rite">
+      <noscript>
+        <?php 
+  		//  echo "<pre>";print_r($toplinks);
+     if($session->loggedIn) {
+     	
+     	?>
+      <ul id="tabMenu">
+		<li class="dropdown">
+		<?php //echo $session->isJavascriptEnabled;?>
+			<a href="<?php echo $this->baseUrl('usermanagement/index/personalinfo'); ?>" id="megaanchor" title="" _megamenupos="0pos">
+			Welcome <span style="font-size:13px;"><b><?php echo urldecode(ucfirst(strip_tags($session->username)));?></b></span>
+			</a>
+			<span class="red-seperato">
+			<img src="<?php echo $this->baseUrl('public/') . $session->app; ?>/pent-portal-images/megamenu-arrow.png" width="7" height="7" alt="" title="" />
+			</span>
+			
+	  		<div id="megamenu1" class="megamenu float_rite" style="width:255px;">
+      			<div class="column">
+      				<h3>My Account</h3>
+				      <ul id="tabMenu">
+				        <li><a href="<?php echo $this->baseUrl('usermanagement/index/personalinfo');?>" title="">My Profile</a><!--<span class="red-seperato">| </span> --></li>
+				        <li style="width:255px;"><a href="<?php echo $this->baseUrl('usermanagement/index/changesecurity');?>" title="">Challenge Question and Secret Answer</a></li>
+				        <li><a href="<?php echo $this->baseUrl('usermanagement/index/changepassword');?>" title="">Change Password</a></li>
+				        
+				
+					  </ul>
+					  </div>
+      
+      </div>
+            
+         </li>
+        <li><b>Role: </b> <?php echo urldecode(ucfirst(strip_tags($session->role))); //$session->usertype . ' ' . ?></li>	   </ul>
+        <?php 
+             }
+        ?>
+      
+      
+      <div style="display:none;"></noscript>
+      <?php 
+    
+     if($session->loggedIn) {
+     	?>
+      <ul id="tabMenu">
+		<li class="dropdown">
+		<?php //echo $session->isJavascriptEnabled;?>
+			<a href="javascript:void(0);" id="megaanchor" title="" _megamenupos="0pos">
+			Welcome <span style="font-size:13px;"><b><?php echo urldecode(ucfirst(strip_tags($session->username)));?></b></span>
+			</a>
+			<span class="red-seperato">
+			<img src="<?php echo $this->baseUrl('public/admin'); ?>/pent-portal-images/megamenu-arrow.png" width="7" height="7" alt="" title="" />
+			</span>
+			
+	  		<div id="megamenu1" class="megamenu float_rite" style="width:255px;">
+      			<div class="column">
+      				<h3>My Account</h3>
+				      <ul id="tabMenu">
+				        <li><a href="<?php echo $this->baseUrl('usermanagement/index/personalinfo');?>" title="">My Profile</a><!--<span class="red-seperato">| </span> --></li>
+				        <li style="width:255px;"><a href="<?php echo $this->baseUrl('usermanagement/index/changesecurity');?>" title="">Challenge Question and Secret Answer</a></li>
+				        <li><a href="<?php echo $this->baseUrl('usermanagement/index/changepassword');?>" title="">Change Password</a></li>				
+					  </ul>
+					  </div>
+      		</div>
+              
+         </li>
+        <li><b>Role: </b> <?php echo urldecode(ucfirst(strip_tags($session->role))); //$session->usertype . ' ' . ?></li>	   </ul>
+        <?php 
+             }
+             ?>
+     	<noscript></div></noscript>
+     
+      </div>   
+     </div><!--EO top-nav-main -->
+     <div id="tabContainer"></div> <!-- EO tabContainer -->
+     
+     <div class="corporate-logo-layer"><a href="<?php echo $this->baseUrl();?>"><img src="<?php echo $this->baseUrl('public/admin'); ?>/pent-portal-images/Logo.png"  width="184" height="50" /></a></div>
+  
+     
+     </div><!--EO tab-layer-image -->
+    </div><!--EO wrapper -->
+   </div><!--EO main -->
+</div><!--EO header -->
+<!--============================ Menu ======================================= -->
+
+<div class="header-menu">
+ <div class="main">
+  <div class="content-wrapper">
+
+      <span class="preload1"></span>
+<span class="preload2"></span>
+
+
+<ul id="nav">
+    <li class="top" >
+    <a href="<?php echo $this->baseUrl('usermanagement/user/list');?>" class="top_link"><span style="width:110px;" >User Management</span></a>
+    </li>
+	<li class="top" >
+    <a href="<?php echo $this->baseUrl('admin/index/logout');?>" class="top_link"><span style="width:110px;" >Logout</span></a>
+    </li>    
+</ul>
+            
+<div class="clearfix"></div>
+
+  </div>
+ </div>
+</div>
+<!--===================mid-content-layer=========================-->
+<div id="content"><!--BO content -->
+ <div class="main"><!--Bo main -->
+ <noscript><div style="display:none;"></noscript>
+<?php echo $this->layout()->content ; ?>
+<noscript></div>
+<div class="content-wrapper"><!--BO content-wrapper -->
+    <div class="form-wrapper"><!--BO form-wrapper -->
+     <div class="form-layout"><!--BO form-layout -->
+      <div class="top"><!--BO top -->
+     
+       <div class="left float_left ">Steps to enable JavaScript in different browsers</div>
+       <div class="rite float_rite"></div>
+       
+     
+      </div><!--EO top -->
+      
+       <!--~~~~form-layout starts here -->
+   
+    <div class="login-form"><!--scipting for form -->
+      <!--<div class="status err"><p>* fields are mandatory</p></div> -->
+     <div id="signupwrap">
+     
+ 
+     <div class="main-form">
+        <div class="sub-heading-div">Internet Explorer</div>
+           <div class="clr"></div>
+      <div id="formwrap"><!--BO formwrap -->
+      <p>1) Open Internet Explorer.</p>
+      <p>2) Click Tools.</p>
+      <p>3) Click Internet Options.</p>
+      <p>4) Within Internet Options click the Security tab.</p>
+      <p>5) In the Security tab click the Custom Level button.</p>
+      <p>6) Scroll down the list (close to the bottom) and locate "Active Scripting" and select "Enable" to enable JavaScript.</p>
+      <p>5) Close the window and Refresh your Browser.</p>
+      </div> <!--EO formwrap -->
+ 
+           <div class="sub-heading-div">Mozilla, Mozilla Firefox</div>
+   <div id="formwrap">
+   
+      <p>1) Open the browser.</p>
+      <p>2) Click Tools and then Options.</p>
+      <p>3) Click the Content button.</p>
+      <p>4) Within the Content section check the "Enable JavaScript" option to enable JavaScript.</p>
+      <p>5) Close the window and Refresh your Browser.</p>
+   
+   </div>
+
+<div class="sub-heading-div">Google Chrome</div>
+ <div class="clr"></div>
+
+      <div id="formwrap">
+      <p>1) Open the browser.</p>
+      <p>2) Click Customize and select Settings Option.</p>
+      <p>3) Select the tab Under the Hood.</p>
+      <p>4) Under Privacy, click Content Settings. </p>
+      <p>5) Select the JavaScript tab and choose the option Allow all sites to run JavaScript.</p>   
+      <p>6) Close the window and Refresh your Browser.</p>
+      </div>
+     </div><!--EO / signupwrap -->
+    </div><!--Eo scripting for form -->
+     </div><!--EO  form-layout-->
+    <div class="empty-10"></div>
+    </div><!--EO form-wrapper -->
+    <div class="clr"></div>
+    <div class="empty-10"></div>
+  </div><!--EO content-wrapper -->
+
+ </div>
+
+<div style="display:none;">
+<!--<div style="margin-left:61px; width: 855px;"><input type="image" src="<?php //echo $this->baseUrl('public/') . $session->app; ?>/pent-portal-images/page-bottom.png" style="cursor:default; width: 855px;" /></div>
+--><div style="margin-left:61px; width: 855px; background-image: url('<?php echo $this->baseUrl('public/') . $session->app; ?>/pent-portal-images/page-bottom.png'); background-repeat: no-repeat;">&nbsp;</div>
+ </div><!--EO main --> 
+ </div>
+ </noscript>
+ <div class="clr"></div><!--Clear class -->
+</div><!--EO content -->
+
+<!--===================== Footer ======================-->
+<div class="footer"><!--BO footer -->
+ <div class="main"><!--BO main -->
+
+ <div class="padding-wrapper"><!--BO padding-wrapper -->
+  <div class="footer-pattern"><!--BO footer-pattern -->
+    <div class="footer-wrapper"><!--BO footer-wrapper -->
+      <div class="left float_left">&nbsp;</div>
+      <div class="mid float_left">
+     	&copy; <?php echo date('Y')."-".date('Y')-1;?> <?php echo $config->site->footer->label;?>
+      </div>
+      <div class="rite float_rite"><!--BO footer-rite -->
+      &nbsp;
+      </div>   <!--EO footer-rite -->
+    
+    </div>   <!--EO footer-wrapper -->
+   </div>   <!--EO footer-pattern -->
+  </div><!--EO padding wrapper -->
+</div>
+</div><!--EO footer -->
+
+
+</body>
+</html>
+
+
+<div style="font-sze:12px; width:700px; margin:auto; margin-bottom:50px;">
+<?php
+if($config->show->filepath==1){ 
+echo "<br>path: ".dirname(__FILE__);
+$fc = Zend_Controller_Front::getInstance()->getRequest();
+echo "<br>module: ".$module = $fc->getModuleName();
+echo "<br>controller: ".$controller = $fc->getControllerName();
+echo "<br>action: ".$action = $fc->getActionName();
+echo "<br>layout: layout.phtml";
+}
+?>
+</div>

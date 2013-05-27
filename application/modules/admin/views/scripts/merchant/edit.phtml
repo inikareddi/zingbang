@@ -1,0 +1,309 @@
+<?php
+$session = new Zend_Session_Namespace('MyPortal');
+//$error = new Zend_Session_Namespace('MyPortalerror');
+$error = $this;
+$MerchantDetails = $this->MerchantDetails;
+$countrieslist = $this->countrieslist;	
+$MerchantImages = $this->MerchantImages;
+//print_r($MerchantImages);
+?>
+
+
+<?php if($error->error != '') {?>
+<div class="alert alert-error">
+	<button type="button" class="close" data-dismiss="alert">×</button>
+	<strong>Error! </strong> <?php echo $error->error;?>
+</div>
+<?php $error->error = '';}?>
+
+
+<div class="row-fluid sortable">
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2><i class="icon-edit"></i>Merchant's</h2>			
+		</div>
+		<div class="box-content">			
+			<form class="form-horizontal" id="signupform" autocomplete="off" method="post" action="" enctype="multipart/form-data">			
+			  <fieldset>
+				<legend>Edit Merchant</legend>		
+				
+				
+				
+				
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Merchant Title<span class="req">*</span></label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					<input class="field" tabindex="1" id="merchant_title" name="merchant_title" type="text" value="<?php if(is_array($error->error_updatemerchant_values)) { echo strip_tags($error->error_updatemerchant_values['merchant_title']);}else{ echo strip_tags($MerchantDetails['merchant_title']);}?>" maxlength="20" size="40" title=""/>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_updatemerchant_merchant_name != '') {
+							echo '<label class="error">' .$error->error_updatemerchant_merchant_name . '</label>';
+							$error->error_updatemerchant_merchant_name = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				
+				
+				<?php				
+				$mercahntId = $this->merchant_id;
+				?>
+				<div class="control-group">
+				  <label class="control-label">Merchant Image</label>
+					<div class="controls">
+					  <?php if(isset($MerchantImages['0']) && count($MerchantImages['0'])>0 && $MerchantImages['0']['merchant_image']!=''){?>
+					    <img src="<?php echo $this->baseUrl('public/uploads/merchant_images');?>/<?php echo $MerchantImages['0']['merchant_image'];?>" width="100" />
+						<a href="<?php echo $this->baseUrl('admin/merchant/deleteimage/merchant_id/').$mercahntId."/merchant_image_id/".$MerchantImages['0']['merchant_image_id'];?>" onClick="return confirm('Do you want to continue?')">
+						<span class="label">Delete Image</span>
+						</a>						
+					  <?php }else{?>
+					  <input type="file" name="merchant_image" id="merchant_image">
+					  <?php }?>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_updatemerchant_image != '') {
+							echo '<label class="error">' .$error->error_updatemerchant_image . '</label>';
+							$error->error_updatemerchant_image = '';
+						}
+					   ?>
+					   </div>			  
+				</div>
+				
+				
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Merchant Email</label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					<input class="field" tabindex="1" id="merchant_email" name="merchant_email" type="text" value="<?php if(is_array($error->error_updatemerchant_values)) { echo strip_tags($error->error_updatemerchant_values['merchant_email']);}else{ echo strip_tags($MerchantDetails['merchant_email']);}?>" maxlength="20" size="40" title=""/>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_updatemerchant_merchant_email!= '') {
+							echo '<label class="error">' .$error->error_updatemerchant_merchant_email . '</label>';
+							$error->error_updatemerchant_merchant_email = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Merchant Mobile</label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					<input class="field" tabindex="1" id="merchant_mobile" name="merchant_mobile" type="text" value="<?php if(is_array($error->error_updatemerchant_values)) { echo strip_tags($error->error_updatemerchant_values['merchant_mobile']);}else{ echo strip_tags($MerchantDetails['merchant_mobile']);}?>" maxlength="20" size="40" title=""/>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_updatemerchant_merchant_mobile!= '') {
+							echo '<label class="error">' .$error->error_updatemerchant_merchant_mobile . '</label>';
+							$error->error_updatemerchant_merchant_mobile = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Merchant Phone</label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					<input class="field" tabindex="1" id="merchant_phone" name="merchant_phone" type="text" value="<?php if(is_array($error->error_updatemerchant_values)) { echo strip_tags($error->error_updatemerchant_values['merchant_phone']);}else{ echo strip_tags($MerchantDetails['merchant_phone']);}?>" maxlength="20" size="40" title=""/>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_updatemerchant_merchant_phone!= '') {
+							echo '<label class="error">' .$error->error_updatemerchant_merchant_phone . '</label>';
+							$error->error_updatemerchant_merchant_phone = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Merchant Fax</label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					<input class="field" tabindex="1" id="merchant_fax" name="merchant_fax" type="text" value="<?php if(is_array($error->error_updatemerchant_values)) { echo strip_tags($error->error_updatemerchant_values['merchant_fax']);}else{ echo strip_tags($MerchantDetails['merchant_fax']);}?>" maxlength="20" size="40" title=""/>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_updatemerchant_merchant_fax!= '') {
+							echo '<label class="error">' .$error->error_updatemerchant_merchant_fax . '</label>';
+							$error->error_updatemerchant_merchant_fax = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Merchant City</label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					<input class="field" tabindex="1" id="merchant_city" name="merchant_city" type="text" value="<?php if(is_array($error->error_updatemerchant_values)) { echo strip_tags($error->error_updatemerchant_values['merchant_city']);}else{ echo strip_tags($MerchantDetails['merchant_city']);}?>" maxlength="20" size="40" title=""/>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_updatemerchant_merchant_city!= '') {
+							echo '<label class="error">' .$error->error_updatemerchant_merchant_city . '</label>';
+							$error->error_updatemerchant_merchant_city = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				
+				
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Merchant State</label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					<input class="field" tabindex="1" id="merchant_state" name="merchant_state" type="text" value="<?php if(is_array($error->error_updatemerchant_values)) { echo strip_tags($error->error_updatemerchant_values['merchant_state']);}else{ echo strip_tags($MerchantDetails['merchant_state']);}?>" maxlength="20" size="40" title=""/>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_updatemerchant_merchant_state!= '') {
+							echo '<label class="error">' .$error->error_updatemerchant_merchant_state . '</label>';
+							$error->error_updatemerchant_merchant_state = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+								
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Merchant Country</label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					<?php //echo $MerchantDetails['merchant_country'];?>
+					<select id="merchant_country" name="merchant_country">
+						<option value="">-Select Country-</option>
+						<?php foreach($this->countrieslist as $each_country){?>
+						<option value="<?php if(is_array($error->error_updatemerchant_values)) { echo strip_tags($error->error_updatemerchant_values['merchant_country']);}else{ echo strip_tags($MerchantDetails['merchant_country']);}?>" <?php if(is_array($error->error_updatemerchant_values) && $error->error_updatemerchant_values['merchant_country']==$each_country['country_id']) { ?>selected="selected"<?php }else if($MerchantDetails['merchant_country']==$each_country['country_id']){?>selected="selected"<?php }?>><?php echo $each_country['country_name'];?></option>
+						<?php }?>
+					</select>
+					
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_updatemerchant_merchant_country!= '') {
+							echo '<label class="error">' .$error->error_updatemerchant_merchant_country . '</label>';
+							$error->error_updatemerchant_merchant_country = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Merchant Address 1</label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					<textarea class="field" id="merchant_address1" name="merchant_address1"><?php if(is_array($error->error_updatemerchant_values)) { echo strip_tags($error->error_updatemerchant_values['merchant_address1']);}else{ echo strip_tags($MerchantDetails['merchant_address1']);}?></textarea>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_updatemerchant_merchant_address1!= '') {
+							echo '<label class="error">' .$error->error_updatemerchant_merchant_address1 . '</label>';
+							$error->error_updatemerchant_merchant_address1 = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Merchant Address 2</label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					<textarea class="field" id="merchant_address2" name="merchant_address2"><?php if(is_array($error->error_updatemerchant_values)) { echo strip_tags($error->error_updatemerchant_values['merchant_address2']);}else{ echo strip_tags($MerchantDetails['merchant_address2']);}?></textarea>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_updatemerchant_merchant_address2!= '') {
+							echo '<label class="error">' .$error->error_updatemerchant_merchant_address2 . '</label>';
+							$error->error_updatemerchant_merchant_address2 = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Merchant Postcode</label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					<input class="field" tabindex="1" id="merchant_postcode" name="merchant_postcode" type="text" value="<?php if(is_array($error->error_updatemerchant_values)) { echo strip_tags($error->error_updatemerchant_values['merchant_postcode']);}else{ echo strip_tags($MerchantDetails['merchant_postcode']);}?>" maxlength="20" size="40" title=""/>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_updatemerchant_merchant_postcode!= '') {
+							echo '<label class="error">' .$error->error_updatemerchant_merchant_postcode . '</label>';
+							$error->error_updatemerchant_merchant_postcode = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				
+				
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Merchant Description</label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					<textarea class="field" id="merchant_description" name="merchant_description" rows="5" cols="80"><?php if(is_array($error->error_updatemerchant_values)) { echo strip_tags($error->error_updatemerchant_values['merchant_description']);}else{ echo strip_tags($MerchantDetails['merchant_description']);}?></textarea>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_updatemerchant_merchant_description!= '') {
+							echo '<label class="error">' .$error->error_updatemerchant_merchant_description . '</label>';
+							$error->error_updatemerchant_merchant_description = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				
+				
+				
+				       
+				<div class="form-actions">			  
+				  <input id="signupsubmit" name="signup" type="submit"  class="btn btn-primary" value="Save" tabindex="7" title="" />
+				</div>
+			  </fieldset>
+			</form>   
+
+		</div>
+	</div><!--/span-->
+
+</div>

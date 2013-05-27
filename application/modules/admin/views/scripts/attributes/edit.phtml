@@ -1,0 +1,137 @@
+<?php
+$session = new Zend_Session_Namespace('MyPortal');
+//$error = new Zend_Session_Namespace('MyPortalerror');
+$error = $this;
+$AttributeDetails = $this->AttributeDetails;	
+?>
+
+
+<?php if($error->error != '') {?>
+<div class="alert alert-error">
+	<button type="button" class="close" data-dismiss="alert">×</button>
+	<strong>Error! </strong> <?php echo $error->error;?>
+</div>
+<?php $error->error = '';}?>
+
+
+<div class="row-fluid sortable">
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2><i class="icon-edit"></i>Attribute's</h2>			
+		</div>
+		<div class="box-content">			
+			<form class="form-horizontal" id="signupform" autocomplete="off" method="post" action="" enctype="multipart/form-data">			
+			  <fieldset>
+				<legend>Edit Attribute</legend>
+								
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Attribute Title<span class="req">*</span></label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					<input class="field" tabindex="1" id="attribute_title" name="attribute_title" type="text" value="<?php if(is_array($error->error_updateattribute_values)) { echo strip_tags($error->error_updateattribute_values['attribute_title']);}else{ echo strip_tags($AttributeDetails['attribute_title']);}?>" maxlength="20" size="40" title=""/>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_updateattribute_title != '') {
+							echo '<label class="error">' .$error->error_updateattribute_title . '</label>';
+							$error->error_updateattribute_title = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				
+				
+				
+				
+				
+				<?php
+				$attribute_field_type = array('text'=>'text','textarea'=>'textarea');
+				if(is_array($error->error_updateattribute_values)) { 
+				$attribute_field_type_option =  strip_tags($error->error_updateattribute_values['attribute_field_type']);
+				}else{ 
+				$attribute_field_type_option =  strip_tags($AttributeDetails['attribute_field_type']);}
+				?>
+				
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Attribute Field Type<span class="req">*</span></label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					
+					<select id="attribute_field_type" name="attribute_field_type">
+						<option value="">-Select Attribute Field Type-</option>
+						<?php foreach($attribute_field_type as $key=>$value){?>
+						<option value="<?php echo $value;?>" <?php if($attribute_field_type_option ==$value){?> selected="selected"<?php }?>><?php echo $value;?></option>
+						<?php }?>
+					</select>
+					
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_updateattribute_field_type!= '') {
+							echo '<label class="error">' .$error->error_updateattribute_field_type . '</label>';
+							$error->error_updateattribute_field_type = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				
+				
+				
+				
+				
+				<?php
+				$attribute_data_type = array('INT'=>'INT','VARCHAR'=>'VARCHAR','DATE'=>'DATE','FLOAT'=>'FLOAT');
+				if(is_array($error->error_updateattribute_values)) { 
+				$attribute_data_type_option =  strip_tags($error->error_updateattribute_values['attribute_data_type']);
+				}else{ 
+				$attribute_data_type_option =  strip_tags($AttributeDetails['attribute_data_type']);}
+				?>
+				
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Attribute Data Type<span class="req">*</span></label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					
+					<select id="attribute_data_type" name="attribute_data_type">
+						<option value="">-Select Attribute Field Type-</option>
+						<?php foreach($attribute_data_type as $key=>$value){?>
+						<option value="<?php echo $value;?>" <?php if($attribute_data_type_option ==$value){?> selected="selected"<?php }?>><?php echo $value;?></option>
+						<?php }?>
+					</select>
+					
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_updateattribute_data_type!= '') {
+							echo '<label class="error">' .$error->error_updateattribute_data_type . '</label>';
+							$error->error_updateattribute_data_type = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				
+				
+				
+				
+				
+				
+				       
+				<div class="form-actions">			  
+				  <input id="signupsubmit" name="signup" type="submit"  class="btn btn-primary" value="Save" tabindex="7" title="" />
+				</div>
+			  </fieldset>
+			</form>   
+
+		</div>
+	</div><!--/span-->
+
+</div>

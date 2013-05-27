@@ -1,0 +1,59 @@
+<?php
+$session = new Zend_Session_Namespace('MyPortal');
+//$error = new Zend_Session_Namespace('MyPortalerror');
+$error = $this;
+$AttributeGroupDetails = $this->AttributeGroupDetails;	
+//print_r($AttributeGroupDetails);
+?>
+
+
+<?php if($error->error != '') {?>
+<div class="alert alert-error">
+	<button type="button" class="close" data-dismiss="alert">×</button>
+	<strong>Error! </strong> <?php echo $error->error;?>
+</div>
+<?php $error->error = '';}?>
+
+
+<div class="row-fluid sortable">
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2><i class="icon-edit"></i>Attribute Group's</h2>			
+		</div>
+		<div class="box-content">			
+			<form class="form-horizontal" id="signupform" autocomplete="off" method="post" action="" enctype="multipart/form-data">			
+			  <fieldset>
+				<legend>Edit Attribute Group</legend>
+								
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Attribute Group Title<span class="req">*</span></label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					<input class="field" tabindex="1" id="attributes_group_title" name="attributes_group_title" type="text" value="<?php if(is_array($error->error_updateattributegroup_values)) { echo strip_tags($error->error_updateattributegroup_values['attributes_group_title']);}else{ echo strip_tags($AttributeGroupDetails['attributes_group_title']);}?>" maxlength="255" size="40" title=""/>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_updateattribute_group_title != '') {
+							echo '<label class="error">' .$error->error_updateattribute_group_title . '</label>';
+							$error->error_updateattribute_group_title = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				
+				
+				
+				       
+				<div class="form-actions">			  
+				  <input id="signupsubmit" name="signup" type="submit"  class="btn btn-primary" value="Save" tabindex="7" title="" />
+				</div>
+			  </fieldset>
+			</form>   
+
+		</div>
+	</div><!--/span-->
+
+</div>

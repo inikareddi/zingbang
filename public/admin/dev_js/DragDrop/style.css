@@ -1,0 +1,25 @@
+
+
+/* drag objects (DIV inside table cells) */
+.drag {
+	cursor: move;
+	/*margin: auto;*/
+	margin-bottom: 1px;
+	margin-top: 5px;
+	margin-left: 25px;
+	z-index: 10;
+	background-color: white;
+	text-align: center;
+	font-size: 10pt; /* needed for cloned object */
+	width: 300px;
+	height: 20px;
+	line-height: 20px;
+	/* round corners */
+	border-radius: 2px; /* Opera, Chrome */
+	-moz-border-radius: 2px; /* FF */
+	border:#ccc solid 1px;
+	text-align:left;
+	padding:3px;
+	margin:3px;
+}
+

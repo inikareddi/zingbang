@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>GetLinc.com</title>
+</head>
+<link href="<?php echo $this->baseUrl('public/default'); ?>/css/style.css" rel="stylesheet" type="text/css" />
+<script src="<?php echo $this->baseUrl('public/default'); ?>/js/jQuery.js"></script>
+<script src="<?php echo $this->baseUrl('public/default'); ?>/js/jqueryvalidate.js"></script>
+<script src="<?php echo $this->baseUrl('public/default'); ?>/js/frontend.js"></script>
+<script src="<?php echo $this->baseUrl('public/default'); ?>/js/validationmethods.js"></script>
+<script src="<?php echo $this->baseUrl('public/default'); ?>/js/script.js"></script>
+<!--[if gte IE 9]>
+  <style type="text/css">
+    .gradient {
+       filter: none;
+    }
+  </style>
+<![endif]-->
+<body>
+<div id="main-wrapper">
+	<div id="header">
+		<?php echo $this->render('default/header.phtml') ?>
+		<?php echo $this->render('default/header_bottom.phtml') ?>
+	</div>
+	<!-- Header -end -->
+	<div class="main_body_wrapper">
+		<div class="wrapper">
+		
+			<div class="right-sidebar">
+			<?php echo $this->render('default/side_menu_chat.phtml') ?>
+			<?php echo $this->render('default/side_menu_friend_suggestions.phtml') ?>
+			<?php echo $this->render('default/side_menu_event_notifications.phtml') ?>
+			</div>
+			
+			<div class="left-body">
+				<div class="left-sidebar">
+					<?php echo $this->render('default/side_menu_categories.phtml') ?>
+					<div class="clear"><br></div>
+					<?php echo $this->render('default/side_menu_wall.phtml') ?>
+				</div>
+				<?php  echo $this->layout()->content ?>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<!-- end main_body_wrapper-->
+	<?php echo $this->render('default/footer.phtml') ?>	
+</div>
+<?php echo $this->render('default/register.phtml') ?>
+</div>
+</body>
+</html>

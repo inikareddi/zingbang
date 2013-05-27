@@ -1,0 +1,492 @@
+<?php 
+	$usertyperoles = $this->usertyperoles;
+	$session = new Zend_Session_Namespace('MyPortal');
+	//$error = new Zend_Session_Namespace('MyPortalerror');
+	$error = $this;
+	
+?>
+
+
+
+			<?php 
+      		if($error->error != '') {?>      			
+      			<div class="alert alert-success" id="errordisplay">
+					<button type="button" class="close" data-dismiss="alert">×</button>
+					<strong></strong> <?php echo $error->error;?>
+				</div>
+      		<?php }else if($session->validateerror != '') {?>      			
+				<div class="alert alert-success" id="errordisplay">
+					<button type="button" class="close" data-dismiss="alert">×</button>
+					<strong></strong> <?php echo $session->validateerror;?>
+				</div>
+      		<?php $session->validateerror='';      			
+      		} else if($session->success != '') {?>      			
+				<div class="alert alert-success" id="errordisplay">
+					<button type="button" class="close" data-dismiss="alert">×</button>
+					<strong></strong> <?php echo $session->success;?>
+				</div>
+      		<?php $session->success = '';
+      		} else if(isset($errorsession->success) && $errorsession->success != '') {?>      			
+				<div class="alert alert-success" id="errordisplay">
+					<button type="button" class="close" data-dismiss="alert">×</button>
+					<strong></strong> <?php echo $errorsession->success;?>
+				</div>
+			<?php
+      			$errorsession->success = '';
+      		}
+			?>
+			
+			
+			
+
+<?php if($error->error != '') {?>
+<div class="alert alert-error">
+	<button type="button" class="close" data-dismiss="alert">×</button>
+	<strong>Error! </strong> <?php echo $error->error;?>
+</div>
+<?php $error->error = '';}?>
+
+
+<div class="row-fluid sortable">
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2><i class="icon-edit"></i>Product's</h2>			
+		</div>
+		<div class="box-content">
+
+						<legend>Edit Product</legend>
+						<h2><?php if(isset($this->ProductDetails['product_title'])){echo $this->ProductDetails['product_title'];}?>
+						<small>[GL<?php echo $this->ProductDetails['product_id'];?>]</small></h2>
+						
+
+						<div class="box-content">
+						<ul class="nav nav-tabs" id="myTab">
+							<li class="active"><a href="#info">&nbsp;&nbsp;&nbsp;General Info&nbsp;&nbsp;&nbsp;</a></li>
+							<li><a href="#prices">&nbsp;&nbsp;&nbsp;Prices&nbsp;&nbsp;&nbsp;</a></li>
+							<li><a href="#images">&nbsp;&nbsp;&nbsp;Images&nbsp;&nbsp;&nbsp;</a></li>
+							<li><a href="#categories">&nbsp;&nbsp;&nbsp;Categorie's&nbsp;&nbsp;&nbsp;</a></li>
+							<li><a href="#attributes">&nbsp;&nbsp;&nbsp;Attribute's&nbsp;&nbsp;&nbsp;</a></li>
+						</ul>
+						 
+						<div id="myTabContent" class="tab-content">
+						
+							<div class="tab-pane active" id="info">
+								
+								
+								<?php
+								//print_r($this->ProductDetails);
+								//print_r($this->ProductLargeDescription);
+								?>
+								
+								
+										<!--*********** General Info Start **********-->								
+									
+										<form class="form-horizontal" id="signupform" autocomplete="off" method="post" action="">			
+										  <fieldset>
+											
+
+											<div class="control-group">
+											  <label class="control-label" for="typeahead">Product ID</label>
+											  <div class="controls">
+												<div class="mid_Control-profile float-left">
+												<h1>GL<?php echo $this->ProductDetails['product_id'];?></h1>
+												</div>
+											  </div>
+											</div>
+											
+											
+											
+											<div class="control-group">
+											  <label class="control-label" for="typeahead">Product Title<span class="req">*</span></label>
+											  <div class="controls">
+												<div class="mid_Control-profile float-left">
+												<input class="field" tabindex="1" id="product_title" name="product_title" type="text" value="<?php if(isset($this->ProductDetails['product_title'])){echo $this->ProductDetails['product_title'];}?>" maxlength="20" size="40" title=""/>
+												</div>
+											  </div>
+											</div>
+											
+											
+											
+											<div class="control-group">
+											  <label class="control-label" for="typeahead">Product SKU</label>
+											  <div class="controls">
+												<div class="mid_Control-profile float-left">
+												<input class="field" tabindex="1" id="product_sku" name="product_sku" type="text" value="<?php if(isset($this->ProductDetails['product_sku'])){echo $this->ProductDetails['product_sku'];}?>" maxlength="20" size="40" title=""/>
+												</div>
+											  </div>
+											</div>
+											
+											
+											
+											<div class="control-group">
+											  <label class="control-label" for="typeahead">Meta Title</label>
+											  <div class="controls">
+												<div class="mid_Control-profile float-left">
+												<input class="field" tabindex="1" id="product_meta_title" name="product_meta_title" type="text" value="<?php if(isset($this->ProductDetails['product_meta_title'])){echo $this->ProductDetails['product_meta_title'];}?>" maxlength="20" size="40" title=""/>
+												</div>
+											  </div>
+											</div>
+											
+											
+											<div class="control-group">
+											  <label class="control-label" for="typeahead">Meta Description</label>
+											  <div class="controls">
+												<div class="mid_Control-profile float-left">					
+												<textarea class="field" id="product_meta_description" name="product_meta_description" rows="5" cols="80"><?php if(isset($this->ProductDetails['product_meta_description'])){echo $this->ProductDetails['product_meta_description'];}?></textarea>
+												</div>												   
+											  </div>
+											</div>
+											
+											
+											
+											<div class="control-group">
+											  <label class="control-label" for="typeahead">Product Small Description</label>
+											  <div class="controls">
+												<div class="mid_Control-profile float-left">					
+												<textarea class="field" id="product_small_description" name="product_small_description" rows="5" cols="80"><?php if(isset($this->ProductDetails['product_small_description'])){echo $this->ProductDetails['product_small_description'];}?></textarea>
+												</div>
+											  </div>
+											</div>
+											
+											
+											<div class="control-group">
+											  <label class="control-label" for="typeahead">Product Large Description</label>
+											  <div class="controls">
+												<div class="mid_Control-profile float-left">					
+												<textarea class="cleditor" id="product_large_description" name="product_large_description" rows="3"><?php if(isset($this->ProductLargeDescription['product_description'])){echo $this->ProductLargeDescription['product_description'];}?></textarea>
+												</div>
+											  </div>
+											</div>
+											
+											
+											
+											
+											
+											<div class="form-actions">			  
+											  <input id="signupsubmit" name="product_general_submit" type="submit"  class="btn btn-primary" value="Save" tabindex="7" title="" />
+											</div>
+										  </fieldset>
+										</form> 
+			
+										<!--*********** General Info End **********-->
+			
+			
+			
+			
+			
+			
+			
+							</div>
+														
+							
+							<div class="tab-pane" id="prices">
+								
+								
+								
+								
+								<form class="form-horizontal" name="product_prices" id="product_prices" autocomplete="off" method="post" action="" enctype="multipart/form-data">
+								
+								
+											<div class="control-group">
+											  <label class="control-label" for="typeahead">Product Prices</label>
+											  <div class="clear"></div>
+											  <!--div class="controls"-->
+												<div class="mid_Control-profile float-left">	
+												
+												
+												<?php for($i=0; $i<=4; $i++){?>
+												<input class="field" tabindex="<?php echo $i;?>" id="product_price_id[]" name="product_price_id[]" type="hidden" value="<?php if(isset($this->ProductPrices[$i]['product_price_id'])){echo $this->ProductPrices[$i]['product_price_id'];}?>" maxlength="255" size="10" title="" style="width:10px;" />
+												<input class="field" tabindex="<?php echo $i;?>" id="product_price_description[]" name="product_price_description[]" type="text" value="<?php if(isset($this->ProductPrices[$i]['product_price_description'])){echo $this->ProductPrices[$i]['product_price_description'];}?>" maxlength="255" size="10" title="" style="width:400px;" placeholder="Price Discription" />
+												<input class="field" tabindex="<?php echo $i;?>" id="product_price[]" name="product_price[]" type="text" value="<?php if(isset($this->ProductPrices[$i]['product_price'])){echo $this->ProductPrices[$i]['product_price'];}?>" maxlength="10" size="10" title="" style="width:75px;" placeholder="Price"/>
+												<input class="field" tabindex="<?php echo $i;?>" id="product_discount[]" name="product_discount[]" type="text" value="<?php if(isset($this->ProductPrices[$i]['product_discount'])){echo $this->ProductPrices[$i]['product_discount'];}?>" maxlength="10" size="10" title="" style="width:75px;" placeholder="Discount"/>
+												<select name="product_discount_type[]" style="width:120px;" tabindex="<?php echo $i;?>">
+													<option value="">Discount Type</option>
+													<option value="Amount" <?php if(isset($this->ProductPrices[$i]['product_discount_type']) && $this->ProductPrices[$i]['product_discount_type']=='Amount'){?>selected="selected"<?php }?> >Amount</option>
+													<option value="Percentage" <?php if(isset($this->ProductPrices[$i]['product_discount_type']) && $this->ProductPrices[$i]['product_discount_type']=='Percentage'){?>selected="selected"<?php }?> >Percentage</option>
+												</select>
+												<input class="field datepicker" tabindex="<?php echo $i;?>" id="discount_start_date<?php echo $i;?>[]" name="discount_start_date[]" type="text" value="<?php if(isset($this->ProductPrices[$i]['discount_start_date']) && $this->ProductPrices[$i]['discount_start_date']!='0000-00-00'){echo $this->ProductPrices[$i]['discount_start_date'];}?>" maxlength="10" size="10" title="" style="width:80px;" placeholder="Start Date"/>
+												<input class="field datepicker" tabindex="<?php echo $i;?>" id="discount_end_date<?php echo $i;?>[]" name="discount_end_date[]" type="text" value="<?php if(isset($this->ProductPrices[$i]['discount_end_date']) && $this->ProductPrices[$i]['discount_end_date']!='0000-00-00'){echo $this->ProductPrices[$i]['discount_end_date'];}?>" maxlength="10" size="10" title="" style="width:80px;" placeholder="End Date"/>
+												<?php }?>
+												
+												<div class="form-actions">			  
+												  <input id="signupsubmit" name="product_prices_submit" type="submit"  class="btn btn-primary" value="Save" tabindex="7" title="" />
+												</div>
+												
+												</div>												
+												   
+											  <!--/div-->
+											</div>
+								
+								
+								
+								
+								
+								</form>
+								
+								
+								
+							</div>
+							
+							
+							
+							<div class="tab-pane" id="images">
+								
+								
+								
+								
+								
+								
+								
+										<form class="form-horizontal" name="product_images" id="product_images" autocomplete="off" method="post" action="" enctype="multipart/form-data">			
+										  <fieldset>										
+
+											
+											
+											<?php	
+											$ProductImages = $this->ProductImages;
+											$productId = $this->productId;
+											?>
+											<div class="control-group">
+											  <label class="control-label">Product Image ( i )</label>
+												<div class="controls">
+												  <?php if(isset($ProductImages['0']) && count($ProductImages['0'])>0 && $ProductImages['0']['product_image']!=''){?>
+													<img src="<?php echo $this->baseUrl('public/uploads/product_images');?>/<?php echo $ProductImages['0']['product_image'];?>" width="100" />
+													<a href="<?php echo $this->baseUrl('admin/products/deleteimage/productId/').$productId."/product_image_id/".$ProductImages['0']['product_image_id'];?>" onClick="return confirm('Do you want to continue?')">
+													<span class="label">Delete Image</span>
+													</a>						
+												  <?php }else{?>
+												  <input type="file" name="product_image1" id="product_image1">
+												  <?php }?>
+												</div>
+												
+												<br><br>
+												<label class="control-label">Product Image ( ii )</label>
+												<div class="controls">
+												  <?php if(isset($ProductImages['1']) && count($ProductImages['1'])>0 && $ProductImages['1']['product_image']!=''){?>
+													<img src="<?php echo $this->baseUrl('public/uploads/product_images');?>/<?php echo $ProductImages['1']['product_image'];?>" width="100" />
+													<a href="<?php echo $this->baseUrl('admin/products/deleteimage/productId/').$productId."/product_image_id/".$ProductImages['1']['product_image_id'];?>" onClick="return confirm('Do you want to continue?')">
+													<span class="label">Delete Image</span>
+													</a>						
+												  <?php }else{?>
+												  <input type="file" name="product_image2" id="product_image2">
+												  <?php }?>
+												</div>
+
+												<br><br>
+												<label class="control-label">Product Image ( iii )</label>
+												<div class="controls">
+												  <?php if(isset($ProductImages['2']) && count($ProductImages['2'])>0 && $ProductImages['2']['product_image']!=''){?>
+													<img src="<?php echo $this->baseUrl('public/uploads/product_images');?>/<?php echo $ProductImages['2']['product_image'];?>" width="100" />
+													<a href="<?php echo $this->baseUrl('admin/products/deleteimage/productId/').$productId."/product_image_id/".$ProductImages['2']['product_image_id'];?>" onClick="return confirm('Do you want to continue?')">
+													<span class="label">Delete Image</span>
+													</a>						
+												  <?php }else{?>
+												  <input type="file" name="product_image3" id="product_image3">
+												  <?php }?>
+												</div>
+
+
+												<br><br>
+												<label class="control-label">Product Image ( iv )</label>
+												<div class="controls">
+												  <?php if(isset($ProductImages['3']) && count($ProductImages['3'])>0 && $ProductImages['3']['product_image']!=''){?>
+													<img src="<?php echo $this->baseUrl('public/uploads/product_images');?>/<?php echo $ProductImages['3']['product_image'];?>" width="100" />
+													<a href="<?php echo $this->baseUrl('admin/products/deleteimage/productId/').$productId."/product_image_id/".$ProductImages['3']['product_image_id'];?>" onClick="return confirm('Do you want to continue?')">
+													<span class="label">Delete Image</span>
+													</a>						
+												  <?php }else{?>
+												  <input type="file" name="product_image4" id="product_image4">
+												  <?php }?>
+												</div>
+
+
+												<br><br>
+												<label class="control-label">Product Image ( v )</label>
+												<div class="controls">
+												  <?php if(isset($ProductImages['4']) && count($ProductImages['4'])>0 && $ProductImages['4']['product_image']!=''){?>
+													<img src="<?php echo $this->baseUrl('public/uploads/product_images');?>/<?php echo $ProductImages['4']['product_image'];?>" width="100" />
+													<a href="<?php echo $this->baseUrl('admin/products/deleteimage/productId/').$productId."/product_image_id/".$ProductImages['4']['product_image_id'];?>" onClick="return confirm('Do you want to continue?')">
+													<span class="label">Delete Image</span>
+													</a>						
+												  <?php }else{?>
+												  <input type="file" name="product_image5" id="product_image5">
+												  <?php }?>
+												</div>
+
+											</div>
+											
+											
+											<div class="form-actions">			  
+											  <input id="signupsubmit" name="product_image_submit" type="submit"  class="btn btn-primary" value="Save" tabindex="7" title="" />
+											</div>
+										  </fieldset>
+										</form>
+								
+								
+								
+								
+								
+								
+								
+								
+								
+							</div>
+							
+							
+							<div class="tab-pane" id="categories">
+							
+							
+							
+							
+							<?php
+							foreach($this->ProductCategories as $each_ProductCategories){
+								$category_id_array[] = $each_ProductCategories['category_id'];
+							}
+							
+							
+							?>
+							
+							<form class="form-horizontal" name="product_categories" id="product_categories" autocomplete="off" method="post" action="" enctype="multipart/form-data">
+								
+								<div style="margin-left:100px; line-height:30px;">
+								<?php
+								//echo "<pre>";
+								//print_r($this->CategoryList);
+								foreach($this->CategoryList as $each_category){
+									if($each_category['parent_category_id']=='0'){
+										?>
+										<input class="field" tabindex="1" id="product_category_<?php echo $each_category['category_id'];?>" name="product_category[]" type="checkbox" value="<?php echo $each_category['category_id'];?>" title="<?php echo $each_category['category_name'];?>" <?php if(isset($category_id_array) && count($category_id_array)>0 && in_array($each_category['category_id'],$category_id_array)){?>checked="checked"<?php }?> />
+										<b><i><?php echo ucfirst($each_category['category_name']);?></i></b>
+										<br>
+										<?php
+										foreach($this->CategoryList as $each_sub_category){
+											if($each_sub_category['parent_category_id']==$each_category['category_id']){
+												?>												
+												<div class="controls" style="margin-left:50px; line-height:30px;">
+												<input class="field" tabindex="1" id="product_category_<?php echo $each_sub_category['category_id'];?>" name="product_category[]" type="checkbox" value="<?php echo $each_sub_category['category_id'];?>"  title="<?php echo $each_sub_category['category_name'];?>" <?php if(isset($category_id_array) && count($category_id_array)>0 && in_array($each_sub_category['category_id'],$category_id_array)){?>checked="checked"<?php }?> />
+												<?php echo $each_sub_category['category_name'];?>
+												<br>
+												</div>
+												<?php
+											}
+										}
+										echo "<br>";
+									}
+								}
+								?>
+								</div>
+								
+								
+								<div class="form-actions">			  
+								  <input id="signupsubmit" name="product_categories_submit" type="submit"  class="btn btn-primary" value="Save" tabindex="7" title="" />
+								</div>
+							</form>
+								
+								
+								
+								
+							</div>
+							
+							
+							<div class="tab-pane" id="attributes">
+								
+								<form class="form-horizontal" name="product_attributes" id="product_attributes" autocomplete="off" method="post" action="" enctype="multipart/form-data">
+							
+								<h2>
+								<?php echo $this->ProductDetails['attributes_group_title'];?>
+								</h2>
+								<?php
+								//echo "<pre>";
+								//print_r($this->ProductAttributesValues);
+								foreach($this->ProductAttributesValues as $each_ProductAttributesValues){								
+									$ProductAttributesValues_array[$each_ProductAttributesValues['attribute_id']] = $each_ProductAttributesValues['attribute_value'];
+									$ProductAttributesValues_avid_array[$each_ProductAttributesValues['attribute_id']] = $each_ProductAttributesValues['attribute_value_id'];
+								}
+								?>
+								
+								<?php
+								foreach($this->AllAttributesSetsTitles as $each_AllAttributesSetsTitles){
+									$attributes_set_id = $each_AllAttributesSetsTitles['attributes_set_id'];
+									foreach($this->ProductAttributesTitles as $each_ProductAttributesTitles){
+										if($each_ProductAttributesTitles['attributes_set_id'] == $attributes_set_id){
+											$attributes_set_wise[$attributes_set_id][] = $each_ProductAttributesTitles;
+										}									
+									}								
+								}
+								foreach($this->AllAttributesSetsTitles as $each_AllAttributesSetsTitles){
+									$all_attributes_set_title[$each_AllAttributesSetsTitles['attributes_set_id']] = $each_AllAttributesSetsTitles['attributes_set_title'];									
+								}
+								//echo "<pre>";
+								//print_r($attributes_set_wise);
+								//print_r($this->AllAttributesSetsTitles);
+								
+								foreach($attributes_set_wise as $each_attributes_set_wise){
+								?>
+								<span class="label label-important" style="vertical-align:top; text-align:left; line-height:50px;">
+								<b>&nbsp;&nbsp;&nbsp;<?php echo $all_attributes_set_title[$each_ProductAttributesTitles['attributes_set_id']];?></b>
+								</span>
+								<?php
+								foreach($each_attributes_set_wise as $each_ProductAttributesTitles){
+								//print_r($each_ProductAttributesTitles);
+								?>
+								<!--
+								attributes_group_id, attributes_group_title, 
+								attributes_set_id, attributes_set_title, 
+								attributes_sets_mapping_id, 
+								attribute_id, attribute_title, attribute_field_type, attribute_data_type
+								-->
+								
+								
+											<div class="control-group" style="margin-left:50px;">
+											  <label class="control-label" for="typeahead">
+											  <?php echo $each_ProductAttributesTitles['attribute_title'];?>
+											  <span class="req">*</span>
+											  </label>
+											  <div class="controls">
+												<div class="mid_Control-profile float-left">
+												<?php if($each_ProductAttributesTitles['attribute_field_type']=='text'){?>
+												<input class="field" tabindex="1" id="attribute_value[<?php echo $each_ProductAttributesTitles['attribute_id'];?>]" name="attribute_value[<?php echo $each_ProductAttributesTitles['attribute_id'];?>]" type="text" value="<?php if(isset($ProductAttributesValues_array[$each_ProductAttributesTitles['attribute_id']])){echo $ProductAttributesValues_array[$each_ProductAttributesTitles['attribute_id']];}?>" maxlength="20" size="40" title=""/>
+												<?php }?>
+												
+												<?php if($each_ProductAttributesTitles['attribute_field_type']=='textarea'){?>												
+												<textarea tabindex="1" id="attribute_value[<?php echo $each_ProductAttributesTitles['attribute_id'];?>]" name="attribute_value[<?php echo $each_ProductAttributesTitles['attribute_id'];?>]"><?php if(isset($ProductAttributesValues_array[$each_ProductAttributesTitles['attribute_id']])){echo $ProductAttributesValues_array[$each_ProductAttributesTitles['attribute_id']];}?></textarea>
+												<?php }?>
+												
+												<input type="hidden" name="attribute_value_id[<?php echo $each_ProductAttributesTitles['attribute_id'];?>]" value="<?php if(isset($ProductAttributesValues_avid_array[$each_ProductAttributesTitles['attribute_id']])){echo $ProductAttributesValues_avid_array[$each_ProductAttributesTitles['attribute_id']];}?>" />
+												
+												</div>
+												<div class="error_message">
+												   <?php 
+													if($error->error_createmerchant_product_title != '') {
+														echo '<label class="error">' .$error->error_createmerchant_product_title . '</label>';
+														$error->error_createmerchant_product_title = '';
+													}
+												   ?>
+												   </div>
+												   
+											  </div>
+											</div>
+								
+								<?php }}?>
+								
+					
+
+								<div class="form-actions">			  
+								  <input id="signupsubmit" name="product_attributes_submit" type="submit"  class="btn btn-primary" value="Save" tabindex="7" title="" />
+								</div>
+								
+								</form>
+								
+							</div>
+							
+							
+						</div>
+					</div>
+
+
+					
+
+		</div>
+	</div><!--/span-->
+
+</div>

@@ -1,0 +1,128 @@
+<?php 	
+$session = new Zend_Session_Namespace('MyPortal');
+//$error = new Zend_Session_Namespace('MyPortalerror');
+$error = $this;	
+?>
+
+
+<?php if($error->error != '') {?>
+<div class="alert alert-error">
+	<button type="button" class="close" data-dismiss="alert">×</button>
+	<strong>Error! </strong> <?php echo $error->error;?>
+</div>
+<?php $error->error = '';}?>
+
+
+<div class="row-fluid sortable">
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2><i class="icon-edit"></i>Attribute's</h2>			
+		</div>
+		<div class="box-content">			
+			<form class="form-horizontal" id="signupform" autocomplete="off" method="post" action="">			
+			  <fieldset>
+				<legend>Register Attribute</legend>
+								
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Attribute Title<span class="req">*</span></label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					<input class="field" tabindex="1" id="attribute_title" name="attribute_title" type="text" value="<?php if(is_array($error->error_creatattribute_values)) {echo $error->error_creatattribute_values['attribute_title'];}?>" maxlength="20" size="40" title=""/>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_create_attribute_title != '') {
+							echo '<label class="error">' .$error->error_create_attribute_title . '</label>';
+							$error->error_create_attribute_title = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				
+				<?php 
+				$attribute_field_type = array('text'=>'text','textarea'=>'textarea');				
+				?>
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Attribute Field Type<span class="req">*</span></label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					
+					<select id="attribute_field_type" name="attribute_field_type">
+						<option value="">-Select Attribute Field Type-</option>
+						<?php foreach($attribute_field_type as $key=>$value){
+						if(is_array($error->error_creatattribute_values) && $error->error_creatattribute_values['attribute_field_type'] == $value) {
+						$select = ' selected="selected"';
+						} else {
+						$select = '';
+						}
+						?>
+						<option value="<?php echo $key;?>" <?php echo $select; ?> ><?php echo ucfirst($value);?></option>
+						<?php }?>
+					</select>
+					
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_create_attribute_field_type!= '') {
+							echo '<label class="error">' .$error->error_create_attribute_field_type . '</label>';
+							$error->error_create_attribute_field_type = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				
+				
+				
+				
+				<?php 				
+				$attribute_data_type = array('INT'=>'INT','VARCHAR'=>'VARCHAR','DATE'=>'DATE','FLOAT'=>'FLOAT');
+				?>
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Attribute Data Type<span class="req">*</span></label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					
+					<select id="attribute_data_type" name="attribute_data_type">
+						<option value="">-Select Attribute Data Type-</option>
+						<?php foreach($attribute_data_type as $key=>$value){
+						if(is_array($error->error_creatattribute_values) && $error->error_creatattribute_values['attribute_data_type'] == $value) {
+						$select = ' selected="selected"';
+						} else {
+						$select = '';
+						}
+						?>
+						<option value="<?php echo $key;?>" <?php echo $select; ?> ><?php echo ucfirst($value);?></option>
+						<?php }?>
+					</select>
+					
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_create_attribute_data_type!= '') {
+							echo '<label class="error">' .$error->error_create_attribute_data_type . '</label>';
+							$error->error_create_attribute_data_type = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+			
+       
+				<div class="form-actions">			  
+				  <input id="signupsubmit" name="signup" type="submit"  class="btn btn-primary" value="Save" tabindex="7" title="" />
+				</div>
+			  </fieldset>
+			</form>   
+
+		</div>
+	</div><!--/span-->
+
+</div>

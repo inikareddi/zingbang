@@ -1,0 +1,229 @@
+<?php 
+$usertyperoles = $this->usertyperoles;
+$session = new Zend_Session_Namespace('MyPortal');
+//$error = new Zend_Session_Namespace('MyPortalerror');
+$error = $this;
+$ActiveMerchantsList = $this->ActiveMerchantsList;
+//print_r($this->ActiveMerchantsList);
+?>
+
+
+<?php if($error->error != '') {?>
+<div class="alert alert-error">
+	<button type="button" class="close" data-dismiss="alert">×</button>
+	<strong>Error! </strong> <?php echo $error->error;?>
+</div>
+<?php $error->error = '';}?>
+
+
+<div class="row-fluid sortable">
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2><i class="icon-edit"></i>User's</h2>			
+		</div>
+		<div class="box-content">			
+			<form class="form-horizontal" id="signupform" autocomplete="off" method="post" action="">			
+			  <fieldset>
+				<legend>Register User</legend>
+								
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">First Name</label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					<input class="field" tabindex="1" id="firstname" name="firstname" type="text" value="<?php if(is_array($error->error_createuser_values)) {echo $error->error_createuser_values['firstname'];}?>" maxlength="20" size="40" title=""/>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_createuser_firstname != '') {
+							echo '<label class="error">' .$error->error_createuser_firstname . '</label>';
+							$error->error_createuser_firstname = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Last Name</label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					<input class="field" tabindex="2" id="lastname" name="lastname" type="text" value="<?php if(is_array($error->error_createuser_values)) {echo $error->error_createuser_values['lastname'];}?>" maxlength="20" size="40" title=""/>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_createuser_lastname != '') {
+							echo '<label class="error">' .$error->error_createuser_lastname . '</label>';
+							$error->error_createuser_lastname = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Email Address</label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					<input class="field" tabindex="3" id="username" name="username" type="text" value="<?php if(is_array($error->error_createuser_values)) {echo $error->error_createuser_values['username'];}?>" maxlength="50" size="40" title=""/>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_updateuser_email != '') {
+							echo '<label class="error">' . $error->error_updateuser_email . '</label>';
+							$error->error_updateuser_email = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+								
+				
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Contact Number</label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					<input class="field" tabindex="4" id="phonenumber" name="phonenumber" type="text" value="<?php if(is_array($error->error_createuser_values)) {echo $error->error_createuser_values['phonenumber'];}?>" maxlength="10" size="40" title=""/>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_createuser_phonenumber != '') {
+							echo '<label class="error">' .$error->error_createuser_phonenumber . '</label>';
+							$error->error_createuser_phonenumber = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				
+				<div class="control-group" style='display:none;'>
+				  <label class="control-label" for="typeahead">Email Address</label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					<input class="field" tabindex="5" id="useremail" name="useremail" type="text" value="<?php if(is_array($error->error_createuser_values)) {echo $error->error_createuser_values['useremail'];}?>" maxlength="50" size="40" title=""/>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_createuser_email != '') {
+							echo '<label class="error">' .$error->error_createuser_email . '</label>';
+							$error->error_createuser_email = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				
+				
+				
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Role</label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+						<select class="select" tabindex="6" title="" name="role" id="role" onchange="javascript:checkRole(this.value);">
+						   <option  value="Select" title="Select a role" >Select Role</option>
+						   <?php      	
+								foreach($usertyperoles as $roles) {       			
+										$role = ucfirst($roles['role']);
+										if($this->userroleid == $roles['roleid'] || (is_array($error->error_createuser_values) && $error->error_createuser_values['role'] == $roles['roleid'])) {
+											$select = ' selected="selected"';
+										} else {
+											$select = '';
+										}
+										echo '<option value="' . $roles['roleid'] . '"' . $select . '>' . $role . '</option>';       			
+								}       	
+						   ?>
+						   </select>
+						<input type="hidden" name="userId" id="userId" value="<?php echo $this->userid;?>"/>
+						<input type="hidden" name="referer" id="referer" value="<?php echo $_SERVER['HTTP_REFERER'];?>"/>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_createuser_role != '') {
+							echo '<label class="error">' .$error->error_createuser_role . '</label>';
+							$error->error_createuser_role = '';
+						}						
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				<script type="text/javascript">
+				function checkRole(value){
+					//alert(value);
+					if(value=='9'){
+						document.getElementById('merchant_id').disabled = false;
+					}else{
+						document.getElementById('merchant_id').disabled = true;
+					}				
+				}			
+				</script>
+				
+				
+				
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Merchant</label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+						<select class="select" tabindex="6" title="" name="merchant_id" id="merchant_id" disabled="disabled">
+						   <option  value="Select" title="Select a merchant" >Select Merchant</option>
+						   <?php      	
+								foreach($ActiveMerchantsList as $each_ActiveMerchantst) {       			
+										$merchant_title = ucfirst($each_ActiveMerchantst['merchant_title']);
+										if(is_array($error->error_createuser_values) && $error->error_createuser_values['merchant_id'] == $each_ActiveMerchantst['merchant_id']) {
+											$select = ' selected="selected"';
+										} else {
+											$select = '';
+										}
+										echo '<option value="' . $each_ActiveMerchantst['merchant_id'] . '"' . $select . '>' . $merchant_title . '</option>';       			
+								}       	
+						   ?>
+						   </select>						
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_createuser_merchant_id != '') {
+							echo '<label class="error">' .$error->error_createuser_merchant_id . '</label>';
+							$error->error_createuser_merchant_id = '';
+						}
+						$error->error_createuser_values = ''
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+       
+				<div class="form-actions">			  
+				  <input id="signupsubmit" name="signup" type="submit"  class="btn btn-primary" value="Save" tabindex="7" title="" />
+				</div>
+			  </fieldset>
+			</form>   
+
+		</div>
+	</div><!--/span-->
+
+</div>
+  
+  
+  
+<script type="text/javascript">
+jQuery(document).ready(function() {
+/*for autofocus on first field*/
+// validate signup form on keyup and submit
+	jQuery('#username').keyup(function(){
+	//if(jQuery.trim(jQuery('#useremail').val()) != '') {
+		//alert('Here');
+		jQuery('#useremail').val(jQuery('#username').val());
+	//}
+	});
+	validateRegistration();
+});
+</script>

@@ -1,0 +1,109 @@
+<?php
+$session = new Zend_Session_Namespace('MyPortal');
+//$error = new Zend_Session_Namespace('MyPortalerror');
+$error = $this;
+?>
+
+<div class="content-wrapper-login"><!--BO content-wrapper -->
+   <div class="wrap_rite float_left"><!--BO wrap_left -->
+   
+   
+   <div class="login-wrap">
+
+   
+    <div class="login-form"><!--scipting for form -->
+    
+<div class="top-content">
+<p class="running-text">Please create Challenge Question and Secret Answer</p>
+<p class="running-text"><span class="req">* </span>Required Fields</p>
+
+</div>
+<div class="bott-content"><!--BO bott-content -->
+
+<div class="ForPwdForm_wrapper"><!--BO ForPwdForm_wrapper -->
+ 
+<table style="margin-left:auto; margin-right:auto" align="center" width="98%"><tr> <td height="14" align="center"><div align="center">
+	 <?php    
+				if($error->error != '') {
+					echo '<div><label class="error_msg" id="error">' . $error->error . '</label></div>';
+					$error->error = '';
+				} 
+			?>
+	</div></td> </tr></table>
+  <div class="ForSecQuest"><!--BO ForPwdForm-div -->
+<form id="signupform" name="changepass" autocomplete="off" method="post" action="<?php //echo $this->baseUrl('usermanagement/index/savechangesecurity'); ?>">
+	
+       <div class="common">
+       <div class="left_Label float-left">
+         <label class="label" id="loldpwd"  for="Securityquestion">Challenge Question<span class="req">*</span></label> </div>
+       <div class="mid_Control float-left">
+       <input class="field" tabindex="1" id="security1" name="security1" type="text" value="<?php if(is_array($error->error_changesecurity_values)) { echo $error->error_changesecurity_values['security1'];}?>" maxlength="60" size="40" title=""/>
+       </div>
+    	<div class="rite_Error float-left">
+    	<?php 
+       	if($error->error_changesecurity_ques != '') {
+       		echo '<label class="error">' .$error->error_changesecurity_ques . '</label>';
+       		$error->error_changesecurity_ques = '';
+       	}
+       ?>
+    	</div>
+       
+     </div><!--EO common -->
+     
+            <div class="common">
+       <div class="left_Label float-left">
+         <label class="label" id="lnewpwd"  for="answer">Secret Answer<span class="req">*</span></label> </div>
+       <div class="mid_Control float-left"><input class="field" tabindex="2" id="answer" name="answer" type="text" value="" maxlength="30" size="40" title=""/></div>
+       <div class="rite_Error float-left">
+       <?php 
+       	if($error->error_changesecurity_answer != '') {
+       		echo '<label class="error">' .$error->error_changesecurity_answer . '</label>';
+       		$error->error_changesecurity_answer = '';
+       	}
+       ?>
+    	</div>
+     </div><!--EO common -->
+     <div class="clr"></div>
+            <div class="common">
+       <div class="left_Label float-left"><label class="label" id="lretypepwd" for="retypeanswer">Re-enter Secret Answer<span class="req">*</span></label> </div>
+       <div class="mid_Control float-left"><input class="field" tabindex="3" id="retypeanswer" name="retypeanswer" type="text" title="" value="" maxlength="30" size="40"/></div>
+       <div class="rite_Error float-left">
+       <?php 
+       	if($error->error_changesecurity_sec != '') {
+       		echo '<label class="error">' .$error->error_changesecurity_sec . '</label>';
+       		$error->error_changesecurity_sec = '';
+       	}
+       	$error->error_changesecurity_values = '';
+       ?>
+       </div>
+     </div><!--EO common -->
+     
+     <div class="clr"></div>
+            <div class="common">
+       <div class="left_Label float-left"></div>
+       <div class="mid_Control float-left"><input id="signupsubmit" name="signup" type="submit" style="background-image:url(<?php echo $this->baseUrl('public/') . $session->app;?>/pent-portal-images/update-butt.png); background-repeat:no-repeat; width:79px; height:30px; border:none; background-color:#FFF; /*margin-left:50px;*/ vertical-align:top; cursor: pointer;" value="" tabindex="4" align="left" title=""/></div>
+       <div class="rite_Error float-left"></div>
+     </div><!--EO common -->
+    
+
+     </form>
+     
+      </div><!--EO  ForPwdForm-div-->
+<div class="empty-15"></div>
+</div><!--EO  ForPwdForm_wrapper-->
+
+</div><!--EO bott-content -->
+     
+<div class="clr"></div>
+    </div><!--Eo scripting for form -->
+  
+    </div>
+   
+    </div>
+ 
+  </div><!--EO content-wrapper -->
+  <script type="text/javascript">
+  jQuery(document).ready(function() {
+	  validatesecurityquestion();	
+});
+</script>

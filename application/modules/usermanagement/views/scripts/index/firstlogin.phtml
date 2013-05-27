@@ -1,0 +1,169 @@
+<?php
+$session = new Zend_Session_Namespace('MyPortal');
+//$error = new Zend_Session_Namespace('MyPortalerror');
+$error = $this;
+?>
+<div class="content-wrapper-login"><!--BO content-wrapper -->
+   <div class="wrap_rite float_left"><!--BO wrap_left -->
+   
+   
+   <div class="login-wrap">
+
+   
+    <div class="login-form"><!--scipting for form -->
+    
+<div class="top-content">
+<p class="running-text">Please change your password for security reasons</p>
+<p class="running-text"><span class="req">* </span>Required Fields</p>
+
+</div>
+
+<div class="bott-content"><!--BO bott-content -->
+
+<div class="ForPwdForm_wrapper-forcechpwd"><!--BO ForPwdForm_wrapper -->
+ <table style="margin-left:auto; margin-right:auto" align="center" width="98%"><tr> <td height="14" align="center"><div align="center">
+	 <?php    
+				if($error->error != '') {
+					echo '<div style="color: #D82A32; font-size: 14px;"><label  id="error" style="color: #D82A32; font-size: 13px;">' . $error->error . '</label></div>';
+					$error->error = '';
+				} 
+			?>
+	</div></td> </tr></table>
+
+  <div class="ForSecQuest-forcechpwd"><!--BO ForPwdForm-div -->
+<form id="signupform" autocomplete="off" method="post" action="<?php //echo $this->baseUrl('usermanagement/index/savefirst');?>" style="width:700px;">
+<div class="empty-10"></div>
+       <div class="common float-left">
+       <div class="left_Label float-left">
+         <label class="label" id="loldpwd"  for="oldpwds">Temporary Password <span class="req">*</span></label> </div>
+       <div class="mid_Control float-left">
+       <input class="field" tabindex="1" id="oldpwd" name="oldpwd" type="password" value="" maxlength="16" size="40" title=""/>
+       </div>
+    <div class="rite_Error error-align float-left" >
+    <?php 
+       	if($error->error_firstlogin_old != '') {
+       		echo '<label class="error" >' .$error->error_firstlogin_old . '</label>';
+       		$error->error_firstlogin_old = '';
+       	}
+       ?>
+    </div>
+       
+     </div><!--EO common -->
+     
+            <div class="common float-left">
+       <div class="left_Label float-left">
+         <label class="label" id="lnewpwd"  for="newpwds">New password<span class="req">*</span></label> </div>
+       <div class="mid_Control float-left"><input class="field" tabindex="2" id="newpwd" name="newpwd" type="password" value="" maxlength="16" size="40" title=""/></div>
+       <div class="rite_Error error-align float-left" style="width:250px;">
+       <?php 
+       	if($error->error_firstlogin_new != '') {
+       		echo '<label class="error" style="width:300px;line-height:1.2em;*line-height:0em">' .$error->error_firstlogin_new . '</label>';
+       		$error->error_firstlogin_new = '';
+       	}
+       ?>
+       </div>
+     </div><!--EO common -->
+     
+     <div class="clr"></div>
+            <div class="common float-left">
+       <div class="left_Label float-left"><label class="label" id="lretypepwd" for="retypepwds">Re-enter New Password<span class="req">*</span></label> </div>
+       <div class="mid_Control float-left"><input class="field" tabindex="3" id="retypepwd" name="retypepwd" type="password" value="" maxlength="16" size="40" title=""/></div>
+       <div class="rite_Error error-align float-left" style="width:250px;">
+       <?php 
+       	if($error->error_firstlogin_conf != '') {
+       		echo '<label class="error" style="width:300px;line-height:1.2em;*line-height:0em">' .$error->error_firstlogin_conf . '</label>';
+       		$error->error_firstlogin_conf = '';
+       	}
+       ?>
+       </div>
+     </div><!--EO common -->
+     
+     
+       <div class="common float-left">
+       <div class="left_Label float-left"><label class="label" id="lsquestion" for="sequestion">Challenge Question<span class="req">*</span></label></div>
+              <div class="mid_Control float-left"><input class="field" tabindex="4" id="squestion" name="squestion" type="text" value="<?php if(is_array($error->error_firstlogin_values)) { echo $error->error_firstlogin_values['squestion'];}?>" maxlength="60" size="40" title=""/></div>
+
+    <!-- <div class="mid_Control float-left" style="width:330px;" ><label class="label" id="squestion" for="secquestion">Note : Security question can take max of 60 characters only?</label></div> -->
+       <div class="rite_Error error-align float-left">
+       <?php 
+       	if($error->error_firstlogin_ques != '') {
+       		echo '<label class="error">' .$error->error_firstlogin_ques . '</label>';
+       		$error->error_firstlogin_ques = '';
+       	}
+       ?>
+       </div>
+     </div><!--EO common -->
+
+     <div class="common float-left">
+       <div class="left_Label float-left"><label class="label" id="lsanswer" for="seanswer">Secret Answer <span class="req">*</span></label> </div>
+       <div class="mid_Control float-left"><input class="field" tabindex="5" id="sanswer" name="sanswer" type="text" value="" maxlength="30" size="40" title=""/></div>
+       <div class="rite_Error error-align float-left">
+       <?php 
+       	if($error->error_firstlogin_answer != '') {
+       		echo '<label class="error">' .$error->error_firstlogin_answer . '</label>';
+       		$error->error_firstlogin_answer = '';
+       	}
+       ?>
+       </div>
+     </div><!--EO common -->
+     
+      <div class="common float-left">
+       <div class="left_Label float-left"><label class="label" id="lretypesans" for="retypessans">Re-enter Secret Answer<span class="req">*</span></label> </div>
+       <div class="mid_Control float-left"><input class="field" tabindex="6" id="retypesans" name="retypesans" type="text" value="" maxlength="30" size="40" title=""/></div>
+       <div class="rite_Error error-align float-left">
+       <?php 
+       	if($error->error_firstlogin_sec != '') {
+       		echo '<label class="error">' .$error->error_firstlogin_sec . '</label>';
+       		$error->error_firstlogin_sec = '';
+       	}
+       	$error->error_firstlogin_values = '';
+       ?>
+       </div>
+     </div><!--EO common -->
+
+     <div class="common float-left">
+       <div class="left_Label float-left"></div>
+       <div class="mid_Control float-left"><input id="signupsubmit" name="signup" type="submit" style="background-image:url(<?php echo $this->baseUrl('public/') . $session->app; ?>/pent-portal-images/update-butt.png); background-repeat:no-repeat; width:79px; height:30px; border:none; background-color:#FFF; vertical-align:top; cursor: pointer;" value="" tabindex="7" align="left" title=""/></div>
+       <div class="rite_Error float-left"></div>
+     </div><!--EO common -->
+
+
+     </form>
+     <div class="clr"></div>
+<div class="empty-10"></div>
+
+      </div><!--EO  ForPwdForm-div-->
+
+</div><!--EO  ForPwdForm_wrapper-->
+
+</div><!--EO bott-content -->
+<div class="top-content">
+
+<p class="running-text"><b>Follow these guidelines to create a secure password:</b></p>
+
+<p style="padding-top:2px;" class="running-text"><span class="req">&rsaquo;&rsaquo;</span> Password should be between 8 and 16 characters in length. </p>
+<p style="padding-top:2px;" class="running-text"><span class="req">&rsaquo;&rsaquo;</span> Must contain minimum one number and one uppercase letter.  </p>
+<p style="padding-top:2px;" class="running-text"><span class="req">&rsaquo;&rsaquo;</span> No special characters allowed.  </p>
+<div class="empty-10"></div>
+</div>
+<div class="clr"></div><!--inportant -->
+
+    </div><!--Eo scripting for form -->
+
+    </div>
+    </div>
+    <div class="clr"></div>
+    <div class="empty-30"></div>
+  </div><!--EO content-wrapper -->
+  
+   <script type="text/javascript">
+
+jQuery(document).ready(function() {
+/*for autofocus on first field*/
+// validate signup form on keyup and submit
+	validatefirstlogin();
+
+
+});
+
+</script>

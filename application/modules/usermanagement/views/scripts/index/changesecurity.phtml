@@ -1,0 +1,116 @@
+<?php 
+	$session = new Zend_Session_Namespace('MyPortal');
+	
+	//echo $session->success;
+	//$error = new Zend_Session_Namespace('MyPortalerror');
+	$error = $this;
+?>
+
+
+<?php if($error->error != '') {?>		
+		<div class="alert alert-error">
+			<button type="button" class="close" data-dismiss="alert">×</button>
+			<strong>Success! </strong> <?php echo $error->error;?>
+		</div>
+<?php $error->error = ''; } else if(isset($session->successQues) && $session->successQues != '') {?>
+		<div class="alert alert-success">
+			<button type="button" class="close" data-dismiss="alert">×</button>
+			<strong>Success! </strong> <?php echo $session->successQues;?>
+		</div>		
+		<?php $session->successQues = '';
+	} 
+?>
+
+
+<div class="row-fluid sortable">
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2><i class="icon-edit"></i> My Account</h2>			
+		</div>
+		<div class="box-content">			
+			<form id="signupform" autocomplete="off" method="post" action="<?php //echo $this->baseUrl('usermanagement/index/savechangesecurity'); ?>">
+			  <fieldset>
+				<legend>Change Challenge Question and Secret Answer</legend>
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Challenge Question</label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					<input class="field" id="security1" name="security1" type="text" value="<?php if(is_array($error->error_changesecurity_values)) { echo $error->error_changesecurity_values['security1'];} else {echo $this->securityquestions['securityquestion'];}?>" maxlength="60" size="40" tabindex="1" title=""/>
+					</div>
+					
+						<?php if($session->securityqenabled == 1) {?>
+						<select name="security1" id="security1" tabindex="1">
+						<option value="0">--Select--</option>
+						<?php 		
+						foreach($this->securityquestions as $record) {
+						echo "<option value=\"" . $record['securityquestionid'] . "\">" . $record['securityquestion'] . "</option>";
+						}
+						?>
+						</select>
+						<?php }?>
+						
+					   <div class="error_message">
+					   <?php 
+						if($error->error_changesecurity_ques != '') {
+							echo '<label class="error">' .$error->error_changesecurity_ques . '</label>';
+							$error->error_changesecurity_ques = '';
+						}
+					   ?>
+					   </div>
+					   					   
+				  </div>
+				</div>
+				
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Secret Answer</label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					<input class="field" id="answer" name="answer" type="text" value="" maxlength="30" size="40" tabindex="2" title=""/>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_changesecurity_answer != '') {
+							echo '<label class="error">' .$error->error_changesecurity_answer . '</label>';
+							$error->error_changesecurity_answer = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Re-enter&nbsp;Secret&nbsp;Answer</label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">				
+					<input class="field" id="retypeanswer" name="retypeanswer" type="text" value="" maxlength="30" size="40" tabindex="3" title=""/>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_changesecurity_sec != '') {
+							echo '<label class="error">' .$error->error_changesecurity_sec . '</label>';
+							$error->error_changesecurity_sec = '';
+						}
+						$error->error_changesecurity_values = '';
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>			
+       
+				<div class="form-actions">				  
+				  <input id="signupsubmit" name="signup" type="submit" class="btn btn-primary" value="Save" tabindex="4" title=""/>
+				</div>
+			  </fieldset>
+			</form>   
+
+		</div>
+	</div><!--/span-->
+
+</div>
+  
+<script type="text/javascript">
+  jQuery(document).ready(function() {
+	  validatesecurityquestion();	
+});
+</script>

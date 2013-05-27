@@ -1,0 +1,68 @@
+
+<div style="min-height: 450px; background-color: #e5e5e5;">
+<div style="color:red;padding-left:150px;">
+<?php
+	$error = new Zend_Session_Namespace('MyPortalerror');
+	if($error->error != '') {
+		echo $error->error;
+		$error->error = '';
+	}
+?>	
+</div>
+<form name="asksecurityquestions" action="<?php echo $this->baseUrl('usermanagement/index/checksecurity'); ?>" method="POST" onsubmit="return checkanswers();">
+<table width="100%" style="margin-left: 30px; color: #000000;">
+<tr>
+	<td>
+		<h3>Security Question</h3>
+	</td>
+</tr>
+<tr>
+	<td>&nbsp;
+		
+	</td>
+</tr>
+<tr>
+	<td>&nbsp;
+		
+	</td>
+</tr>
+	<tr>
+		<td>
+			<?php
+				echo "<input type=\"hidden\" name=\"secureid\" id=\"secureid\" value=\"" . $this->securityquestions['securityquestionid'] . "\"/>"; 
+				echo $this->securityquestions['securityquestion'] . "<b style=\"color: #bf0000;\">*</b>";
+			?>
+			
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<input type="text" name="answer" id="answer" value=""/>
+		</td>
+	</tr>
+	<tr>
+		<td>&nbsp;
+			
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<input type="submit" name="submit" id="savesecurity" value="Next >>"/>
+		</td>
+	</tr>
+</table>
+</form>
+</div>
+
+
+<script type="text/javascript">
+ function checkanswers() {
+	var answer1 = '#answer';
+	if($(answer1).val() == '') {
+		alert('Please enter your answer');
+		$(answer1).focus();
+		return false;
+	}
+	return true;
+ }
+</script>

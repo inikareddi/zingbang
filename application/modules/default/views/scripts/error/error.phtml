@@ -1,0 +1,108 @@
+<?php
+$config=Zend_Registry::get('config');
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Access Denied</title>
+<style type="text/css">
+
+body{background:url(<?php echo $this->baseUrl('public/admin/pent-portal-images/dashboard-top.png')?>) top repeat-x; margin:0px; padding:0px; border:0px;}
+.text-style{font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif; font-size:13px; color:#585856; font-weight:normal; }
+.footer_text{font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;  color:#585856; font-weight:normal; font-size:11px;}
+h1{font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif; font-size:13px; color:#585856; font-weight:bold;}
+.req{display:inline;
+	float:none;
+	color:red !important;
+	font-weight:bold;
+	margin:0;
+	padding:0;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:12px;
+	padding-right:10px
+}
+p{line-height:10px;*line-height:6px;}
+a{text-decoration:underline;color:#d2232b}
+a:hover{text-decoration:underline;color:#333}
+*.border{#ccc 1px solid}
+
+</style>
+
+</head>
+<body>
+
+
+
+
+<table width="75%" align="center" style="margin-top:100px;">   <!-- For Access Denied Image -->
+<tr>
+<td class="text-style" align="center">
+
+<a href="<?php echo $this->baseUrl()?>"><img src="<?php echo $this->baseUrl('public/images/logo.png')?>"  width="184" height="50" align="middle" alt="Logo" title="Logo" border="0" /></a>
+<br /><br />
+
+<table width="70%" cellpadding="0"  style="border:#CCC solid 1px;">
+<tr>
+<td width="10%"><img src="<?php echo $this->baseUrl('public/images/accessdenied-small.png')?>" width="78" height="70" align="right" alt="Logo" title="Logo" border="0" /></td>
+<td style="padding-left:5%;">
+<h1>Error : Access Denied</h1>
+<strong>The requested URl cannot be accessed or retrieved</strong></td>
+</tr>
+</table>
+
+<table width="70%" cellpadding="0"  style="border:#CCC solid 1px;" >
+<tr>
+
+<td colspan="2" style="*empty-cells: show;" ></td></tr>
+
+<tr>
+<td width="14%">&nbsp;</td>
+<td class="text-style" style="padding-left:5%; ">
+  <p style="*padding-top: 10px;">The following problem has encountered might be of below reasons:</p>
+  <p><span class="req">&rsaquo;&rsaquo;</span>You have mistyped the URL of the website</p>
+  <p style="margin-bottom:10px;"><span class="req">&rsaquo;&rsaquo;</span>You have manipulated the URL of the website</p>
+  </td>
+
+<tr>
+<td>&nbsp;</td>
+<td style="padding-left:5%; *padding-bottom:10px; *padding-top:10px; "><p>If the problem still persists, please contact our adminstrator.</p></td>
+</tr>
+ 
+ 
+</table>
+<br /><br />
+<table width="70%" align="center">   <!--contact text -->
+<tr> 
+<td class="text-style" align="center">&lsaquo;&lsaquo;<a href="<?php echo $this->baseUrl('/index')?>">Back to home page</a>
+</td>
+</tr>
+</table>
+<br /><br />
+&copy; <?php echo date('Y')-1,"-",date('Y');?> <?php echo $config->site->footer->label;?>
+
+
+</td>
+</tr>
+</table>
+<br />
+
+
+
+</body>
+</html>
+
+
+<div style="font-sze:12px; width:700px; margin:auto; margin-bottom:50px;">
+<?php
+if($config->show->filepath==1){ 
+echo "<br>path: ".dirname(__FILE__);
+$fc = Zend_Controller_Front::getInstance()->getRequest();
+echo "<br>module: ".$module = $fc->getModuleName();
+echo "<br>controller: ".$controller = $fc->getControllerName();
+echo "<br>action: ".$action = $fc->getActionName();
+echo "<br>layout: ";
+}
+?>
+</div>

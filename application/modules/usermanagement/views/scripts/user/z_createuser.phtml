@@ -1,0 +1,9 @@
+<?php 
+	
+	$session = new Zend_Session_Namespace('MyPortal');
+	$error = new Zend_Session_Namespace('MyPortalerror');
+
+	if($error->error != '') {
+		echo $error->error;
+	}
+?>		

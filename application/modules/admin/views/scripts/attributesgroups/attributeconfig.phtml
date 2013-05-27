@@ -1,0 +1,169 @@
+<?php 	
+$session = new Zend_Session_Namespace('MyPortal');
+//$error = new Zend_Session_Namespace('MyPortalerror');
+$error = $this;	
+
+$AttributeGroupDetails = $this->AttributeGroupDetails;
+//print_r($AttributeGroupDetails);
+?>
+
+
+<?php if($error->error != '') {?>
+<div class="alert alert-error">
+	<button type="button" class="close" data-dismiss="alert">×</button>
+	<strong>Error! </strong> <?php echo $error->error;?>
+</div>
+<?php $error->error = '';}?>
+
+
+<div class="row-fluid sortable">
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2><i class="icon-edit"></i>Attribute Group's</h2>			
+		</div>
+		<div class="box-content">			
+			<form class="form-horizontal" id="attribute_groups_form" autocomplete="off" method="post" action="">			
+			  <fieldset>
+				<legend>Attribute Group -> Attribute Config</legend>
+								
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Attribute Group Title<span class="req">*</span></label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">					
+					<h3>
+					<?php echo $AttributeGroupDetails['attributes_group_title'];?>
+					<input id="signupsubmit" name="signup" type="button"  class="btn btn-primary" value="Save" tabindex="7" title="" onclick="javascript:registerAttributeGroup();" style="float:right;"/>
+					</h3>					
+					</div>					
+				  </div>
+				</div>
+				
+				<div class="alert alert-success" id="ajaxDisplay" style="display:none;">
+				</div>
+				<center>
+				<img id="ajax-loader-7" style="display:none;" src="<?php echo $this->baseUrl('public/admin/img/ajax-loaders/ajax-loader-7.gif');?>" title="<?php echo $this->baseUrl('public/admin/img/ajax-loaders/ajax-loader-7.gif');?>">
+				</center>
+			
+				
+				
+				
+				
+				
+				
+				
+				
+<?php
+$ActiveAttributesSetsList = $this->ActiveAttributesSetsList;
+if(count($ActiveAttributesSetsList)>0){
+?>				
+				
+<link rel="stylesheet" href="<?php echo $this->baseUrl('public/admin/dev_js');?>/DragDrop/style.css" type="text/css" media="screen" />
+<?php /*<script type="text/javascript" src="<?php echo $this->baseUrl('public/admin/dev_js');?>/DragDrop/111header.js"></script>*/?>
+<script type="text/javascript" src="<?php echo $this->baseUrl('public/admin/dev_js');?>/DragDrop/redips-drag-min.js"></script>
+<script type="text/javascript" src="<?php echo $this->baseUrl('public/admin/dev_js');?>/DragDrop/script.js"></script>
+
+<div id="drag">
+
+
+
+<table width="90%"  border="0" cellspacing="5" cellpadding="5" align="center" id="table1">
+  <tr>  
+    <td width="40%"></td>
+    <?php /*<td width="10%" rowspan="<?php echo count($ActiveAttributesSetsList)+1;?>">-</td>*/?>
+    <td width="40%" rowspan="<?php echo count($ActiveAttributesSetsList)+1;?>" style="vertical-align:top; text-align:left;" valign="top" align="left">
+				
+		<span style="vertical-align:top; text-align:left;">
+		<span class="label label-success">Active Attributes List</span>
+			<?php
+			$z=1;
+			$ActiveAttributesList = $this->ActiveAttributesList;
+			foreach($ActiveAttributesList as $each_ActiveAttributesList){
+			?>
+			<div id="<?php echo $each_ActiveAttributesList['attribute_id'];?>" class="drag t111"><?php echo $each_ActiveAttributesList['attribute_title'];?></div>
+			<?php }?>	
+		</span>
+		
+	</td>
+  </tr>
+  <?php 
+  //echo "<pre>";
+  //print_r($this->ActiveAttributesSetsMapList);
+  $allready = '';
+  $tab_position = 1;
+  foreach($ActiveAttributesSetsList as $each_ActiveAttributesSetsList){
+  ?>
+  <tr height="200">
+    <td valign="top" align="left" style="border:#ccc solid 1px;">
+	
+	<span style="vertical-align:top; text-align:left;">
+	<input type="hidden" name="tp[]" id="tp" value="<?php echo $tab_position."_".$each_ActiveAttributesSetsList['attributes_set_id'];?>" />
+	<span class="label label-important" style="vertical-align:top; text-align:left; line-height:50px;"><?php echo $each_ActiveAttributesSetsList['attributes_set_title'];?></span>
+	<?php 
+	foreach($this->ActiveAttributesSetsMapList as $each_set){
+	if($each_set['attributes_set_id']==$each_ActiveAttributesSetsList['attributes_set_id']){
+	?>
+	<div id="<?php echo $each_set['attribute_id'];?>" class="drag t111"><?php echo $each_set['attribute_title'];?></div>
+	<?php $allready[] = $each_set['attribute_id']."_".$tab_position;?>
+	<?php }}?>
+	</span>
+	
+	</td>
+  </tr>
+  <?php $tab_position++;}?>  
+</table>
+
+
+</div>
+
+<table id="table3" style="display:none;">				
+<tr style="background-color: #eee">
+<td id="message" class="mark" title="You can not drop here">Table3</td>					
+</tr>
+</table>
+<?php
+if(is_array($allready)){
+$allready_str = implode('@',$allready);
+}
+?>
+<script type="text/javascript">
+function registerAttributeGroup(){	
+	//tp					
+	var tp_values ='';						
+	$("#attribute_groups_form input[type=hidden]").each(function(){
+	tp_values += $(this).val()+',';					
+	});		
+	//alert(tp_values);return false;
+	saveAttributeGroup('plain','<?php echo $this->attributeId;?>','<?php echo "http://".$_SERVER['HTTP_HOST'].$this->baseUrl('admin/attributesgroups/attributeconfig/');?>',tp_values,'<?php echo $allready_str;?>');
+}				
+</script>
+<?php }else{?>
+<center>
+<a class="btn btn-info" href="<?php echo $this->baseUrl('admin/attributesets/register');?>">
+	<i class="icon-edit icon-white"></i>  
+	Add New Attribute Set                                            
+</a>
+</center>
+<?php }?>
+
+
+
+
+
+
+
+				
+				
+				
+				
+			
+       
+				<?php /*<div class="form-actions">			  
+				  <input id="signupsubmit" name="signup" type="submit"  class="btn btn-primary" value="Save" tabindex="7" title="" />
+				</div> */?>
+			  </fieldset>
+			</form>   
+
+		</div>
+	</div><!--/span-->
+
+</div>

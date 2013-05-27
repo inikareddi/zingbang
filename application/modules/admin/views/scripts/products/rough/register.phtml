@@ -1,0 +1,134 @@
+<?php 
+	$usertyperoles = $this->usertyperoles;
+	$session = new Zend_Session_Namespace('MyPortal');
+	//$error = new Zend_Session_Namespace('MyPortalerror');
+	$error = $this;
+	
+?>
+
+
+<?php if($error->error != '') {?>
+<div class="alert alert-error">
+	<button type="button" class="close" data-dismiss="alert">×</button>
+	<strong>Error! </strong> <?php echo $error->error;?>
+</div>
+<?php $error->error = '';}?>
+
+
+<div class="row-fluid sortable">
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2><i class="icon-edit"></i>Product's</h2>			
+		</div>
+		<div class="box-content">			
+			<form class="form-horizontal" id="signupform" autocomplete="off" method="post" action="">			
+			  <fieldset>
+				<legend>Register Product</legend>
+								
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Product Title<span class="req">*</span></label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					<input class="field" tabindex="1" id="product_title" name="product_title" type="text" value="<?php if(is_array($error->error_createmerchant_values)) {echo $error->error_createmerchant_values['product_title'];}?>" maxlength="20" size="40" title=""/>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_createmerchant_product_title != '') {
+							echo '<label class="error">' .$error->error_createmerchant_product_title . '</label>';
+							$error->error_createmerchant_product_title = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				
+				
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Meta Title</label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					<input class="field" tabindex="1" id="product_meta_title" name="product_meta_title" type="text" value="<?php if(is_array($error->error_createmerchant_values)) {echo $error->error_createmerchant_values['product_meta_title'];}?>" maxlength="20" size="40" title=""/>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_createmerchant_product_meta_title != '') {
+							echo '<label class="error">' .$error->error_createmerchant_product_meta_title . '</label>';
+							$error->error_createmerchant_product_meta_title = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Meta Description</label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">					
+					<textarea class="field" id="product_meta_description" name="product_meta_description" rows="5" cols="80"><?php if(is_array($error->error_createmerchant_values)) {echo $error->error_createmerchant_values['product_meta_description'];}?></textarea>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_createmerchant_product_meta_description!= '') {
+							echo '<label class="error">' .$error->error_createmerchant_product_meta_description . '</label>';
+							$error->error_createmerchant_product_meta_description = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				
+				
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Product Small Description</label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">					
+					<textarea class="field" id="product_small_description" name="product_small_description" rows="5" cols="80"></textarea>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_createmerchant_product_small_description != '') {
+							echo '<label class="error">' .$error->error_createmerchant_product_small_description . '</label>';
+							$error->error_createmerchant_product_small_description = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Product Large Description</label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">					
+					<textarea class="cleditor" id="product_large_description" name="product_large_description" rows="3"></textarea>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_createmerchant_product_large_description != '') {
+							echo '<label class="error">' .$error->error_createmerchant_product_large_description . '</label>';
+							$error->error_createmerchant_product_large_description = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				
+				<div class="form-actions">			  
+				  <input id="signupsubmit" name="signup" type="submit"  class="btn btn-primary" value="Save" tabindex="7" title="" />
+				</div>
+			  </fieldset>
+			</form>   
+
+		</div>
+	</div><!--/span-->
+
+</div>
