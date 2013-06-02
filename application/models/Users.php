@@ -30,6 +30,7 @@ class Application_Model_Users extends Application_Model_Validation {
 	private $config;
 	private $redirector;
 	private $requestHandler;
+	public $viewobj;
 	
 	/**
      * Purpose: Constructor sets sessions for portal and portalerror and config and returns session objects
@@ -64,6 +65,7 @@ class Application_Model_Users extends Application_Model_Validation {
 		$viewRenderer->initView();
 		//Assigning renderer to access in the class
 		$this->error = $viewRenderer->view;
+		$this->viewobj= $viewRenderer->view;
 	}
 	
 	/**
@@ -109,6 +111,22 @@ class Application_Model_Users extends Application_Model_Validation {
 			if(in_array($actionname, $exception)) {
 				return;	
 			}
+				/* View - Sessions */				
+				$viewObject = $this->viewobj;				
+				$viewObject->loggedIn 			= $this->session->loggedIn;
+				$viewObject->usertype 			= $this->session->usertype;
+				$viewObject->role 				= $this->session->role;
+				$viewObject->username 			= $this->session->username;
+				$viewObject->usertypeid 		= $this->session->usertypeid;
+				$viewObject->roleid 			= $this->session->roleid;
+				$viewObject->userid 			= $this->session->userid;
+				$viewObject->useremail 			= $this->session->useremail;
+				$viewObject->priority 			= $this->session->priority;
+				$viewObject->userloginid 		= $this->session->userloginid;
+				$viewObject->firstlogin 		= $this->session->firstlogin;
+				$viewObject->securityenabled 	= $this->session->securityenabled;
+				
+				
 			if($this->session->firstlogin && !$this->session->securityenabled) {
 			/*	$this->redirector->gotoRoute(array('module'=>'usermanagement', 'controller'=> 'index','action' =>'firstlogin'));*/
 				$this->redirector->gotosimple('firstlogin','index','usermanagement',array());
@@ -238,7 +256,7 @@ class Application_Model_Users extends Application_Model_Validation {
             /*
              * Validation ends here
              */
-            //$ipassword=hash('sha256',$ipassword);
+            $ipassword=hash('sha256',$ipassword);
 			$check = $this->checkUser($iusername, $ipassword, $action, $controller, $module, $noofattempts);
 			$check = $check[0];
 			$expiry = $check['opassexpiry'];							// Fetching Date count of previous password change

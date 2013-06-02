@@ -160,7 +160,7 @@ class Usermanagement_IndexController extends Zend_Controller_Action {
 			if(!$this->session->firstlogin) {
 				$this->error = 'You have already logged in first time.';
 				$this->_redirect('reportmanagement/index/index');	
-			}
+			}			
 			$this->_helper->layout->setLayout($this->session->emptylayout);
 			$config = Zend_Registry::get('config');
             $this->view->reusepassword = $config->user->reusepassword;
@@ -176,7 +176,7 @@ class Usermanagement_IndexController extends Zend_Controller_Action {
 				 * Do this first on monday.
 				 */
 				if($this->users->savefirstlogin($fields)){
-					$this->_redirect('default/index/logout');
+					$this->_redirect('admin/index/logout');
 					//$this->_redirect('usermanagement/index/firstsecurity');
 				} else {
 					//$this->_redirect('usermanagement/index/firstlogin');

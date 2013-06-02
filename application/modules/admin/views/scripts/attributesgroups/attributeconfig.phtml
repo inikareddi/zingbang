@@ -99,6 +99,7 @@ if(count($ActiveAttributesSetsList)>0){
 	<input type="hidden" name="tp[]" id="tp" value="<?php echo $tab_position."_".$each_ActiveAttributesSetsList['attributes_set_id'];?>" />
 	<span class="label label-important" style="vertical-align:top; text-align:left; line-height:50px;"><?php echo $each_ActiveAttributesSetsList['attributes_set_title'];?></span>
 	<?php 
+	//print_r($this->ActiveAttributesSetsMapList);
 	foreach($this->ActiveAttributesSetsMapList as $each_set){
 	if($each_set['attributes_set_id']==$each_ActiveAttributesSetsList['attributes_set_id']){
 	?>
@@ -124,6 +125,7 @@ if(count($ActiveAttributesSetsList)>0){
 if(is_array($allready)){
 $allready_str = implode('@',$allready);
 }
+//print $allready_str;
 ?>
 <script type="text/javascript">
 function registerAttributeGroup(){	
@@ -133,7 +135,7 @@ function registerAttributeGroup(){
 	tp_values += $(this).val()+',';					
 	});		
 	//alert(tp_values);return false;
-	saveAttributeGroup('plain','<?php echo $this->attributeId;?>','<?php echo "http://".$_SERVER['HTTP_HOST'].$this->baseUrl('admin/attributesgroups/attributeconfig/');?>',tp_values,'<?php echo $allready_str;?>');
+	saveAttributeGroup('plain','<?php echo $this->attributeId;?>','<?php echo "http://".$_SERVER['HTTP_HOST'].$this->baseUrl('admin/attributesgroups/attributeconfig/');?>',tp_values,'<?php if(isset($allready_str)){echo $allready_str;}?>');
 }				
 </script>
 <?php }else{?>

@@ -593,7 +593,7 @@ class Application_Model_Userdb extends Application_Model_DataBaseOperations {
 		try{
 			parent::SetDatabaseConnection();
 			$query = "call SPapmsavesecurityqueston('" . addslashes($iquestion) . "', '" . $ianswer .  "', " . $iuserid . ", '" . $iaction . "', " . $iisupdate .  ", " . $iadminid . ", @omess)";
-			
+			//exit;
 			Application_Model_Db::execute($query);
 		 	return Application_Model_Db::getRow("select @omess");
 		} catch(Exception $e) {

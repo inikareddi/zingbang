@@ -177,7 +177,10 @@ class Usermanagement_UserController extends Zend_Controller_Action {
 			if(!$this->users->getUsersSearchValidation($params)) {
 				return false;
 			}
-                        
+			
+			$this->merchant = new Application_Model_Merchant();
+			//$this->merchantdb = new Application_Model_Merchantdb();
+            $this->merchant->getMerchantSearch($params);       
                         //echo "hi";exit;
 			$this->users->getUsersSearch($params);
                         

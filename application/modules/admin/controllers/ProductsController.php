@@ -52,7 +52,8 @@ class Admin_ProductsController extends Zend_Controller_Action {
 		$this->productsdb = new Application_Model_Productsdb();		
 		
 		$user = new Application_Model_Users();
-		$user->check();
+		$user->check();		
+		//print_r($this->session);
 				
 		if(!$this->session->loggedIn) {
 			$this->_redirect('admin/');	

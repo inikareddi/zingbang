@@ -70,7 +70,7 @@ class Application_Model_Useractivitylogdb extends Application_Model_DataBaseOper
 						apmuseractivitylog ual
 						where
 						u.userid = ual.userid
-						AND mua.useractionid = ual.useractionid";
+						AND mua.useractionid = ual.useractionid ORDER BY activitylogid DESC";
 			//exit;
 			return Application_Model_Db::getResult($query);
 			
