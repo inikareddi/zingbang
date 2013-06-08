@@ -23,7 +23,8 @@
 *===================================================================================================================
 */
 
-class Application_Model_Category extends Application_Model_Validation {
+//class Application_Model_Category extends Application_Model_Validation {
+class Application_Model_Category extends Application_Model_Categorydb {
 	
 	public $session;
 	private $error;

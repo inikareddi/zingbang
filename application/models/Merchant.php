@@ -23,7 +23,8 @@
 *===================================================================================================================
 */
 
-class Application_Model_Merchant extends Application_Model_Validation {
+//class Application_Model_Merchant extends Application_Model_Validation {
+class Application_Model_Merchant extends Application_Model_Merchantdb {
 	
 	public $session;
 	private $error;

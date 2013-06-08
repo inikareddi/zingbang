@@ -20,22 +20,22 @@
 <body>
 <div id="main-wrapper">
 	<div id="header">
-		<?php echo $this->render('default/header.phtml') ?>
-		<?php echo $this->render('default/header_bottom.phtml') ?>
+		<?php echo $this->action('index', 'headerlogin', 'default', array('a_parameter'=>'a_value'));?>
+		<?php echo $this->action('index', 'headermenu', 'default', array('a_parameter'=>'a_value'));?>		
 	</div>
 	<!-- Header -end -->
 	<div class="main_body_wrapper">
 		<div class="wrapper">
 		
-			<div class="right-sidebar">
-			<?php echo $this->render('default/side_menu_chat.phtml') ?>
-			<?php echo $this->render('default/side_menu_friend_suggestions.phtml') ?>
-			<?php echo $this->render('default/side_menu_event_notifications.phtml') ?>
+			<div class="right-sidebar">			
+			<?php echo $this->action('index', 'chat', 'default', array('a_parameter'=>'a_value'));?>
+			<?php echo $this->action('index', 'friendsuggestion', 'default', array('a_parameter'=>'a_value'));?>
+			<?php echo $this->action('index', 'eventnotifications', 'default', array('a_parameter'=>'a_value'));?>			
 			</div>
 			
 			<div class="left-body">
-				<div class="left-sidebar">
-					<?php echo $this->render('default/side_menu_categories.phtml') ?>
+				<div class="left-sidebar">					
+					<?php echo $this->action('index', 'categories', 'default', array('a_parameter'=>'a_value'));?>
 					<div class="clear"><br></div>
 					<?php echo $this->render('default/side_menu_wall.phtml') ?>
 				</div>

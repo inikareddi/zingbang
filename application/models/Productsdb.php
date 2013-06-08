@@ -23,7 +23,8 @@
 *===================================================================================================================
 */
 
-class Application_Model_Productsdb extends Application_Model_DataBaseOperations {
+//class Application_Model_Productsdb extends Application_Model_DataBaseOperations {
+class Application_Model_Productsdb extends Application_Model_Validation {
 	
 	public $session;
 	private $error;
@@ -224,6 +225,29 @@ class Application_Model_Productsdb extends Application_Model_DataBaseOperations 
 	
 	
 	
+	/**
+     * Purpose: Creates Category and returns status of the user creation process 
+     *
+     * Access is limited to class and extended classes
+     *    
+     * @return  object	Returns status message.	
+     */
+	public function updateProductHomePageImagesRecord($product_id, $product_imagehome_radio, $product_imagethumbnail_radio, $action, $adminid){
+		try {
+			parent::SetDatabaseConnection();			
+			$query = "call SPproducthomepageimage('" . $product_id . "', '" . $product_imagehome_radio . "', '" . $product_imagethumbnail_radio . "', '" . $action . "', " . $adminid . ")";
+			//exit;			
+			return Application_Model_Db::getResult($query); 
+		} catch(Exception $e) {
+			Application_Model_Logging::lwrite($e->getMessage());
+			throw new Exception($e->getMessage());
+		}
+	}
+	
+	
+	
+	
+	
 	
 	/**
      * Purpose: Used to change the product image status like Active, Locked and Deleted 
@@ -237,7 +261,7 @@ class Application_Model_Productsdb extends Application_Model_DataBaseOperations 
      * Under testing phase
      */
 	
-	public function changeStatus($productId, $iaction, $iadminuserid, $ilockstatus=0, $iunlockstatus=0, $ideletestatus=0){
+	public function imageChangeStatus($productId, $iaction, $iadminuserid, $ilockstatus=0, $iunlockstatus=0, $ideletestatus=0){
 		try {
 			parent::SetDatabaseConnection();			
 			
@@ -293,10 +317,10 @@ class Application_Model_Productsdb extends Application_Model_DataBaseOperations 
      *    
      * @return  object	Returns status message.	
      */
-	public function updateProductPriceRecord($productId, $product_price_id, $product_price_description, $product_price, $product_discount, $product_discount_type, $discount_start_date, $discount_end_date, $action, $adminid){
+	public function updateProductPriceRecord($productId, $product_price_id, $product_price_description, $product_price, $product_discount, $product_discount_type, $product_stock, $discount_start_date, $discount_end_date, $action, $adminid){
 		try {
 			parent::SetDatabaseConnection();			
-			$query = "call SPproductaddprices('" . $productId . "', '" . $product_price_id . "', '" . $product_price_description . "', '" . $product_price . "', '" . $product_discount . "', '" . $product_discount_type . "', '" . $discount_start_date . "', '".$discount_end_date."', '" . $action . "', " . $adminid . ")";
+			$query = "call SPproductaddprices('" . $productId . "', '" . $product_price_id . "', '" . $product_price_description . "', '" . $product_price . "', '" . $product_discount . "', '" . $product_discount_type . "', '" . $product_stock . "', '" . $discount_start_date . "', '".$discount_end_date."', '" . $action . "', " . $adminid . ")";
 			//exit;			
 			return Application_Model_Db::getResult($query); 
 		} catch(Exception $e) {
@@ -541,6 +565,45 @@ class Application_Model_Productsdb extends Application_Model_DataBaseOperations 
 			$query = "call SPproductupdate('" . $productId . "', '" . $product_title . "', '" . $product_sku . "', '" . $product_meta_title . "', '" . $product_meta_description . "', '" . $product_small_description . "', '" . $product_large_description . "', '" . $action . "', " . $adminid . ")";
 			//exit;			
 			return Application_Model_Db::getResult($query); 
+		} catch(Exception $e) {
+			Application_Model_Logging::lwrite($e->getMessage());
+			throw new Exception($e->getMessage());
+		}
+	}
+	
+	
+	
+	
+	
+	/**
+     * Purpose: Used to change the merchant status like Active, Locked and Deleted 
+     *
+     * Access is limited to class and extended classes
+     *
+     * @param
+     * @return  object 	merchant details of supplied userid.	
+     * 
+     * 
+     * Under testing phase
+     */
+	
+	public function changeStatus($productid, $iaction, $iadminuserid, $ilockstatus=0, $iunlockstatus=0, $ideletestatus=0){
+		try {
+			parent::SetDatabaseConnection();			
+			
+			/*
+			 *  To Lock the user, $ilockstatus must be set to 1
+			 *  
+			 *  To Unlock the user, $iunlockstatus must be set to 1
+			 *  
+			 *  To Delete the user, $ideletestatus must be set to 1
+			 */
+			
+			$query = "call SPproductchangestatus(" . $productid . ", " . $ilockstatus . ", " . $iunlockstatus . ", " . $ideletestatus . ", '" . $iaction . "', " . $iadminuserid . ", @omess)";
+			//exit;
+			Application_Model_Db::execute($query);
+		 	return Application_Model_Db::getRow("select @omess");
+			
 		} catch(Exception $e) {
 			Application_Model_Logging::lwrite($e->getMessage());
 			throw new Exception($e->getMessage());

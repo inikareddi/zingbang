@@ -23,7 +23,8 @@
 *===================================================================================================================
 */
 
-class Application_Model_Products extends Application_Model_Validation {
+//class Application_Model_Products extends Application_Model_Validation {
+class Application_Model_Products extends Application_Model_Productsdb {
 	
 	public $session;
 	private $error;
@@ -223,6 +224,7 @@ class Application_Model_Products extends Application_Model_Validation {
 				$action 	= trim($params['action']);				
 				$productId 	= trim($params['productId']);
 				
+			
 								
 								$upload = new Zend_File_Transfer();                                    
 								//$upload = new Zend_File_Transfer_Adapter_Http();                                
@@ -240,8 +242,13 @@ class Application_Model_Products extends Application_Model_Validation {
 								
 								
 								
-				$ProductImageSet = $this->productsdb->updateProductImagesRecord($productId,$filename_str, $action, $this->session->userid);
-				//print_r($ProductImageSet);exit;
+								
+				if(isset($filename_str) && trim($filename_str)!=''){			
+					$ProductImageSet = $this->productsdb->updateProductImagesRecord($productId,$filename_str, $action, $this->session->userid);
+					//print_r($ProductImageSet);exit;
+				}
+				
+				$ProductImageHomeSet = $this->productsdb->updateProductHomePageImagesRecord($productId, $params['product_imagehome_radio'], $params['product_imagethumbnail_radio'], $action, $this->session->userid);
 				
 				if(trim($ProductImageSet['0']['toutput']) == '') {					
 					$this->session->success = Success_user_creation . ' product images with Product Image Title ' . str_replace('#',', ',substr($filename_str,0,-1)) ;
@@ -279,7 +286,7 @@ class Application_Model_Products extends Application_Model_Validation {
 			$delete = 1;
 			if($product_image_id!='' && $product_image_id!=0 && $this->validate_numeric($product_image_id)) {				
 				
-				$mess = $this->productsdb->changeStatus($product_image_id, $action, $this->session->userid, $lock, $unlock, $delete);
+				$mess = $this->productsdb->imageChangeStatus($product_image_id, $action, $this->session->userid, $lock, $unlock, $delete);
 				$mess = explode('#',$mess['@omess']);
 				if($mess[0] == 1) {
 					$this->session->success = $mess[1] . ' Image ' . Status_deleted; 
@@ -311,7 +318,7 @@ class Application_Model_Products extends Application_Model_Validation {
      * @return  object	Returns a boolean of status.
      */
 	
-	public  function updateProductPrices($productId,$action,$product_price_id,$product_price_description,$product_price,$product_discount,$product_discount_type,$discount_start_date,$discount_end_date) {
+	public  function updateProductPrices($productId,$action,$product_price_id,$product_price_description,$product_price,$product_discount,$product_discount_type,$product_stock,$discount_start_date,$discount_end_date) {
 		try{
 			
 			//print_r($params);
@@ -319,7 +326,7 @@ class Application_Model_Products extends Application_Model_Validation {
 				//$action 	= trim($params['action']);				
 				//$productId 	= trim($params['productId']);
 				
-				$ProductImageSet = $this->productsdb->updateProductPriceRecord($productId, $product_price_id, $product_price_description, $product_price, $product_discount, $product_discount_type, $discount_start_date, $discount_end_date, $action, $this->session->userid);
+				$ProductImageSet = $this->productsdb->updateProductPriceRecord($productId, $product_price_id, $product_price_description, $product_price, $product_discount, $product_discount_type, $product_stock, $discount_start_date, $discount_end_date, $action, $this->session->userid);
 				//print_r($ProductImageSet);exit;
 				
 				if(trim($ProductImageSet['0']['toutput']) == '') {					
@@ -462,6 +469,119 @@ class Application_Model_Products extends Application_Model_Validation {
 	}
 	
 
+	
+	
+	
+	/**
+     * Purpose: To Lock the existing Active product
+     *
+     * Access is public
+     *
+     * @param
+     * 
+     * @return  
+     */
+	public function lock(Array $params) {
+		try{
+			$productId = trim($params['productId']);
+			$action = trim($params['action']);
+			$lock = 1;
+			$unlock = 0;
+			$delete = 0;
+			if($productId!='' && $productId!=0 && $this->validate_numeric($productId)) {
+
+				$mess = $this->productsdb->changeStatus($productId, $action, $this->session->userid, $lock, $unlock, $delete);
+				$mess = explode('#',$mess['@omess']);			
+				if($mess[0] == 1) {
+					$this->session->success = $mess[1] . ' ' . Status_locked; 
+				}
+				
+			}else{
+				$this->session->validateerror= Error_Invalid_Product_Id;				
+				$this->redirector->gotosimple('list','products','admin',array());	
+			}
+			
+		} catch(Exception $e) {
+			Application_Model_Logging::lwrite($e->getMessage());
+			throw new Exception($e->getMessage());
+		}
+	}
+	
+	
+	
+	
+	/**
+     * Purpose: To Unlock the existing Locked product
+     *
+     * Access is public
+     *
+     * @param
+     * 
+     * @return  
+     */
+	public function unlock(Array $params) {
+		try{
+			$productId = trim($params['productId']);
+			$action = trim($params['action']);
+			$lock = 0;
+			$unlock = 1;
+			$delete = 0;
+			if($productId!='' && $productId!=0 && $this->validate_numeric($productId)) {				
+				
+				$mess = $this->productsdb->changeStatus($productId, $action, $this->session->userid, $lock, $unlock, $delete);
+				$mess = explode('#',$mess['@omess']);
+				if($mess[0] == 1) {
+					$this->session->success = $mess[1] . ' ' . Status_unlocked; 
+				}
+			
+			}else{
+				$this->session->validateerror= Error_Invalid_Product_Id;				
+				$this->redirector->gotosimple('list','products','admin',array());
+			}
+		} catch(Exception $e) {
+			Application_Model_Logging::lwrite($e->getMessage());
+			throw new Exception($e->getMessage());
+		}
+	}
+	
+	
+	
+	
+	
+	/**
+     * Purpose: To Delete the existing product
+     *
+     * Access is public
+     *
+     * @param
+     * 
+     * @return 
+     */
+	public function delete(Array $params) {
+		try{
+			$productId = trim($params['productId']);
+			$action = trim($params['action']);
+			$lock = 0;
+			$unlock = 0;
+			$delete = 1;
+			if($productId!='' && $productId!=0 && $this->validate_numeric($productId)) {				
+				
+				$mess = $this->productsdb->changeStatus($productId, $action, $this->session->userid, $lock, $unlock, $delete);
+				$mess = explode('#',$mess['@omess']);
+				if($mess[0] == 1) {
+					$this->session->success = $mess[1] . ' ' . Status_deleted; 
+				}
+				
+			}else{
+				$this->session->validateerror= Error_Invalid_Product_Id;				
+				$this->redirector->gotosimple('list','products','admin',array());	
+			}			
+			
+		} catch(Exception $e) {
+			Application_Model_Logging::lwrite($e->getMessage());
+			throw new Exception($e->getMessage());
+		}
+	}
 	
 
 }

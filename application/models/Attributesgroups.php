@@ -23,7 +23,8 @@
 *===================================================================================================================
 */
 
-class Application_Model_Attributesgroups extends Application_Model_Validation {
+//class Application_Model_Attributesgroups extends Application_Model_Validation {
+class Application_Model_Attributesgroups extends Application_Model_Attributesgroupsdb {
 	
 	public $session;
 	private $error;

@@ -6,10 +6,10 @@
 * Copy Right Header Information*
 *-----------------------------------------------------------------*
 * Project	:	GetLinc
-* File		:	Useractivitylogdb.php 
-* Module	:	User Activity Log Management Module
+* File		:	Productssdb.php 
+* Module	:	Product Management Module
 * Owner		:	RAM's 
-* Purpose	:	This class is used for User Activity Log related database operations
+* Purpose	:	This class is used for product management related database operations
 * Date		:	08/05/2012
 
 
@@ -23,11 +23,12 @@
 *===================================================================================================================
 */
 
-//class Application_Model_Useractivitylogdb extends Application_Model_DataBaseOperations {
-class Application_Model_Useractivitylogdb extends Application_Model_Validation {
+class Application_Model_Productssdb extends Application_Model_DataBaseOperations {
 	
 	public $session;
 	private $error;
+	public $viewobj;
+	
 	
 	/**
      * Purpose: Constructor sets sessions for portal and portalerror
@@ -40,45 +41,41 @@ class Application_Model_Useractivitylogdb extends Application_Model_Validation {
 	
 		
 	public function __construct(){
-		$this->session = new Zend_Session_Namespace('MyPortal');
-		$this->error = new Zend_Session_Namespace('MyPortalerror');
+		$this->session = new Zend_Session_Namespace('MyClientPortal');
+		$this->error = new Zend_Session_Namespace('MyClientPortalerror');
 	}
+	
+	
 
-
-
-
+	
 	/**
-     * Purpose: Fetching user list except existing user name and returns array of list of User Activity Log 
+     * Purpose: Fetching product list
      *
      * Access is limited to class and extended classes
-     *    
+     *
+     * @param   int		$iuserid User Id
      * @param	int		$istart Start value
      * @param	int		$ilimit Limit value for fetching result set
      * @param	varchar	$cond Search condition
      * @return  object	Returns status message.	
      */
 	
-	public function getUserActivityLogList($isearchtext, $istart, $ilimit){
-		try {
-			parent::SetDatabaseConnection();		
-			$query = "select 
-						u.userid, u.firstname, u.lastname, u.userloginid,
-						mua.useraction, mua.useractiondesc,
-						ual.actiondesc
+	public function getProductsList($params){
+		try {	
+			parent::SetDatabaseConnection();
+			$query = "select sp.*
 						from
-						apmusers u,
-						apmmasteruseractions mua,
-						apmuseractivitylog ual
-						where
-						u.userid = ual.userid
-						AND mua.useractionid = ual.useractionid ORDER BY activitylogid DESC";
-			//exit;
+						store_products sp LEFT JOIN store_products_categories spc ON (sp.product_id=spc.product_id)
+						where spc.category_id = ".$params['id']." AND sp.statusid=1;";
+			//exit;			
 			return Application_Model_Db::getResult($query);
 			
 		} catch(Exception $e) {
 			Application_Model_Logging::lwrite($e->getMessage());
 			throw new Exception($e->getMessage());
 		}
-	}	
+	}
+	
+	
 }
 ?>

@@ -23,7 +23,10 @@
 *===================================================================================================================
 */
 
-class Application_Model_Users extends Application_Model_Validation {
+
+
+//class Application_Model_Users extends Application_Model_Validation {
+class Application_Model_Users extends Application_Model_Userdb {
 	
 	public $session;
 	private $error;

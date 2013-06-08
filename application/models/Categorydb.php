@@ -23,7 +23,8 @@
 *===================================================================================================================
 */
 
-class Application_Model_Categorydb extends Application_Model_DataBaseOperations {
+//class Application_Model_Categorydb extends Application_Model_DataBaseOperations {
+class Application_Model_Categorydb extends Application_Model_Validation {
 	
 	public $session;
 	private $error;

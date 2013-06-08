@@ -6,8 +6,8 @@
 * Copy Right Header Information*
 *-----------------------------------------------------------------*
 * Project	:	GetLinc
-* File		:	IndexController.php 
-* Module	:	Default Module
+* File		:	ChatController.php 
+* Module	:	Default - Chat Module
 * Owner		:	RAM's 
 * Purpose	:	This class is used for common user operations for all user types
 * Date		:	08/05/2012
@@ -23,14 +23,14 @@
 *===================================================================================================================
 */
 
-class IndexController extends Zend_Controller_Action { 
+class ChatController extends Zend_Controller_Action { 
 	public $session;	// used for managing session with NAMESPACE portal
 	public $error;		// used for managing session with NAMESPACE portalerror
-	private $users;		// used for creating an instance of model, Access is with in the class	
-
+	private $chat;		// used for creating an instance of model, Access is with in the class	
+	private $chatdb;
+	
 	/**
      * Purpose: Initiates sessions with Namespace 'portal' and 'portalerror' 
-     * 			and creates an instance of the model class 'Application_Model_Users'
      *
      * Access is public
      *
@@ -39,16 +39,16 @@ class IndexController extends Zend_Controller_Action {
      * @return  
      */
 	
-	public function init() { 
-		/*echo "store/index/init";
-		exit;  */
+	public function init() { 			
+		$this->chat = new Application_Model_Chat();
+		$this->chatdb = new Application_Model_Chatdb();
         $this->_helper->layout->setLayout('default/layout');
-		//$this->setLayoutAction('store/layout');		
+		//$this->setLayoutAction('default/layout');		
 	}
 	
     
 	/**
-     * Purpose: Index action shows user login screen
+     * Purpose: Index action
      *
      * Access is public
      *
@@ -59,13 +59,14 @@ class IndexController extends Zend_Controller_Action {
 	
 	public function indexAction() {
 		try{			
-			//echo "store/index/index";
-			//exit; 
+			$this->_helper->layout->disableLayout();
+			$ChatList = $this->chatdb->getChatList();			
+			$this->view->ChatList = $ChatList;			
 		}catch (Exception $e){
 			Application_Model_Logging::lwrite($e->getMessage());
 			throw new Exception($e->getMessage());
 		}
 	}
-
+	
 }
 ?>

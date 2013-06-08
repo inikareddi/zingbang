@@ -22,7 +22,8 @@
 *===================================================================================================================
 */
 
-class Application_Model_Validation extends Application_Model_Userdb{
+//class Application_Model_Validation extends Application_Model_Userdb{
+class Application_Model_Validation extends Application_Model_DataBaseOperations{
 	
 	/**
      * Purpose: To validate alphanumeric character with space

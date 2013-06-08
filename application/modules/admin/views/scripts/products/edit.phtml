@@ -164,6 +164,7 @@
 											
 											<div class="form-actions">			  
 											  <input id="signupsubmit" name="product_general_submit" type="submit"  class="btn btn-primary" value="Save" tabindex="7" title="" />
+											  <input id="Back" name="Back" type="button"  class="btn btn-primary" value="Back" tabindex="7" title="Back" onclick="javascript:window.location='<?php echo $this->baseUrl('admin/products/list/');?>'" />
 											</div>
 										  </fieldset>
 										</form> 
@@ -188,28 +189,59 @@
 								
 								
 											<div class="control-group">
-											  <label class="control-label" for="typeahead">Product Prices</label>
+											  <!-- <label class="control-label" for="typeahead">Product Prices</label> -->
 											  <div class="clear"></div>
 											  <!--div class="controls"-->
 												<div class="mid_Control-profile float-left">	
 												
+												<table width="100%">
+												<tr style="font-weight:bold;">
+												<td>Price Description</td>
+												<td>Price</td>
+												<td>Discount</td>
+												<td>Discount Type</td>
+												<td>Start Date</td>
+												<td>End Date</td>
+												<td>Stock</td>
+												</tr>
+												
+												
 												
 												<?php for($i=0; $i<=4; $i++){?>
-												<input class="field" tabindex="<?php echo $i;?>" id="product_price_id[]" name="product_price_id[]" type="hidden" value="<?php if(isset($this->ProductPrices[$i]['product_price_id'])){echo $this->ProductPrices[$i]['product_price_id'];}?>" maxlength="255" size="10" title="" style="width:10px;" />
-												<input class="field" tabindex="<?php echo $i;?>" id="product_price_description[]" name="product_price_description[]" type="text" value="<?php if(isset($this->ProductPrices[$i]['product_price_description'])){echo $this->ProductPrices[$i]['product_price_description'];}?>" maxlength="255" size="10" title="" style="width:400px;" placeholder="Price Discription" />
-												<input class="field" tabindex="<?php echo $i;?>" id="product_price[]" name="product_price[]" type="text" value="<?php if(isset($this->ProductPrices[$i]['product_price'])){echo $this->ProductPrices[$i]['product_price'];}?>" maxlength="10" size="10" title="" style="width:75px;" placeholder="Price"/>
-												<input class="field" tabindex="<?php echo $i;?>" id="product_discount[]" name="product_discount[]" type="text" value="<?php if(isset($this->ProductPrices[$i]['product_discount'])){echo $this->ProductPrices[$i]['product_discount'];}?>" maxlength="10" size="10" title="" style="width:75px;" placeholder="Discount"/>
-												<select name="product_discount_type[]" style="width:120px;" tabindex="<?php echo $i;?>">
-													<option value="">Discount Type</option>
-													<option value="Amount" <?php if(isset($this->ProductPrices[$i]['product_discount_type']) && $this->ProductPrices[$i]['product_discount_type']=='Amount'){?>selected="selected"<?php }?> >Amount</option>
-													<option value="Percentage" <?php if(isset($this->ProductPrices[$i]['product_discount_type']) && $this->ProductPrices[$i]['product_discount_type']=='Percentage'){?>selected="selected"<?php }?> >Percentage</option>
-												</select>
-												<input class="field datepicker" tabindex="<?php echo $i;?>" id="discount_start_date<?php echo $i;?>[]" name="discount_start_date[]" type="text" value="<?php if(isset($this->ProductPrices[$i]['discount_start_date']) && $this->ProductPrices[$i]['discount_start_date']!='0000-00-00'){echo $this->ProductPrices[$i]['discount_start_date'];}?>" maxlength="10" size="10" title="" style="width:80px;" placeholder="Start Date"/>
-												<input class="field datepicker" tabindex="<?php echo $i;?>" id="discount_end_date<?php echo $i;?>[]" name="discount_end_date[]" type="text" value="<?php if(isset($this->ProductPrices[$i]['discount_end_date']) && $this->ProductPrices[$i]['discount_end_date']!='0000-00-00'){echo $this->ProductPrices[$i]['discount_end_date'];}?>" maxlength="10" size="10" title="" style="width:80px;" placeholder="End Date"/>
-												<?php }?>
+												<tr>
+												<td>
+													<input class="field" tabindex="<?php echo $i;?>" id="product_price_id[]" name="product_price_id[]" type="hidden" value="<?php if(isset($this->ProductPrices[$i]['product_price_id'])){echo $this->ProductPrices[$i]['product_price_id'];}?>" maxlength="255" size="10" title="" style="width:10px;" />
 												
+													<input class="field" tabindex="<?php echo $i;?>" id="product_price_description[]" name="product_price_description[]" type="text" value="<?php if(isset($this->ProductPrices[$i]['product_price_description'])){echo $this->ProductPrices[$i]['product_price_description'];}?>" maxlength="255" size="10" title="" style="width:400px;" placeholder="Price Discription" />
+												</td>
+												<td>
+													<input class="field" tabindex="<?php echo $i;?>" id="product_price[]" name="product_price[]" type="text" value="<?php if(isset($this->ProductPrices[$i]['product_price'])){echo $this->ProductPrices[$i]['product_price'];}?>" maxlength="10" size="10" title="" style="width:75px;" placeholder="Price"/>
+												</td>
+												<td>
+													<input class="field" tabindex="<?php echo $i;?>" id="product_discount[]" name="product_discount[]" type="text" value="<?php if(isset($this->ProductPrices[$i]['product_discount'])){echo $this->ProductPrices[$i]['product_discount'];}?>" maxlength="10" size="10" title="" style="width:75px;" placeholder="Discount"/>
+												</td>
+												<td>
+													<select name="product_discount_type[]" style="width:120px;" tabindex="<?php echo $i;?>">
+														<option value="">Discount Type</option>
+														<option value="Amount" <?php if(isset($this->ProductPrices[$i]['product_discount_type']) && $this->ProductPrices[$i]['product_discount_type']=='Amount'){?>selected="selected"<?php }?> >Amount</option>
+														<option value="Percentage" <?php if(isset($this->ProductPrices[$i]['product_discount_type']) && $this->ProductPrices[$i]['product_discount_type']=='Percentage'){?>selected="selected"<?php }?> >Percentage</option>
+													</select>
+												</td>
+												<td>												
+													<input class="field datepicker" tabindex="<?php echo $i;?>" id="discount_start_date<?php echo $i;?>[]" name="discount_start_date[]" type="text" value="<?php if(isset($this->ProductPrices[$i]['discount_start_date']) && $this->ProductPrices[$i]['discount_start_date']!='0000-00-00'){echo $this->ProductPrices[$i]['discount_start_date'];}?>" maxlength="10" size="10" title="" style="width:80px;" placeholder="Start Date"/>
+												</td>
+												<td>
+													<input class="field datepicker" tabindex="<?php echo $i;?>" id="discount_end_date<?php echo $i;?>[]" name="discount_end_date[]" type="text" value="<?php if(isset($this->ProductPrices[$i]['discount_end_date']) && $this->ProductPrices[$i]['discount_end_date']!='0000-00-00'){echo $this->ProductPrices[$i]['discount_end_date'];}?>" maxlength="10" size="10" title="" style="width:80px;" placeholder="End Date"/>
+												</td>
+												<td>
+													<input class="field" tabindex="<?php echo $i;?>" id="product_stock[]" name="product_stock[]" type="text" value="<?php if(isset($this->ProductPrices[$i]['product_stock'])){echo $this->ProductPrices[$i]['product_stock'];}?>" maxlength="10" size="10" title="" style="width:75px;" placeholder="Stock"/>
+												</td>
+												</tr>
+												<?php }?>
+												</table>
 												<div class="form-actions">			  
 												  <input id="signupsubmit" name="product_prices_submit" type="submit"  class="btn btn-primary" value="Save" tabindex="7" title="" />
+												  <input id="Back" name="Back" type="button"  class="btn btn-primary" value="Back" tabindex="7" title="Back" onclick="javascript:window.location='<?php echo $this->baseUrl('admin/products/list/');?>'" />
 												</div>
 												
 												</div>												
@@ -247,8 +279,17 @@
 											$productId = $this->productId;
 											?>
 											<div class="control-group">
+											
+											<label class="control-label"></label>
+											<div class="controls" style="width:300px; float:left;">&nbsp;</div>												
+											<div style="width:150px; float:left;"><b>Home&nbsp;Page&nbsp;Image</b></div>
+											<div style="width:150px; float:left;"><b>Thumbnail&nbsp;Image</b></div>												
+											<div style="clear:both;"></div>
+												
+												
+												
 											  <label class="control-label">Product Image ( i )</label>
-												<div class="controls">
+												<div class="controls" style="width:300px; float:left;">
 												  <?php if(isset($ProductImages['0']) && count($ProductImages['0'])>0 && $ProductImages['0']['product_image']!=''){?>
 													<img src="<?php echo $this->baseUrl('public/uploads/product_images');?>/<?php echo $ProductImages['0']['product_image'];?>" width="100" />
 													<a href="<?php echo $this->baseUrl('admin/products/deleteimage/productId/').$productId."/product_image_id/".$ProductImages['0']['product_image_id'];?>" onClick="return confirm('Do you want to continue?')">
@@ -258,10 +299,18 @@
 												  <input type="file" name="product_image1" id="product_image1">
 												  <?php }?>
 												</div>
+												<?php if(isset($ProductImages['0']) && count($ProductImages['0'])>0 && $ProductImages['0']['product_image']!=''){?>
+												<div style="width:150px; float:left;"><input type="radio" name="product_imagehome_radio" id="product_imagehome_radio1" title="Home Page Image" alt="Home Page Image" value="<?php echo $ProductImages['0']['product_image_id'];?>" <?php if($ProductImages['0']['home_page_image']==1){?>checked="checked"<?php }?> /></div>
+												<div style="width:150px; float:left;"><input type="radio" name="product_imagethumbnail_radio" id="product_imagethumbnail_radio1" title="Default Thumbnail Image" alt="Default Thumbnail Image" value="<?php echo $ProductImages['0']['product_image_id'];?>" <?php if($ProductImages['0']['product_thumbnail']==1){?>checked="checked"<?php }?> /></div>
+												<?php }?>
+												<div style="clear:both;"></div>
+												
+												
+												
 												
 												<br><br>
 												<label class="control-label">Product Image ( ii )</label>
-												<div class="controls">
+												<div class="controls" style="width:300px; float:left;">
 												  <?php if(isset($ProductImages['1']) && count($ProductImages['1'])>0 && $ProductImages['1']['product_image']!=''){?>
 													<img src="<?php echo $this->baseUrl('public/uploads/product_images');?>/<?php echo $ProductImages['1']['product_image'];?>" width="100" />
 													<a href="<?php echo $this->baseUrl('admin/products/deleteimage/productId/').$productId."/product_image_id/".$ProductImages['1']['product_image_id'];?>" onClick="return confirm('Do you want to continue?')">
@@ -271,10 +320,17 @@
 												  <input type="file" name="product_image2" id="product_image2">
 												  <?php }?>
 												</div>
+												<?php if(isset($ProductImages['1']) && count($ProductImages['1'])>0 && $ProductImages['1']['product_image']!=''){?>
+												<div style="width:150px; float:left;"><input type="radio" name="product_imagehome_radio" id="product_imagehome_radio2" title="Home Page Image" value="<?php echo $ProductImages['1']['product_image_id'];?>" <?php if($ProductImages['1']['home_page_image']==1){?>checked="checked"<?php }?> /></div>
+												<div style="width:150px; float:left;"><input type="radio" name="product_imagethumbnail_radio" id="product_imagethumbnail_radio2" title="Default Thumbnail Image" value="<?php echo $ProductImages['1']['product_image_id'];?>" <?php if($ProductImages['1']['product_thumbnail']==1){?>checked="checked"<?php }?> /></div>
+												<?php }?>
+												<div style="clear:both;"></div>
+												
+												
 
 												<br><br>
 												<label class="control-label">Product Image ( iii )</label>
-												<div class="controls">
+												<div class="controls" style="width:300px; float:left;">
 												  <?php if(isset($ProductImages['2']) && count($ProductImages['2'])>0 && $ProductImages['2']['product_image']!=''){?>
 													<img src="<?php echo $this->baseUrl('public/uploads/product_images');?>/<?php echo $ProductImages['2']['product_image'];?>" width="100" />
 													<a href="<?php echo $this->baseUrl('admin/products/deleteimage/productId/').$productId."/product_image_id/".$ProductImages['2']['product_image_id'];?>" onClick="return confirm('Do you want to continue?')">
@@ -284,11 +340,18 @@
 												  <input type="file" name="product_image3" id="product_image3">
 												  <?php }?>
 												</div>
+												<?php if(isset($ProductImages['2']) && count($ProductImages['2'])>0 && $ProductImages['2']['product_image']!=''){?>
+												<div style="width:150px; float:left;"><input type="radio" name="product_imagehome_radio" id="product_imagehome_radio3" title="Home Page Image" value="<?php echo $ProductImages['2']['product_image_id'];?>" <?php if($ProductImages['2']['home_page_image']==1){?>checked="checked"<?php }?> /></div>
+												<div style="width:150px; float:left;"><input type="radio" name="product_imagethumbnail_radio" id="product_imagethumbnail_radio3" title="Default Thumbnail Image" value="<?php echo $ProductImages['2']['product_image_id'];?>" <?php if($ProductImages['2']['product_thumbnail']==1){?>checked="checked"<?php }?> /></div>
+												<?php }?>
+												<div style="clear:both;"></div>
+												
+												
 
 
 												<br><br>
 												<label class="control-label">Product Image ( iv )</label>
-												<div class="controls">
+												<div class="controls" style="width:300px; float:left;">
 												  <?php if(isset($ProductImages['3']) && count($ProductImages['3'])>0 && $ProductImages['3']['product_image']!=''){?>
 													<img src="<?php echo $this->baseUrl('public/uploads/product_images');?>/<?php echo $ProductImages['3']['product_image'];?>" width="100" />
 													<a href="<?php echo $this->baseUrl('admin/products/deleteimage/productId/').$productId."/product_image_id/".$ProductImages['3']['product_image_id'];?>" onClick="return confirm('Do you want to continue?')">
@@ -298,11 +361,17 @@
 												  <input type="file" name="product_image4" id="product_image4">
 												  <?php }?>
 												</div>
+												<?php if(isset($ProductImages['3']) && count($ProductImages['3'])>0 && $ProductImages['3']['product_image']!=''){?>
+												<div style="width:150px; float:left;"><input type="radio" name="product_imagehome_radio" id="product_imagehome_radio4" title="Home Page Image" value="<?php echo $ProductImages['3']['product_image_id'];?>" <?php if($ProductImages['3']['home_page_image']==1){?>checked="checked"<?php }?> /></div>
+												<div style="width:150px; float:left;"><input type="radio" name="product_imagethumbnail_radio" id="product_imagethumbnail_radio4" title="Default Thumbnail Image" value="<?php echo $ProductImages['3']['product_image_id'];?>" <?php if($ProductImages['3']['product_thumbnail']==1){?>checked="checked"<?php }?> /></div>
+												<?php }?>
+												<div style="clear:both;"></div>
+												
 
 
 												<br><br>
 												<label class="control-label">Product Image ( v )</label>
-												<div class="controls">
+												<div class="controls" style="width:300px; float:left;">
 												  <?php if(isset($ProductImages['4']) && count($ProductImages['4'])>0 && $ProductImages['4']['product_image']!=''){?>
 													<img src="<?php echo $this->baseUrl('public/uploads/product_images');?>/<?php echo $ProductImages['4']['product_image'];?>" width="100" />
 													<a href="<?php echo $this->baseUrl('admin/products/deleteimage/productId/').$productId."/product_image_id/".$ProductImages['4']['product_image_id'];?>" onClick="return confirm('Do you want to continue?')">
@@ -312,12 +381,18 @@
 												  <input type="file" name="product_image5" id="product_image5">
 												  <?php }?>
 												</div>
+												<?php if(isset($ProductImages['4']) && count($ProductImages['4'])>0 && $ProductImages['4']['product_image']!=''){?>
+												<div style="width:150px; float:left;"><input type="radio" name="product_imagehome_radio" id="product_imagehome_radio5" title="Home Page Image" value="<?php echo $ProductImages['4']['product_image_id'];?>" <?php if($ProductImages['4']['home_page_image']==1){?>checked="checked"<?php }?> /></div>
+												<div style="width:150px; float:left;"><input type="radio" name="product_imagethumbnail_radio" id="product_imagethumbnail_radio5" title="Default Thumbnail Image" value="<?php echo $ProductImages['4']['product_image_id'];?>" <?php if($ProductImages['4']['product_thumbnail']==1){?>checked="checked"<?php }?> /></div>
+												<?php }?>
+												<div style="clear:both;"></div>
 
 											</div>
 											
 											
 											<div class="form-actions">			  
 											  <input id="signupsubmit" name="product_image_submit" type="submit"  class="btn btn-primary" value="Save" tabindex="7" title="" />
+											  <input id="Back" name="Back" type="button"  class="btn btn-primary" value="Back" tabindex="7" title="Back" onclick="javascript:window.location='<?php echo $this->baseUrl('admin/products/list/');?>'" />
 											</div>
 										  </fieldset>
 										</form>
@@ -379,6 +454,7 @@
 								
 								<div class="form-actions">			  
 								  <input id="signupsubmit" name="product_categories_submit" type="submit"  class="btn btn-primary" value="Save" tabindex="7" title="" />
+								  <input id="Back" name="Back" type="button"  class="btn btn-primary" value="Back" tabindex="7" title="Back" onclick="javascript:window.location='<?php echo $this->baseUrl('admin/products/list/');?>'" />
 								</div>
 							</form>
 								
@@ -473,6 +549,7 @@
 
 								<div class="form-actions">			  
 								  <input id="signupsubmit" name="product_attributes_submit" type="submit"  class="btn btn-primary" value="Save" tabindex="7" title="" />
+								  <input id="Back" name="Back" type="button"  class="btn btn-primary" value="Back" tabindex="7" title="Back" onclick="javascript:window.location='<?php echo $this->baseUrl('admin/products/list/');?>'" />
 								</div>
 								
 								</form>

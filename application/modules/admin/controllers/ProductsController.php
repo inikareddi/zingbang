@@ -6,10 +6,10 @@
 * Copy Right Header Information*
 *-----------------------------------------------------------------*
 * Project	:	GetLinc
-* File		:	CategoryController.php 
-* Module	:	Admin Module - Merchant's Management
+* File		:	ProductController.php 
+* Module	:	Admin Module - Product's Management
 * Owner		:	RAM's 
-* Purpose	:	This class is used for Marchant management operations
+* Purpose	:	This class is used for product management operations
 * Date		:	08/05/2012
 
 
@@ -133,9 +133,9 @@ class Admin_ProductsController extends Zend_Controller_Action {
 				} else {
 					$this->_redirect('admin/products/list');
 				}
-			}else{			
-				$this->view->attributegroupslist = $this->productsdb->getAttributeGroupsList();
-			}
+			}		
+			$this->view->attributegroupslist = $this->productsdb->getAttributeGroupsList();
+			
 			
 		} catch(Exception $e) {
 			Application_Model_Logging::lwrite($e->getMessage());
@@ -213,6 +213,7 @@ class Admin_ProductsController extends Zend_Controller_Action {
 				$product_price 				= implode('#',$params['product_price'])."#";
 				$product_discount 			= implode('#',$params['product_discount'])."#";
 				$product_discount_type 		= implode('#',$params['product_discount_type'])."#";
+				$product_stock 				= implode('#',$params['product_stock'])."#";
 				
 				//print_r($params['discount_start_date']);exit;
 				foreach($params['discount_start_date'] as $key=>$value){
@@ -236,7 +237,7 @@ class Admin_ProductsController extends Zend_Controller_Action {
 				$action 	= trim($params['action']);				
 				$productId 	= trim($params['productId']);
 				
-				if(!$this->products -> updateProductPrices($productId,$action,$product_price_id,$product_price_description,$product_price,$product_discount,$product_discount_type,$discount_start_date,$discount_end_date)) {					
+				if(!$this->products -> updateProductPrices($productId,$action,$product_price_id,$product_price_description,$product_price,$product_discount,$product_discount_type,$product_stock,$discount_start_date,$discount_end_date)) {					
 					//$this->_redirect('admin/products/edit/productId/'.$productId);					
 				} else {
 					$this->_redirect('admin/products/list');
@@ -319,6 +320,100 @@ class Admin_ProductsController extends Zend_Controller_Action {
 			}else{*/
 			$params = $this->_getAllParams();
 			$this->products->deleteimage($params);
+			$this->_redirect($_SERVER['HTTP_REFERER']);
+			//}
+		} catch(Exception $e) {
+			Application_Model_Logging::lwrite($e->getMessage());
+			throw new Exception($e->getMessage());
+		}
+	}
+	
+	
+	
+	
+	
+	/**
+     * Purpose: To Lock the product
+     *
+     * Access is public
+     *
+     * @param	
+     * 
+     * @return  
+     */
+		
+	public function lockAction() {
+		try{
+			/*$refurl1=$_SERVER['HTTP_REFERER'];
+			$refurl=explode("/", $refurl1);
+			if($refurl[4]!='usermanagement' && $refurl[5]!='user' && $refurl[6]!='list' ){
+					$this->_redirect("/default/error/accessdenied");
+			}else{*/
+			
+			$params = $this->_getAllParams();
+			$this->products->lock($params);
+			$this->_redirect($_SERVER['HTTP_REFERER']);
+			//}
+		} catch(Exception $e) {
+			Application_Model_Logging::lwrite($e->getMessage());
+			throw new Exception($e->getMessage());
+		}
+	}
+	
+	
+	
+	/**
+     * Purpose: To Unlock the locked product
+     *
+     * Access is public
+     *
+     * @param	
+     * 
+     * @return  
+     */
+		
+	public function unlockAction() {
+		try{
+			
+			/*$refurl1=$_SERVER['HTTP_REFERER'];
+			$refurl=explode("/", $refurl1);
+			if($refurl[4]!='usermanagement' && $refurl[5]!='user' && $refurl[6]!='list' ){
+					$this->_redirect("/default/error/accessdenied");
+			}else{*/
+			
+				$params = $this->_getAllParams();
+				$this->products->unlock($params);
+				$this->_redirect($_SERVER['HTTP_REFERER']);
+				//}
+		} catch(Exception $e) {
+			Application_Model_Logging::lwrite($e->getMessage());
+			throw new Exception($e->getMessage());
+		}
+	}
+	
+	
+	
+	
+	
+	/**
+     * Purpose: To delete the product
+     *
+     * Access is public
+     *
+     * @param	
+     * 
+     * @return  
+     */
+		
+	public function deleteAction() {
+		try{
+			/*$refurl1=$_SERVER['HTTP_REFERER'];
+			$refurl=explode("/", $refurl1);
+			if($refurl[4]!='usermanagement' && $refurl[5]!='user' && $refurl[6]!='list' ){
+					$this->_redirect("/default/error/accessdenied");
+			}else{*/
+			$params = $this->_getAllParams();
+			$this->products->delete($params);
 			$this->_redirect($_SERVER['HTTP_REFERER']);
 			//}
 		} catch(Exception $e) {

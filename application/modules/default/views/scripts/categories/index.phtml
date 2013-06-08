@@ -1,0 +1,40 @@
+<?php
+//print_r($this->CategoriesList);
+foreach($this->CategoriesList as $each_CategoriesList){
+	if($each_CategoriesList['parent_category_id']=='0'){
+		foreach($this->CategoriesList as $each_CategoriesList2){
+			if($each_CategoriesList2['parent_category_id'] == $each_CategoriesList['category_id']){
+				$CategoriesList_array[$each_CategoriesList['category_id']]['ids'][$each_CategoriesList2['category_id']] = $each_CategoriesList2['category_name'];
+				$CategoriesList_array[$each_CategoriesList['category_id']]['category_name'] = $each_CategoriesList['category_name'];
+			}
+		}
+	}else{
+			//$CategoriesList_array[$each_CategoriesList['category_id']]['ids'][] = $each_CategoriesList2['category_name'];
+			$CategoriesList_array[$each_CategoriesList['category_id']]['category_name'] = $each_CategoriesList['category_name'];
+	}
+}
+?>
+<div class="category-widget">
+    <div class="cat-header opened">All Categories</div>
+    <div class="cat-cont">
+        <ul>
+			<?php
+			$special_array   = array(" ",".",";","|","/",",","'","[","]","{","}","--",":","~","`","!","@","#","$","%","^","&","*","(",")","+","?");
+			$replace = '-';
+			foreach($CategoriesList_array as $key=>$value){
+			?>
+            <li>
+                <a href="<?php echo $this->baseUrl('products/list/id/').$key.'/'.str_replace($special_array, $replace,$CategoriesList_array[$key]['category_name']); ?>"><?php echo $CategoriesList_array[$key]['category_name'];?>
+				<?php if(isset($value['ids']) && count($value['ids'])>0){?><span> >> </span><?php }?></a>
+				<?php if(isset($value['ids']) && count($value['ids'])>0){?>
+                <ul class="subitem">
+					<?php foreach($value['ids'] as $key=>$value){?>
+                    <li><a href="<?php echo $this->baseUrl('products/list/id/').$key.'/'.str_replace($special_array, $replace,$value); ?>"><?php echo $value;?></a></li>
+					<?php }?>                   
+                </ul>
+				<?php }?>
+            </li>
+			<?php }?>           
+        </ul>
+    </div>
+</div>

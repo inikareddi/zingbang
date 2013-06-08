@@ -102,7 +102,7 @@ $cn='';
 										<i class="icon-edit icon-white"></i>  
 										Edit                                            
 									</a>
-									<a class="btn btn-danger" href="<?php echo $this->baseUrl('admin/products/delete/productId/') . $each_product['product_id'];?>">
+									<a class="btn btn-danger" href="<?php echo $this->baseUrl('admin/products/delete/productId/') . $each_product['product_id'];?>" onclick="javascript:return confirm('Are you sure, do you want to continue?');">
 										<i class="icon-trash icon-white"></i> 
 										Delete
 									</a>

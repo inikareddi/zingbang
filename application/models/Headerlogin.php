@@ -6,10 +6,10 @@
 * Copy Right Header Information*
 *-----------------------------------------------------------------*
 * Project	:	GetLinc
-* File		:	Useractivitylog.php 
-* Module	:	User Activity Log Management Module
+* File		:	Headerlogin.php 
+* Module	:	Header Login Module
 * Owner		:	RAM's 
-* Purpose	:	This class is used for User Activity Log management operations
+* Purpose	:	This class is used for header login operations
 * Date		:	08/05/2012
 
 
@@ -23,8 +23,7 @@
 *===================================================================================================================
 */
 
-//class Application_Model_Useractivitylog extends Application_Model_Validation {
-class Application_Model_Useractivitylog extends Application_Model_Useractivitylogdb {
+class Application_Model_Headerlogin extends Application_Model_Headerlogindb {
 	
 	public $session;
 	private $error;
@@ -32,7 +31,7 @@ class Application_Model_Useractivitylog extends Application_Model_Useractivitylo
 	private $redirector;
 	private $requestHandler;
 	public $viewobj;
-	
+		
 	/**
      * Purpose: Constructor sets sessions for portal and portalerror and config and returns session objects
      *
@@ -43,9 +42,8 @@ class Application_Model_Useractivitylog extends Application_Model_Useractivitylo
      */
 	
 	public function __construct(){
-	
-		$this->useractivitylogdb = new Application_Model_Useractivitylogdb();
-
+		//$this->merchantdb = new Application_Model_Merchantdb();
+		
 		//Assigning session
 		$this->session = new Zend_Session_Namespace('MyPortal');
                 
@@ -69,56 +67,9 @@ class Application_Model_Useractivitylog extends Application_Model_Useractivitylo
 		$viewRenderer->initView();
 		//Assigning renderer to access in the class
 		$this->error = $viewRenderer->view;
+		
 		$this->viewobj= $viewRenderer->view;
 	}
 	
-	
-	
-
-	
-	
-	/**
-     * Purpose: Fetches all the users except the present loggedin user
-     *
-     * Access is public
-     *
-     * @param	Array	$params Create user parameters
-     * 
-     * @return  
-     */
-	
-	public  function getUserActivityLogSearch(Array $params) {
-		try{
-
-			$viewObject = $this->viewobj;		
-			$cond = '';			
-			if(isset($params['start']) && $params['start'] != '') {
-				$start = $params['start'];
-				
-			} else {
-				$start = 0;
-			}						
-			$iattribute_title = '';
-			
-			$controller = Zend_Controller_Front::getInstance();
-			$request=$controller->getRequest();						
-			
-			$iLimit = $this->config->site->pagination->limit;			
-			$iStart = $start;			
-			
-			$useractivitylog_list = $this->useractivitylogdb->getUserActivityLogList($isearchtext, $iStart, $iLimit);			
-			$viewObject->useractivitylog_list = $useractivitylog_list;
-			$viewObject->iStart = $iStart;
-			$viewObject->iLimit = $iLimit;
-			
-		} catch(Exception $e) {
-			Application_Model_Logging::lwrite($e->getMessage());
-			throw new Exception($e->getMessage());
-		}
-	}
-	
-	
-	
-
 }
 ?>
