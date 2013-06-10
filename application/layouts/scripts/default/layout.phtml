@@ -5,6 +5,7 @@
 <title>GetLinc.com</title>
 </head>
 <link href="<?php echo $this->baseUrl('public/default'); ?>/css/style.css" rel="stylesheet" type="text/css" />
+<link href="<?php echo $this->baseUrl('public/default'); ?>/css/dev_style.css" rel="stylesheet" type="text/css" />
 <script src="<?php echo $this->baseUrl('public/default'); ?>/js/jQuery.js"></script>
 <script src="<?php echo $this->baseUrl('public/default'); ?>/js/jqueryvalidate.js"></script>
 <script src="<?php echo $this->baseUrl('public/default'); ?>/js/frontend.js"></script>
@@ -25,7 +26,12 @@
 	</div>
 	<!-- Header -end -->
 	<div class="main_body_wrapper">
-		<div class="wrapper">
+	
+	
+		<div class="wrap left_shadow_wrapper">
+		<div class="wrapper right_shadow_wrapper">
+	
+		<!-- <div class="wrapper"> -->
 		
 			<div class="right-sidebar">			
 			<?php echo $this->action('index', 'chat', 'default', array('a_parameter'=>'a_value'));?>
@@ -42,7 +48,14 @@
 				<?php  echo $this->layout()->content ?>
 			</div>
 			<div class="clear"></div>
+		<!-- </div> -->
+		
 		</div>
+		</div>
+		
+		
+		
+		
 	</div>
 	<!-- end main_body_wrapper-->
 	<?php echo $this->render('default/footer.phtml') ?>	

@@ -29,7 +29,8 @@ $cn='';
 								  <th width="200">User Name</th>
 								  <th width="200">User Email</th>
 								  <th>User Action</th>
-								  <th>User Action Description</th>								  
+								  <th>User Action Description</th>
+								  <th width="100">Date Time</th>								  
 							  </tr>
 						  </thead>   
 						  <tbody>
@@ -47,6 +48,7 @@ $cn='';
 								</td>
 								<td><?php echo $each_useractivitylog['useraction'];?></td>
 								<td><?php echo $each_useractivitylog['useractiondesc']."<br><br>".$each_useractivitylog['actiondesc'];?></td>
+								<td><?php echo $each_useractivitylog['createddatetime'];?></td>
 							</tr>
 							<?php }?>
 						  </tbody>

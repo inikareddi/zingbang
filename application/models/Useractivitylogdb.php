@@ -64,7 +64,7 @@ class Application_Model_Useractivitylogdb extends Application_Model_Validation {
 			$query = "select 
 						u.userid, u.firstname, u.lastname, u.userloginid,
 						mua.useraction, mua.useractiondesc,
-						ual.actiondesc
+						ual.actiondesc, ual.createddatetime
 						from
 						apmusers u,
 						apmmasteruseractions mua,
