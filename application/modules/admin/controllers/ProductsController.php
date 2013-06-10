@@ -97,7 +97,8 @@ class Admin_ProductsController extends Zend_Controller_Action {
 		try{
 			$params = $this->_getAllParams();			
 			$this->view->title = 'Products List';                       
-			$this->products->getProductSearch($params);			
+			$this->products->getProductSearch($params);
+			$this->view->merchantlist = $this->productsdb->getMerchantList();			
 		} catch(Exception $e) {
 			Application_Model_Logging::lwrite($e->getMessage());
 			throw new Exception($e->getMessage());
@@ -135,6 +136,7 @@ class Admin_ProductsController extends Zend_Controller_Action {
 				}
 			}		
 			$this->view->attributegroupslist = $this->productsdb->getAttributeGroupsList();
+			$this->view->merchantlist = $this->productsdb->getMerchantList();
 			
 			
 		} catch(Exception $e) {
@@ -286,6 +288,7 @@ class Admin_ProductsController extends Zend_Controller_Action {
 			$this->view->ProductAttributesTitles = $this->productsdb->getProductAttributesTitles($ProductDetails['attributes_group_id']);
 			$this->view->AllAttributesSetsTitles = $this->productsdb->getAllAttributesSetsTitles();
 			$this->view->ProductAttributesValues = $this->productsdb->getProductAttributesValues($productId);
+			$this->view->merchantlist = $this->productsdb->getMerchantList();
 			
 			
 		} catch(Exception $e) {

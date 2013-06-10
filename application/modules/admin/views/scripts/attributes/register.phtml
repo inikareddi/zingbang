@@ -43,14 +43,14 @@ $error = $this;
 				
 				
 				<?php 
-				$attribute_field_type = array('text'=>'text','textarea'=>'textarea');				
+				$attribute_field_type = array('text'=>'text','textarea'=>'textarea','select'=>'select');				
 				?>
 				<div class="control-group">
 				  <label class="control-label" for="typeahead">Attribute Field Type<span class="req">*</span></label>
 				  <div class="controls">
 					<div class="mid_Control-profile float-left">
 					
-					<select id="attribute_field_type" name="attribute_field_type">
+					<select id="attribute_field_type" name="attribute_field_type" onchange="javascript:checkFieldType(this.value);">
 						<option value="">-Select Attribute Field Type-</option>
 						<?php foreach($attribute_field_type as $key=>$value){
 						if(is_array($error->error_creatattribute_values) && $error->error_creatattribute_values['attribute_field_type'] == $value) {
@@ -77,6 +77,37 @@ $error = $this;
 				</div>
 				
 				
+				<script type="text/javascript">
+				function checkFieldType(value){
+					//alert(value);
+					if(value=='select'){
+						document.getElementById('attribute_values').disabled = false;
+						document.getElementById('attribute_data_type').disabled = true;
+					}else{
+						document.getElementById('attribute_values').disabled = true;
+						document.getElementById('attribute_data_type').disabled = false;
+					}				
+				}			
+				</script>
+				
+				
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Select Field Values<span class="req">*</span></label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					<input class="field" disabled="disabled" tabindex="1" id="attribute_values" name="attribute_values" type="text" value="<?php if(is_array($error->error_creatattribute_values)) { echo strip_tags($error->error_creatattribute_values['attribute_values']);}?>" maxlength="20" size="40" title=""/>
+					(Please enter comma separated values, example: yes,no)</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_create_attribute_values != '') {
+							echo '<label class="error">' .$error->error_create_attribute_values . '</label>';
+							$error->error_create_attribute_values = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
 				
 				
 				
@@ -88,7 +119,7 @@ $error = $this;
 				  <div class="controls">
 					<div class="mid_Control-profile float-left">
 					
-					<select id="attribute_data_type" name="attribute_data_type">
+					<select id="attribute_data_type" disabled="disabled" name="attribute_data_type">
 						<option value="">-Select Attribute Data Type-</option>
 						<?php foreach($attribute_data_type as $key=>$value){
 						if(is_array($error->error_creatattribute_values) && $error->error_creatattribute_values['attribute_data_type'] == $value) {

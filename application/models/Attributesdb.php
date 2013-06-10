@@ -55,10 +55,10 @@ class Application_Model_Attributesdb extends Application_Model_Validation {
      *    
      * @return  object	Returns status message.	
      */
-	public function saveAttribute($attribute_title, $attribute_field_type, $attribute_data_type, $action, $adminid){
+	public function saveAttribute($attribute_title, $attribute_field_type, $attribute_data_type, $attribute_values, $action, $adminid){
 		try {
 			parent::SetDatabaseConnection();			
-			$query = "call SPattributeadd('" . $attribute_title . "', '" . $attribute_field_type . "', '" . $attribute_data_type . "', '" . $action . "', " . $adminid . ")";
+			$query = "call SPattributeadd('" . $attribute_title . "', '" . $attribute_field_type . "', '" . $attribute_data_type . "', '" . $attribute_values . "', '" . $action . "', " . $adminid . ")";
 			//exit;			
 			return Application_Model_Db::getResult($query); 
 		} catch(Exception $e) {
@@ -201,11 +201,11 @@ class Application_Model_Attributesdb extends Application_Model_Validation {
      * @return  object	Returns an object of status.
      */
 	 
-	public function attributeDetailsUpdate($attributeId, $action, $attribute_title, $attribute_field_type, $attribute_data_type, $adminid) {
+	public function attributeDetailsUpdate($attributeId, $action, $attribute_title, $attribute_field_type, $attribute_data_type, $attribute_field_values, $adminid) {
 		try{
 			
 			parent::SetDatabaseConnection();
-			$query = "call SPattributeedit(" . $attributeId . ", '" . $attribute_title .  "', '" . $attribute_field_type . "', '" . $attribute_data_type . "', '" . $action .  "', " . $adminid . ")";
+			$query = "call SPattributeedit(" . $attributeId . ", '" . $attribute_title .  "', '" . $attribute_field_type . "', '" . $attribute_data_type . "', '" . $attribute_field_values . "', '" . $action .  "', " . $adminid . ")";
 			//exit;
 			
 			return Application_Model_Db::getResult($query);

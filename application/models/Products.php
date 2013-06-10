@@ -100,6 +100,7 @@ class Application_Model_Products extends Application_Model_Productsdb {
 			$product_small_description	= trim($params['product_small_description']);
 			$product_description		= trim($params['product_description']);	
 			$attributes_group_id		= trim($params['attributes_group_id']);
+			$merchant_id				= trim($params['merchant_id']);
 			$action 					= trim($params['action']);
 			
 
@@ -135,7 +136,7 @@ class Application_Model_Products extends Application_Model_Productsdb {
              * Validation ends here
              */
 	
-				$outpt = $this->productsdb->saveProduct($product_title,$product_sku,$product_meta_title,$product_meta_description,$product_small_description,$product_description, $attributes_group_id, $action, $this->session->userid);
+				$outpt = $this->productsdb->saveProduct($product_title,$product_sku,$product_meta_title,$product_meta_description,$product_small_description,$product_description, $attributes_group_id, $merchant_id, $action, $this->session->userid);
 				$outpt = $outpt[0];
 				$result = explode('#', $outpt['toutput']);
 				
@@ -449,8 +450,9 @@ class Application_Model_Products extends Application_Model_Productsdb {
 				$product_meta_description = trim($params['product_meta_description']);
 				$product_small_description = trim($params['product_small_description']);
 				$product_large_description = trim($params['product_large_description']);
+				$merchant_id = trim($params['merchant_id']);
 								
-				$ProductImageSet = $this->productsdb->updateProductGeneralInfoRecord($productId, $product_title, $product_sku, $product_meta_title, $product_meta_description, $product_small_description, $product_large_description,$action, $this->session->userid);
+				$ProductImageSet = $this->productsdb->updateProductGeneralInfoRecord($productId, $product_title, $product_sku, $product_meta_title, $product_meta_description, $product_small_description, $product_large_description, $merchant_id, $action, $this->session->userid);
 				//print_r($ProductImageSet);exit;
 				$result = explode('#',$ProductImageSet['0']['toutput']);
 				

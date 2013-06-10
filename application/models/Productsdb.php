@@ -6,7 +6,7 @@
 * Copy Right Header Information*
 *-----------------------------------------------------------------*
 * Project	:	GetLinc
-* File		:	Merchantdb.php 
+* File		:	Productsdb.php 
 * Module	:	User Management Module
 * Owner		:	RAM's 
 * Purpose	:	This class is used for user management related database operations
@@ -78,11 +78,11 @@ class Application_Model_Productsdb extends Application_Model_Validation {
      *    
      * @return  object	Returns status message.	
      */
-	public function saveProduct($product_title,$product_sku,$product_meta_title,$product_meta_description,$product_small_description,$product_description, $attributes_group_id, $action, $adminid){
+	public function saveProduct($product_title,$product_sku,$product_meta_title,$product_meta_description,$product_small_description,$product_description, $attributes_group_id, $merchant_id, $action, $adminid){
 		try {
 			parent::SetDatabaseConnection();
 			
-			$query = "call SPproductadd('" . $product_title . "', '" . $product_sku . "', '" . $product_meta_title . "', '" . $product_meta_description . "', '" . $product_small_description . "', '" . $product_description . "', '".$attributes_group_id."', '" .  $action . "', '" .  $adminid . "')";
+			$query = "call SPproductadd('" . $product_title . "', '" . $product_sku . "', '" . $product_meta_title . "', '" . $product_meta_description . "', '" . $product_small_description . "', '" . $product_description . "', '".$attributes_group_id."', '".$merchant_id."', '" .  $action . "', '" .  $adminid . "')";
 			//exit;
 			
 			return Application_Model_Db::getResult($query); 
@@ -121,6 +121,30 @@ class Application_Model_Productsdb extends Application_Model_Validation {
 	
 	
 	
+	/**
+     * Purpose: Returns all Merchants 
+     *
+     * Access is limited to class and extended classes
+     *    
+     * @return  object	Returns All Attributes Groups List.	
+     */
+	public function getMerchantList(){
+		try {
+			parent::SetDatabaseConnection();			
+			$query = "SELECT merchant_id, merchant_title FROM `store_merchants` where statusid=1 ORDER BY merchant_title ASC";			
+			$opt = Application_Model_Db::getResult($query);
+			return $opt;			
+		} catch(Exception $e) {
+			Application_Model_Logging::lwrite($e->getMessage());
+			throw new Exception($e->getMessage());
+		}
+	}
+	
+	
+	
+	
+	
+	
 	
 	/**
      * Purpose: Fetching products 
@@ -137,7 +161,7 @@ class Application_Model_Productsdb extends Application_Model_Validation {
 		try {
 			parent::SetDatabaseConnection();		
 			$query = "call SPproductslist('" . $iproduct_title . "', " . $istart . ", " . $ilimit . ")";
-			//yexit;
+			//exit;
 			return Application_Model_Db::getResult($query);
 			
 		} catch(Exception $e) {
@@ -297,7 +321,7 @@ class Application_Model_Productsdb extends Application_Model_Validation {
 	public function getProductPrices($productId){
 		try {
 			parent::SetDatabaseConnection();			
-			$query = "SELECT * FROM store_products_price where product_id=".$productId." AND statusid=1";			
+			$query = "SELECT * FROM store_products_price where product_id=".$productId." AND statusid=1 ORDER BY product_price_id DESC";			
 			$opt = Application_Model_Db::getResult($query);
 			return $opt;			
 		} catch(Exception $e) {
@@ -390,6 +414,7 @@ class Application_Model_Productsdb extends Application_Model_Validation {
 			$query = "SELECT
 						sp.product_id,
 						sp.attributes_group_id,
+						sp.merchant_id,
 						sp.product_sku,
 						sp.product_title,
 						sp.product_small_description,
@@ -559,10 +584,10 @@ class Application_Model_Productsdb extends Application_Model_Validation {
      *    
      * @return  object	Returns status message.	
      */
-	public function updateProductGeneralInfoRecord($productId, $product_title, $product_sku, $product_meta_title, $product_meta_description, $product_small_description, $product_large_description,$action, $adminid){
+	public function updateProductGeneralInfoRecord($productId, $product_title, $product_sku, $product_meta_title, $product_meta_description, $product_small_description, $product_large_description, $merchant_id, $action, $adminid){
 		try {
 			parent::SetDatabaseConnection();			
-			$query = "call SPproductupdate('" . $productId . "', '" . $product_title . "', '" . $product_sku . "', '" . $product_meta_title . "', '" . $product_meta_description . "', '" . $product_small_description . "', '" . $product_large_description . "', '" . $action . "', " . $adminid . ")";
+			$query = "call SPproductupdate('" . $productId . "', '" . $product_title . "', '" . $product_sku . "', '" . $product_meta_title . "', '" . $product_meta_description . "', '" . $product_small_description . "', '" . $product_large_description . "', '" . $merchant_id . "', '" . $action . "', " . $adminid . ")";
 			//exit;			
 			return Application_Model_Db::getResult($query); 
 		} catch(Exception $e) {

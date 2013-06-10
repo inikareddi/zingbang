@@ -65,6 +65,44 @@
 				
 				
 				
+				
+				
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Product Merchant</label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					
+					<select id="merchant_id" name="merchant_id">
+						<option value="">-Select Merchant-</option>
+						<?php foreach($this->merchantlist as $each_merchantlist){						
+						if(is_array($error->error_createproduct_values) && $error->error_createproduct_values['merchant_id'] == $each_merchantlist['merchant_id']) {
+						$select = ' selected="selected"';
+						} else {
+						$select = '';
+						}
+						?>
+						<option value="<?php echo $each_merchantlist['merchant_id'];?>" <?php echo $select; ?> ><?php echo $each_merchantlist['merchant_title'];?></option>
+						<?php }?>
+					</select>
+					
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_create_merchant_id!= '') {
+							echo '<label class="error">' .$error->error_create_merchant_id . '</label>';
+							$error->error_create_merchant_id = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
+				
+				
+				
+				
+				
+				
 				<div class="control-group">
 				  <label class="control-label" for="typeahead">Meta Title</label>
 				  <div class="controls">

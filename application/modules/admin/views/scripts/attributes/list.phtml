@@ -58,6 +58,7 @@ $cn='';
 								  <th>Attribute Title</th>
 								  <th>Attribute Field Type</th>
 								  <th>Attribute Data Type</th>
+								  <th>Attribute Values</th>
 								  <th>Status</th>								  
 								  <th>Actions</th>								  
 							  </tr>
@@ -72,6 +73,7 @@ $cn='';
 								<td><?php echo $each_attribute['attribute_title'];?></td>
 								<td><?php echo $each_attribute['attribute_field_type'];?></td>
 								<td><?php echo $each_attribute['attribute_data_type'];?></td>
+								<td><?php echo str_replace(',','<br>',$each_attribute['attribute_values']);?></td>
 								<td class="center">
 									
 									<?php if($each_attribute['statusid']=="1") {?>

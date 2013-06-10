@@ -48,7 +48,7 @@ $AttributeDetails = $this->AttributeDetails;
 				
 				
 				<?php
-				$attribute_field_type = array('text'=>'text','textarea'=>'textarea');
+				$attribute_field_type = array('text'=>'text','textarea'=>'textarea','select'=>'select');
 				if(is_array($error->error_updateattribute_values)) { 
 				$attribute_field_type_option =  strip_tags($error->error_updateattribute_values['attribute_field_type']);
 				}else{ 
@@ -60,7 +60,7 @@ $AttributeDetails = $this->AttributeDetails;
 				  <div class="controls">
 					<div class="mid_Control-profile float-left">
 					
-					<select id="attribute_field_type" name="attribute_field_type">
+					<select id="attribute_field_type" name="attribute_field_type" onchange="javascript:checkFieldType(this.value);">
 						<option value="">-Select Attribute Field Type-</option>
 						<?php foreach($attribute_field_type as $key=>$value){?>
 						<option value="<?php echo $value;?>" <?php if($attribute_field_type_option ==$value){?> selected="selected"<?php }?>><?php echo $value;?></option>
@@ -81,7 +81,47 @@ $AttributeDetails = $this->AttributeDetails;
 				</div>
 				
 				
+				<script type="text/javascript">
+				function checkFieldType(value){
+					//alert(value);
+					if(value=='select'){
+						document.getElementById('attribute_field_values').value = '<?php echo strip_tags($AttributeDetails['attribute_values']);?>';
+						document.getElementById('attribute_field_values').disabled = false;
+						document.getElementById('attribute_data_type').disabled = true;
+					}else{
+						document.getElementById('attribute_field_values').value = '';
+						document.getElementById('attribute_field_values').disabled = true;
+						document.getElementById('attribute_data_type').disabled = false;
+					}				
+				}				
+				</script>
 				
+				<?php
+				if($attribute_field_type_option!='select'){
+					$condition_attribute_field_values = 'disabled="disabled"';
+					$condition_attribute_data_type = '';
+				}else{
+					$condition_attribute_field_values = '';
+					$condition_attribute_data_type = 'disabled="disabled"';
+				}?>
+				
+				<div class="control-group">
+				  <label class="control-label" for="typeahead">Select Field Values<span class="req">*</span></label>
+				  <div class="controls">
+					<div class="mid_Control-profile float-left">
+					<input class="field" <?php echo $condition_attribute_field_values;?> tabindex="1" id="attribute_field_values" name="attribute_field_values" type="text" value="<?php if(is_array($error->error_updateattribute_values)) { echo strip_tags($error->error_updateattribute_values['attribute_field_values']);}else{ echo strip_tags($AttributeDetails['attribute_values']);}?>" maxlength="20" size="40" title=""/>
+					</div>
+					<div class="error_message">
+					   <?php 
+						if($error->error_updateattribute_field_values != '') {
+							echo '<label class="error">' .$error->error_updateattribute_field_values . '</label>';
+							$error->error_updateattribute_field_values = '';
+						}
+					   ?>
+					   </div>
+					   
+				  </div>
+				</div>
 				
 				
 				
@@ -98,7 +138,7 @@ $AttributeDetails = $this->AttributeDetails;
 				  <div class="controls">
 					<div class="mid_Control-profile float-left">
 					
-					<select id="attribute_data_type" name="attribute_data_type">
+					<select id="attribute_data_type" name="attribute_data_type" <?php echo $condition_attribute_data_type;?>>
 						<option value="">-Select Attribute Field Type-</option>
 						<?php foreach($attribute_data_type as $key=>$value){?>
 						<option value="<?php echo $value;?>" <?php if($attribute_data_type_option ==$value){?> selected="selected"<?php }?>><?php echo $value;?></option>

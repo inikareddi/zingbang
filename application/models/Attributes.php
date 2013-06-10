@@ -92,7 +92,8 @@ class Application_Model_Attributes extends Application_Model_Attributesdb {
 			exit;*/
 			if(isset($params['attribute_title'])){ $attribute_title = trim($params['attribute_title']);}
 			if(isset($params['attribute_field_type'])){ $attribute_field_type = trim($params['attribute_field_type']);}
-			if(isset($params['attribute_data_type'])){ $attribute_data_type = trim($params['attribute_data_type']);}			
+			if(isset($params['attribute_data_type'])){ $attribute_data_type = trim($params['attribute_data_type']);}
+			if(isset($params['attribute_values'])){ $attribute_values = trim($params['attribute_values']);}			
 			if(isset($params['action'])){ $action = trim($params['action']);}
 
 			
@@ -126,12 +127,13 @@ class Application_Model_Attributes extends Application_Model_Attributesdb {
             	//return false;
             }
 
-
+			/*
 			if($attribute_data_type == '') {				//Validation for attribute_data_type
             	$this->error->error_create_attribute_data_type = Error_Create_attribute_data_type_empty;
             	$error = 1;
             	//return false;
-            }			
+            }
+			*/			
             
 			
             
@@ -145,7 +147,7 @@ class Application_Model_Attributes extends Application_Model_Attributesdb {
              * Validation ends here
              */
 
-				$outpt = $this->attributesdb->saveAttribute($attribute_title, $attribute_field_type, $attribute_data_type, $action, $this->session->userid);
+				$outpt = $this->attributesdb->saveAttribute($attribute_title, $attribute_field_type, $attribute_data_type, $attribute_values, $action, $this->session->userid);
 				$outpt = $outpt[0];
 				$result = explode('#', $outpt['toutput']);				
 				
@@ -351,7 +353,8 @@ class Application_Model_Attributes extends Application_Model_Attributesdb {
 			$attribute_title 		= trim($params['attribute_title']);
 			$action 				= trim($params['action']);			
 			$attribute_field_type 	= trim($params['attribute_field_type']);
-			$attribute_data_type 	= trim($params['attribute_data_type']);		
+			$attribute_data_type 	= trim($params['attribute_data_type']);
+			$attribute_field_values = trim($params['attribute_field_values']);			
 			$admin = $this->session->userid;
 			
 			
@@ -381,11 +384,12 @@ class Application_Model_Attributes extends Application_Model_Attributesdb {
 					$error = 1;
 				}
 				
-				
+				/*
 				if($attribute_data_type == '') {				//Validation for attribute_data_type
 					$this->error->error_updateattribute_data_type = Error_update_attribute_data_type_empty;
 					$error = 1;
 				}
+				*/
             
 			
             
@@ -409,7 +413,7 @@ class Application_Model_Attributes extends Application_Model_Attributesdb {
 				 */            
 				
 			
-				$mess = $this->attributesdb->attributeDetailsUpdate($attributeId, $action, $attribute_title, $attribute_field_type, $attribute_data_type, $this->session->userid);
+				$mess = $this->attributesdb->attributeDetailsUpdate($attributeId, $action, $attribute_title, $attribute_field_type, $attribute_data_type, $attribute_field_values, $this->session->userid);
 				
 				$messs = explode('#',$mess[0]['tmess']);
 				

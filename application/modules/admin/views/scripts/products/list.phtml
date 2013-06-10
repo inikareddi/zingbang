@@ -6,6 +6,11 @@ $error = $this;
 $products_count = $this->products_count;
 $products_list = $this->products_list;
 
+$merchantlist = $this->merchantlist;
+foreach($merchantlist as $each_merchant){
+	$merchant_array[$each_merchant['merchant_id']] = $each_merchant['merchant_title'];
+}
+
 $cn=$this->iColumnName;
 $do=$this->iDisplayOrder;
 if($cn==""){$cn=1;}
@@ -57,7 +62,8 @@ $cn='';
 								  <th>Slno.</th>
 								  <th>GetLinc ID</th>
 								  <th>SKU</th>
-								  <th>Title</th>								  
+								  <th>Title</th>
+								  <th>Merchant</th>
 								  <th>Status</th>								  
 								  <th>Actions</th>								  
 							  </tr>
@@ -81,7 +87,10 @@ $cn='';
 								<td align="center" width="350">									
 									<?php  echo $each_product['product_title']; ?>
 								</td>
-								<td class="center">
+								<td align="center" width="150">									
+									<?php  if($each_product['merchant_id']!=0){echo $merchant_array[$each_product['merchant_id']];}?>
+								</td>
+								<td class="center" width="100">
 								
 									<?php if($each_product['statusid']=="1") {?>
 									<a href="<?php echo $this->baseUrl('admin/products/lock/productId/') . $each_product['product_id'];?>" onClick="return confirm('Do you want to continue?')">
