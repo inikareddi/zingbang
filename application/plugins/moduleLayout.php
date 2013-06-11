@@ -13,7 +13,8 @@ class Temp_Plugin_ModuleLayout extends Zend_Controller_Plugin_Abstract {
 
         if (isset($config['resources']['layout']['layoutPath'])) {
             $layoutPath = $config['resources']['layout']['layoutPath'];
-            $moduleDir = Zend_Controller_Front::getInstance()->getModuleDirectory();
+             $moduleDir = Zend_Controller_Front::getInstance()->getModuleDirectory();
+			//exit;
             /*$router = Zend_Controller_Front::getInstance()->getRouter();
                       $route = new Zend_Controller_Router_Route(
         ':module/:controller/:action/*',
