@@ -95,7 +95,7 @@ $error = $this;
 				  <label class="control-label" for="typeahead">Select Field Values<span class="req">*</span></label>
 				  <div class="controls">
 					<div class="mid_Control-profile float-left">
-					<input class="field" disabled="disabled" tabindex="1" id="attribute_values" name="attribute_values" type="text" value="<?php if(is_array($error->error_creatattribute_values)) { echo strip_tags($error->error_creatattribute_values['attribute_values']);}?>" maxlength="20" size="40" title=""/>
+					<textarea disabled="disabled" tabindex="1" id="attribute_values" name="attribute_values"><?php if(isset($error->error_creatattribute_values['attribute_values'])) { echo strip_tags($error->error_creatattribute_values['attribute_values']);}?></textarea>
 					(Please enter comma separated values, example: yes,no)</div>
 					<div class="error_message">
 					   <?php 

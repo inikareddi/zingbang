@@ -266,27 +266,7 @@
 	define('Error_merchant_address_max', 'Please Enter Maximum 50 characters');
 	define('Error_merchant_address_inavalid', 'Invalid Merchant Address');
 	
-	/*
-	 * Error Messages for Device Registration
-	 */
-	
-	define('Error_device_name_empty','Please Enter the Device Nick Name');
-	define('Error_device_name_minlen','Device Nick Name should be minimum of 4 characters');
-	define('Error_device_name_maxlen','Device Nick Name should be maximun of 12 characters');
-	define('Error_device_name_invalid','Device Nick Name should be Alpha Numerics');
-	define('Error_device_terminal_empty','Please Enter the Card Acceptor Terminal ID');
-	define('Error_device_terminal_min_len','Card Acceptor Terminal ID should be Minimum of 6 Digits');
-	define('Error_device_terminal_max_len','Card Acceptor Terminal ID should be Maximum of 8 Digits');
-	define('Error_device_terminal_invalid','Please Enter the Valid Card Acceptor Terminal ID');
-	define('Error_device_devicetype_empty','Please Select the Device Type');
-	define('Error_device_deviceversion_empty','Please Select the Device O/S Version');
-	define('Error_device_devicemodel_empty','Please Select the Device Model Number ');
-	define('Error_device_devicetype_invalid','Invalid Device Type');
-	define('Error_device_deviceversion_invalid','Invalid Device O/S Version');
-	define('Error_device_devicemodel_invalid','Invalid Device Model Number ');
-	define('Error_device_deviceid_empty','Device Id is not present');
-	define('Error_device_deviceid_invalid','Invalid Device Id');
-	
+
 	//City
 	define('Error_merchant_city_empty', 'Please Enter the City');
 	define('Error_merchant_city_alphanum', 'Please Enter Only Alpha Numeric Values with Spaces');
@@ -400,7 +380,7 @@
 	 * 
 	 */
 	
-		define('Error_Report_Dashboard_Merchant_Empty','Please Select the Merchant Name');
+	define('Error_Report_Dashboard_Merchant_Empty','Please Select the Merchant Name');
 	define('Error_Report_Dashboard_Merchant_Invalid','Invalid Merchant Name');
 	define('Error_Invalid_Reader_status','Invalid Reader Status');
 	define('Error_Invalid_Reader','Invalid Reader ID');
@@ -418,4 +398,27 @@
 	
 	
 	define('Error_Invalid_Category_Id','Invalid Category ID');
+	
+	
+	/*
+	 * Attributes Add
+	 */
+	define('Error_Create_attribute_title_AllreadyExists','Attribute title allready exists');
+	define('Error_Create_attribute_field_type_empty','Select attribute field type');
+	
+	/*
+	 * Attributes Edit
+	 */
+	define('Error_update_attribute_title_empty','Enter attribute title');
+	define('Error_update_attribute_field_type_empty','Select attribute field type');
+	
+	
+	
+	/*
+	 * Categories
+	 */
+	define('Error_Create_category_name_empty','Enter Category Name');
+	
+	
+	
 ?>

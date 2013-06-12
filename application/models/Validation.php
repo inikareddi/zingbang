@@ -397,5 +397,29 @@ public function validate_alphanumeric_special_password($str)
         		}
         	}	    
 	}
+	
+	
+	
+	public function checkAllreadyExists($table,$column,$value,$recordcolumn,$recordid)
+	{
+	  try{			
+			parent::SetDatabaseConnection();
+			
+			if(trim($recordid)!=''){
+				$query = "select count(".$column.") as AllreadyExistsCount FROM ".$table." where ".$column."='".$value."' AND ".$recordcolumn."!='".$recordid."'";
+			}else{
+				$query = "select count(".$column.") as AllreadyExistsCount FROM ".$table." where ".$column."='".$value."' ";
+			}
+			//exit;			
+			$AllreadyExistsCount = Application_Model_Db::getRow($query);
+			//print_r($AllreadyExistsCount['AllreadyExistsCount']);
+			//exit;
+			return $AllreadyExistsCount['AllreadyExistsCount'];
+		} catch(Exception $e) {
+			Application_Model_Logging::lwrite($e->getMessage());
+			throw new Exception($e->getMessage());
+		}
+		
+	}
 }
 ?>
