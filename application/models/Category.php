@@ -147,7 +147,11 @@ class Application_Model_Category extends Application_Model_Categorydb {
 			if(isset($params['category_meta_description'])){ $category_meta_description = trim($params['category_meta_description']);}
 			if(isset($params['action'])){ $action = trim($params['action']);}
 
-			
+			if(isset($params['parent_category_id']) && trim($params['parent_category_id'])!=''){
+				$conditionAllreadyExists = " AND parent_category_id='".$params['parent_category_id']."'";
+			}else{
+				$conditionAllreadyExists = " AND parent_category_id='0'";
+			}
 			/*
 			 * Validation 
 			 */		
@@ -170,7 +174,11 @@ class Application_Model_Category extends Application_Model_Categorydb {
             } else if(strlen($category_name) < 3) {
             	$this->error->error_create_category_name = Error_Create_category_name_max;
             	$error = 1;
-            }
+            } else if($this->checkAllreadyExists('store_categories','category_name',$category_name,'','',$conditionAllreadyExists)>=1) { 
+				// Table, column, value, recordid
+				$this->error->error_create_category_name = Error_Create_category_AllreadyExists;
+				$error = 1;
+			}
             
 			
             
@@ -372,7 +380,11 @@ class Application_Model_Category extends Application_Model_Categorydb {
 			$category_meta_description = trim($params['category_meta_description']);			
 			$admin = $this->session->userid;
 			
-			
+			if(isset($params['parent_category_id']) && trim($params['parent_category_id'])!=''){
+				$conditionAllreadyExists = " AND parent_category_id='".$params['parent_category_id']."'";
+			}else{
+				$conditionAllreadyExists = " AND parent_category_id='0'";
+			}
 			
 			/*
 			 * Validation for update category
@@ -391,6 +403,10 @@ class Application_Model_Category extends Application_Model_Categorydb {
 					$error = 1;
 				} else if(strlen($category_name) >20) {
 					$this->error->error_updatecategory_name = Error_update_category_name_max;
+					$error = 1;
+				} else if($this->checkAllreadyExists('store_categories','category_name',$category_name,'category_id',$categoryId,$conditionAllreadyExists)>=1) { 
+					// Table, column, value, recordid
+					$this->error->error_updatecategory_name = Error_update_category_name_AllreadyExists;
 					$error = 1;
 				}
             

@@ -119,7 +119,7 @@ class Application_Model_Attributes extends Application_Model_Attributesdb {
             } else if(strlen($attribute_title) < 3) {
             	$this->error->error_create_attribute_title = Error_Create_attribute_title_max;
             	$error = 1;
-            } else if($this->checkAllreadyExists('store_products_attributes','attribute_title',$attribute_title,'','')>=1) { 
+            } else if($this->checkAllreadyExists('store_products_attributes','attribute_title',$attribute_title,'','','')>=1) { 
 				// Table, column, value, recordid
 				$this->error->error_create_attribute_title = Error_Create_attribute_title_AllreadyExists;
 				$error = 1;
@@ -383,7 +383,7 @@ class Application_Model_Attributes extends Application_Model_Attributesdb {
 				} else if(strlen($attribute_title) >20) {
 					$this->error->error_updateattribute_title = Error_update_attribute_title_max;
 					$error = 1;
-				} else if($this->checkAllreadyExists('store_products_attributes','attribute_title',$attribute_title,'attribute_id',$attributeId)>=1) { 
+				} else if($this->checkAllreadyExists('store_products_attributes','attribute_title',$attribute_title,'attribute_id',$attributeId,'')>=1) { 
 					// Table, column, value, recordid
 					$this->error->error_updateattribute_title = Error_update_attribute_title_AllreadyExists;
 					$error = 1;

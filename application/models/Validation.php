@@ -400,16 +400,17 @@ public function validate_alphanumeric_special_password($str)
 	
 	
 	
-	public function checkAllreadyExists($table,$column,$value,$recordcolumn,$recordid)
+	public function checkAllreadyExists($table,$column,$value,$recordcolumn,$recordid,$other)
 	{
 	  try{			
 			parent::SetDatabaseConnection();
 			
 			if(trim($recordid)!=''){
-				$query = "select count(".$column.") as AllreadyExistsCount FROM ".$table." where ".$column."='".$value."' AND ".$recordcolumn."!='".$recordid."'";
+				$query = "select count(".$column.") as AllreadyExistsCount FROM ".$table." where ".$column."='".$value."' AND ".$recordcolumn."!='".$recordid."' ".$other."";
 			}else{
-				$query = "select count(".$column.") as AllreadyExistsCount FROM ".$table." where ".$column."='".$value."' ";
+				$query = "select count(".$column.") as AllreadyExistsCount FROM ".$table." where ".$column."='".$value."' ".$other."";
 			}
+			//print $query;
 			//exit;			
 			$AllreadyExistsCount = Application_Model_Db::getRow($query);
 			//print_r($AllreadyExistsCount['AllreadyExistsCount']);

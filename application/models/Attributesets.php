@@ -155,6 +155,9 @@ class Application_Model_Attributesets extends Application_Model_Attributesetsdb 
 			//print_r($attribute_ids);exit;
 			$attribute_ids_string = implode("#",$attribute_ids).'#';
 			
+			if(isset($params['attributes_group_id']) && trim($params['attributes_group_id'])!=''){
+				$conditionAllreadyExists = " AND attributes_group_id='".$params['attributes_group_id']."'";
+			}
 			
 			/*
 			 * Validation 
@@ -178,8 +181,18 @@ class Application_Model_Attributesets extends Application_Model_Attributesetsdb 
             } else if(strlen($attributes_set_title) < 3) {
             	$this->error->error_create_attributes_set_title = Error_Create_attributes_set_title_max;
             	$error = 1;
-            }
-            
+            } else if($this->checkAllreadyExists('store_products_attributes_sets','attributes_set_title',$attributes_set_title,'','',$conditionAllreadyExists)>=1) { 
+				// Table, column, value, recordid
+				$this->error->error_create_attributes_set_title = Error_Create_attribute_title_AllreadyExists;
+				$error = 1;
+			}
+			
+			
+			if($attributes_group_id == '') {				//Validation for attributes_group_id
+            	$this->error->error_create_attributes_group_id = Error_Create_attributes_group_id_empty;
+            	$error = 1;
+            	//return false;
+            }            
 			
             
             if($error == 1) {
@@ -359,6 +372,9 @@ class Application_Model_Attributesets extends Application_Model_Attributesetsdb 
 			$admin = $this->session->userid;
 			
 			
+			if(isset($params['attributes_group_id']) && trim($params['attributes_group_id'])!=''){
+				$conditionAllreadyExists = " AND attributes_group_id='".$params['attributes_group_id']."'";
+			}
 			
 			/*
 			 * Validation for update category
@@ -378,7 +394,18 @@ class Application_Model_Attributesets extends Application_Model_Attributesetsdb 
 				} else if(strlen($attributes_set_title) >20) {
 					$this->error->error_updateattributes_set_title = Error_update_attributes_set_title_max;
 					$error = 1;
+				} else if($this->checkAllreadyExists('store_products_attributes_sets','attributes_set_title',$attributes_set_title,'attributes_set_id',$attributes_set_id,$conditionAllreadyExists)>=1) { 
+					// Table, column, value, recordid
+					$this->error->error_updateattributes_set_title = Error_update_attribute_title_AllreadyExists;
+					$error = 1;
 				}
+				
+				
+			if($attributes_group_id == '') {				//Validation for attributes_group_id
+            	$this->error->error_updateattributes_group_id = Error_update_attributes_group_id_empty;
+            	$error = 1;
+            	//return false;
+            }
             
 			
             
